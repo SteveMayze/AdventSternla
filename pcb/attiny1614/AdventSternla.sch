@@ -1,0 +1,464 @@
+EESchema Schematic File Version 2
+LIBS:advent_sternla_attiny1614_symbols
+LIBS:power
+LIBS:device
+LIBS:switches
+LIBS:relays
+LIBS:motors
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:AdventSternla-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L ATTINY1614 U1
+U 1 1 59EF6A42
+P 4700 3400
+F 0 "U1" H 5250 2600 60  0000 C CNN
+F 1 "ATTINY1614" H 4750 3350 60  0000 C CNN
+F 2 "" H 4550 3450 60  0001 C CNN
+F 3 "" H 4550 3450 60  0001 C CNN
+	1    4700 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R2
+U 1 1 59EF6A7A
+P 3700 3050
+F 0 "R2" V 3780 3050 50  0000 C CNN
+F 1 "47kΩ" V 3700 3050 50  0000 C CNN
+F 2 "0805" V 3630 3050 50  0001 C CNN
+F 3 "" H 3700 3050 50  0001 C CNN
+F 4 "Value" H 3700 3050 60  0001 C CNN "Link"
+	1    3700 3050
+	-1   0    0    1   
+$EndComp
+Text Label 3100 2850 0    60   ~ 0
+VDD
+$Comp
+L GND #PWR3
+U 1 1 59EF6C0B
+P 4700 4550
+F 0 "#PWR3" H 4700 4300 50  0001 C CNN
+F 1 "GND" H 4700 4400 50  0000 C CNN
+F 2 "" H 4700 4550 50  0001 C CNN
+F 3 "" H 4700 4550 50  0001 C CNN
+	1    4700 4550
+	1    0    0    -1  
+$EndComp
+Text Label 2900 3300 0    60   ~ 0
+PDI_DATA
+Text Label 3850 1650 0    60   ~ 0
+PDI_DATA
+$Comp
+L GND #PWR4
+U 1 1 59EF6D08
+P 5050 2050
+F 0 "#PWR4" H 5050 1800 50  0001 C CNN
+F 1 "GND" H 5050 1900 50  0000 C CNN
+F 2 "" H 5050 2050 50  0001 C CNN
+F 3 "" H 5050 2050 50  0001 C CNN
+	1    5050 2050
+	1    0    0    -1  
+$EndComp
+Text Label 5250 1650 2    60   ~ 0
+VDD
+$Comp
+L Conn_01x02_Female J1
+U 1 1 59EF845C
+P 900 2950
+F 0 "J1" H 900 3050 50  0000 C CNN
+F 1 "5V In" H 900 2750 50  0000 C CNN
+F 2 "" H 900 2950 50  0001 C CNN
+F 3 "" H 900 2950 50  0001 C CNN
+	1    900  2950
+	-1   0    0    1   
+$EndComp
+$Comp
+L GND #PWR1
+U 1 1 59EF8502
+P 1650 3900
+F 0 "#PWR1" H 1650 3650 50  0001 C CNN
+F 1 "GND" H 1650 3750 50  0000 C CNN
+F 2 "" H 1650 3900 50  0001 C CNN
+F 3 "" H 1650 3900 50  0001 C CNN
+	1    1650 3900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Conn_02x03_Odd_Even J3
+U 1 1 59EF854F
+P 4500 1750
+F 0 "J3" H 4550 1950 50  0000 C CNN
+F 1 "UPDI" H 4550 1550 50  0000 C CNN
+F 2 "" H 4500 1750 50  0001 C CNN
+F 3 "" H 4500 1750 50  0001 C CNN
+	1    4500 1750
+	1    0    0    -1  
+$EndComp
+NoConn ~ 4300 1750
+NoConn ~ 4300 1850
+NoConn ~ 4800 1750
+Text Label 6050 2850 0    60   ~ 0
+PA1
+Text Label 6050 2950 0    60   ~ 0
+PA2
+Text Label 6050 3050 0    60   ~ 0
+PA3
+Text Label 6200 3450 0    60   ~ 0
+PA4
+Text Label 6200 3550 0    60   ~ 0
+PA5
+Text Label 6200 3650 0    60   ~ 0
+PA6
+Text Label 6200 3750 0    60   ~ 0
+PA7
+$Comp
+L D_Zener D1
+U 1 1 59EF89E4
+P 2000 3300
+F 0 "D1" H 2000 3400 50  0000 C CNN
+F 1 "5V Zener" H 2000 3200 50  0000 C CNN
+F 2 "DO-214AA" H 2000 3300 50  0001 C CNN
+F 3 "http://cdn-reichelt.de/documents/datenblatt/A400/SMBJ_LITTELFUSE_DATASHEET.pdf" H 2000 3300 50  0001 C CNN
+F 4 "P6SMB 5,0A SMD" H 2000 3300 60  0001 C CNN "MPN"
+F 5 "https://www.reichelt.de/Ueberspannungs-schutzdioden/P6SMB-5-0A-SMD/3/index.html?ACTION=3&LA=2&ARTICLE=204312&GROUPID=3000&artnr=P6SMB+5%2C0A+SMD&SEARCH=%252A" H 2000 3300 60  0001 C CNN "Link"
+	1    2000 3300
+	0    1    1    0   
+$EndComp
+$Comp
+L R R1
+U 1 1 59EF8B11
+P 1600 2850
+F 0 "R1" V 1680 2850 50  0000 C CNN
+F 1 "250Ω 0.5W" V 1750 2850 50  0000 C CNN
+F 2 "1210" V 1530 2850 50  0001 C CNN
+F 3 "" H 1600 2850 50  0001 C CNN
+F 4 "ERJ-14NF2550U" H 1600 2850 60  0001 C CNN "MPN"
+F 5 "https://www.digikey.de/product-detail/de/panasonic-electronic-components/ERJ-14NF2550U/P255AACT-ND/384668" H 1600 2850 60  0001 C CNN "Link"
+	1    1600 2850
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Conn_01x04_Male J7
+U 1 1 59EF8DC0
+P 6600 3550
+F 0 "J7" H 6600 3750 50  0000 C CNN
+F 1 "GPIO_B" H 6700 3300 50  0000 C CNN
+F 2 "" H 6600 3550 50  0001 C CNN
+F 3 "" H 6600 3550 50  0001 C CNN
+	1    6600 3550
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Conn_01x03_Male J6
+U 1 1 59EF8E2B
+P 6600 2950
+F 0 "J6" H 6550 3150 50  0000 C CNN
+F 1 "GPIO_A" H 6750 2800 50  0000 C CNN
+F 2 "" H 6600 2950 50  0001 C CNN
+F 3 "" H 6600 2950 50  0001 C CNN
+	1    6600 2950
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Conn_01x04_Male J2
+U 1 1 59EF90A2
+P 2700 3750
+F 0 "J2" H 2700 3950 50  0000 C CNN
+F 1 "GPIO_C" H 2700 3450 50  0000 C CNN
+F 2 "" H 2700 3750 50  0001 C CNN
+F 3 "" H 2700 3750 50  0001 C CNN
+	1    2700 3750
+	1    0    0    -1  
+$EndComp
+Text Label 3350 3500 0    60   ~ 0
+PB0
+Text Label 3350 3650 0    60   ~ 0
+PB1
+Text Label 3350 3800 0    60   ~ 0
+PB2
+Text Label 3350 3950 0    60   ~ 0
+PB3
+$Comp
+L C C2
+U 1 1 59EF9591
+P 3400 3050
+F 0 "C2" H 3425 3150 50  0000 L CNN
+F 1 "100nF 50V" H 2950 3150 50  0000 L CNN
+F 2 "" H 3438 2900 50  0001 C CNN
+F 3 "" H 3400 3050 50  0001 C CNN
+F 4 "Value" H 3400 3050 60  0001 C CNN "Link"
+	1    3400 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C1
+U 1 1 59EF980D
+P 2350 3200
+F 0 "C1" H 2375 3300 50  0000 L CNN
+F 1 "1μF 16V" V 2550 3050 50  0000 L CNN
+F 2 "0805" H 2388 3050 50  0001 C CNN
+F 3 "" H 2350 3200 50  0001 C CNN
+F 4 "Value" H 2350 3200 60  0001 C CNN "Link"
+	1    2350 3200
+	1    0    0    -1  
+$EndComp
+Text Notes 3550 1150 0    60   ~ 0
+In System Programming Header
+Text Label 1200 2850 0    60   ~ 0
+5V
+Text Label 4550 5500 0    60   ~ 0
+5V
+Text Label 4550 5400 0    60   ~ 0
+PA1
+$Comp
+L GND #PWR2
+U 1 1 59EFA048
+P 4450 5600
+F 0 "#PWR2" H 4450 5350 50  0001 C CNN
+F 1 "GND" H 4450 5450 50  0000 C CNN
+F 2 "" H 4450 5600 50  0001 C CNN
+F 3 "" H 4450 5600 50  0001 C CNN
+	1    4450 5600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2900 3300 3900 3300
+Wire Wire Line
+	3700 3300 3700 3200
+Wire Wire Line
+	3700 2850 3700 2900
+Wire Wire Line
+	4700 4550 4700 4250
+Connection ~ 3700 3300
+Connection ~ 3700 2850
+Wire Wire Line
+	1100 2950 1650 2950
+Wire Wire Line
+	1650 2950 1650 3900
+Wire Wire Line
+	4300 1650 3850 1650
+Wire Wire Line
+	4800 1850 5050 1850
+Wire Wire Line
+	5050 1850 5050 2050
+Wire Wire Line
+	4800 1650 5250 1650
+Wire Wire Line
+	5550 2850 6400 2850
+Wire Wire Line
+	5550 3000 5800 3000
+Wire Wire Line
+	5800 3000 5800 2950
+Wire Wire Line
+	5800 2950 6400 2950
+Wire Wire Line
+	5550 3150 5850 3150
+Wire Wire Line
+	5850 3150 5850 3050
+Wire Wire Line
+	5850 3050 6400 3050
+Wire Wire Line
+	5550 3300 6100 3300
+Wire Wire Line
+	5550 3450 6050 3450
+Wire Wire Line
+	5550 3600 6000 3600
+Wire Wire Line
+	5550 3750 6400 3750
+Wire Wire Line
+	2000 3150 2000 2850
+Wire Wire Line
+	2000 3450 2000 3750
+Wire Wire Line
+	1650 3750 2350 3750
+Connection ~ 1650 3750
+Wire Wire Line
+	1100 2850 1450 2850
+Wire Wire Line
+	1750 2850 3900 2850
+Connection ~ 2000 2850
+Wire Wire Line
+	3200 3650 3900 3650
+Wire Wire Line
+	3900 3950 2900 3950
+Wire Wire Line
+	3400 2850 3400 2900
+Connection ~ 3400 2850
+Wire Wire Line
+	3400 3200 3400 3300
+Connection ~ 3400 3300
+Wire Wire Line
+	2350 2850 2350 3050
+Connection ~ 2350 2850
+Wire Wire Line
+	2350 3750 2350 3350
+Connection ~ 2000 3750
+Wire Notes Line
+	3500 1200 5800 1200
+Wire Notes Line
+	5800 1200 5800 2400
+Wire Notes Line
+	5800 2400 3500 2400
+Wire Notes Line
+	3500 2400 3500 1200
+Wire Wire Line
+	4450 5300 5300 5300
+Wire Wire Line
+	5300 5400 5050 5400
+Wire Wire Line
+	4550 5500 5300 5500
+Wire Wire Line
+	4450 5300 4450 5600
+Text Notes 4300 4950 0    60   ~ 0
+NeoPixel
+$Comp
+L R R3
+U 1 1 59EFA380
+P 4900 5400
+F 0 "R3" V 4980 5400 50  0000 C CNN
+F 1 "4k7Ω" V 4900 5400 50  0000 C CNN
+F 2 "" V 4830 5400 50  0001 C CNN
+F 3 "" H 4900 5400 50  0001 C CNN
+	1    4900 5400
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4750 5400 4550 5400
+$Comp
+L CP C3
+U 1 1 59EFA858
+P 6200 5750
+F 0 "C3" H 6225 5850 50  0000 L CNN
+F 1 "1000μF 16V" V 6400 5550 50  0000 L CNN
+F 2 "" H 6238 5600 50  0001 C CNN
+F 3 "" H 6200 5750 50  0001 C CNN
+F 4 "Value" H 6200 5750 60  0001 C CNN "Link"
+	1    6200 5750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4800 5500 4800 5550
+Connection ~ 4800 5500
+Wire Wire Line
+	6000 3600 6000 3650
+Wire Wire Line
+	6000 3650 6400 3650
+Wire Wire Line
+	6050 3450 6050 3550
+Wire Wire Line
+	6050 3550 6400 3550
+Wire Wire Line
+	6100 3300 6100 3450
+Wire Wire Line
+	6100 3450 6400 3450
+Wire Wire Line
+	3250 3800 3900 3800
+Wire Wire Line
+	3250 3800 3250 3850
+Wire Wire Line
+	3250 3850 2900 3850
+Wire Wire Line
+	3200 3650 3200 3750
+Wire Wire Line
+	3200 3750 2900 3750
+Wire Wire Line
+	3900 3500 3150 3500
+Wire Wire Line
+	3150 3500 3150 3650
+Wire Wire Line
+	3150 3650 2900 3650
+$Comp
+L Conn_01x03_Male J5
+U 1 1 59EFB61C
+P 5700 5400
+F 0 "J5" H 5650 5600 50  0000 C CNN
+F 1 "NeoPixel" H 5850 5250 50  0000 C CNN
+F 2 "" H 5700 5400 50  0001 C CNN
+F 3 "" H 5700 5400 50  0001 C CNN
+	1    5700 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Conn_01x03_Female J4
+U 1 1 59EFB6D0
+P 5500 5400
+F 0 "J4" H 5500 5600 50  0000 C CNN
+F 1 "GPIO_A" H 5350 5250 50  0000 C CNN
+F 2 "" H 5500 5400 50  0001 C CNN
+F 3 "" H 5500 5400 50  0001 C CNN
+	1    5500 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNDS #PWR5
+U 1 1 59EFB757
+P 6650 6200
+F 0 "#PWR5" H 6650 5950 50  0001 C CNN
+F 1 "GNDS" H 6650 6050 50  0000 C CNN
+F 2 "" H 6650 6200 50  0001 C CNN
+F 3 "" H 6650 6200 50  0001 C CNN
+	1    6650 6200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6650 5300 6650 6200
+Wire Wire Line
+	6650 5300 5900 5300
+Wire Wire Line
+	5900 5500 6200 5500
+Wire Wire Line
+	6200 5500 6200 5600
+Wire Wire Line
+	6200 5900 6200 6100
+Wire Wire Line
+	6200 6100 6650 6100
+Connection ~ 6650 6100
+Wire Notes Line
+	4200 5000 6900 5000
+Wire Notes Line
+	6900 5000 6900 6450
+Wire Notes Line
+	6900 6450 4200 6450
+Wire Notes Line
+	4200 6450 4200 5000
+NoConn ~ 5900 5400
+$EndSCHEMATC

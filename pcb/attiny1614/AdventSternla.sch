@@ -140,32 +140,6 @@ PA6
 Text Label 7100 4750 0    60   ~ 0
 PA7
 $Comp
-L D_Zener D1
-U 1 1 59EF89E4
-P 2900 4300
-F 0 "D1" H 2900 4400 50  0000 C CNN
-F 1 "5V6 Zener" H 2900 4200 50  0000 C CNN
-F 2 "Diodes_SMD:D_SOT-23_ANK" H 2900 4300 50  0001 C CNN
-F 3 "http://cdn-reichelt.de/documents/datenblatt/A400/SMBJ_LITTELFUSE_DATASHEET.pdf" H 2900 4300 50  0001 C CNN
-F 4 "BZX84-A5V6,215" H 2900 4300 60  0001 C CNN "MPN"
-F 5 "https://www.digikey.de/scripts/DkSearch/dksus.dll?Detail&itemSeq=242065975&uq=636445409310237522" H 2900 4300 60  0001 C CNN "Link"
-	1    2900 4300
-	0    1    1    0   
-$EndComp
-$Comp
-L R R1
-U 1 1 59EF8B11
-P 2500 3850
-F 0 "R1" V 2580 3850 50  0000 C CNN
-F 1 "250Ω 0.5W" V 2650 3850 50  0000 C CNN
-F 2 "Resistors_SMD:R_1210_HandSoldering" V 2430 3850 50  0001 C CNN
-F 3 "" H 2500 3850 50  0001 C CNN
-F 4 "ERJ-14NF2550U" H 2500 3850 60  0001 C CNN "MPN"
-F 5 "https://www.digikey.de/product-detail/de/panasonic-electronic-components/ERJ-14NF2550U/P255AACT-ND/384668" H 2500 3850 60  0001 C CNN "Link"
-	1    2500 3850
-	0    -1   -1   0   
-$EndComp
-$Comp
 L Conn_01x04_Male J5
 U 1 1 59EF8DC0
 P 7500 4550
@@ -300,22 +274,23 @@ L CP C1
 U 1 1 59F0F869
 P 1900 4150
 F 0 "C1" H 1925 4250 50  0000 L CNN
-F 1 "2200μF 25V" H 1925 4050 50  0000 L CNN
+F 1 "1000μF 25V" H 1925 4050 50  0000 L CNN
 F 2 "Capacitors_ThroughHole:CP_Radial_D13.0mm_P5.00mm" H 1938 4000 50  0001 C CNN
 F 3 "" H 1900 4150 50  0001 C CNN
 	1    1900 4150
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3800 4300 4800 4300
+	3800 4300 4300 4300
+Wire Wire Line
+	4300 4300 4600 4300
+Wire Wire Line
+	4600 4300 4800 4300
 Wire Wire Line
 	4600 4300 4600 4200
 Wire Wire Line
-	4600 3850 4600 3900
-Wire Wire Line
 	5600 5550 5600 5250
 Connection ~ 4600 4300
-Connection ~ 4600 3850
 Wire Wire Line
 	5200 2650 4750 2650
 Wire Wire Line
@@ -347,27 +322,20 @@ Wire Wire Line
 Wire Wire Line
 	6450 4750 7300 4750
 Wire Wire Line
-	2900 4150 2900 3850
+	1300 3850 1900 3850
 Wire Wire Line
-	2900 4700 2900 4450
+	1900 3850 2000 3850
 Wire Wire Line
-	1300 3850 2350 3850
-Wire Wire Line
-	2650 3850 4800 3850
-Connection ~ 2900 3850
+	2000 3850 2500 3850
 Wire Wire Line
 	4100 4650 4800 4650
 Wire Wire Line
 	4800 4950 3800 4950
 Wire Wire Line
-	4300 3850 4300 3900
-Connection ~ 4300 3850
-Wire Wire Line
 	4300 4200 4300 4300
 Connection ~ 4300 4300
 Wire Wire Line
 	3250 3850 3250 4050
-Connection ~ 3250 3850
 Wire Wire Line
 	3250 4700 3250 4350
 Wire Notes Line
@@ -426,12 +394,15 @@ Connection ~ 1900 3850
 Wire Wire Line
 	1900 4300 1900 4700
 Wire Wire Line
-	1500 4700 3250 4700
+	1500 4700 1900 4700
+Wire Wire Line
+	1900 4700 2550 4700
+Wire Wire Line
+	2550 4700 3250 4700
 Wire Wire Line
 	2550 4700 2550 4900
 Connection ~ 1900 4700
 Connection ~ 2550 4700
-Connection ~ 2900 4700
 $Comp
 L Jack-DC J1
 U 1 1 59F100E4
@@ -469,4 +440,30 @@ Wire Notes Line
 	8350 4200 8350 2100
 Text Notes 8400 2050 0    100  ~ 0
 NeoPixel
+$Comp
+L D D?
+U 1 1 59F5F260
+P 2650 3850
+F 0 "D?" H 2650 3950 50  0000 C CNN
+F 1 "D" H 2650 3750 50  0000 C CNN
+F 2 "" H 2650 3850 50  0001 C CNN
+F 3 "" H 2650 3850 50  0001 C CNN
+	1    2650 3850
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2800 3850 3250 3850
+Wire Wire Line
+	3250 3850 4300 3850
+Wire Wire Line
+	4300 3850 4600 3850
+Wire Wire Line
+	4600 3850 4800 3850
+Connection ~ 3250 3850
+Wire Wire Line
+	4300 3900 4300 3850
+Connection ~ 4300 3850
+Wire Wire Line
+	4600 3900 4600 3850
+Connection ~ 4600 3850
 $EndSCHEMATC

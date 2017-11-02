@@ -451,4 +451,6 @@ Connection ~ 4300 3850
 Wire Wire Line
 	4600 3900 4600 3850
 Connection ~ 4600 3850
+Text Notes 1550 6150 0    60   ~ 0
+TODO \nVerify, once more, the Diode i.e. the current rating\nDouble check the connection for the UPDI - is there a need for a \nzero Ohm resistor to deal with any issues?
 $EndSCHEMATC

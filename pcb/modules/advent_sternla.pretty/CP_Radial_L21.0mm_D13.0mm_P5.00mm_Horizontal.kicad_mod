@@ -44,4 +44,9 @@
   )
   (pad 1 thru_hole rect (at 0 -2.5) (size 2.4 2.4) (drill 1.2) (layers *.Cu *.Mask))
   (pad 2 thru_hole oval (at 0 2.5) (size 2.4 2.4) (drill 1.2) (layers *.Cu *.Mask))
+  (model ../../../../Users/steve/Documents/PCBs/AdventSternla/pcb/modules/3d/CP_Radial_L21.0mm_D13.0mm_P5.00mm_Horizontal.wrl
+    (at (xyz 0 0 0))
+    (scale (xyz 2.54 2.54 2.54))
+    (rotate (xyz -90 0 180))
+  )
 )

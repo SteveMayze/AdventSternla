@@ -125,29 +125,29 @@ $EndComp
 NoConn ~ 5200 2750
 NoConn ~ 5200 2850
 NoConn ~ 5700 2750
-Text Label 6950 3850 0    60   ~ 0
+Text Label 7100 3850 0    60   ~ 0
 PA1
-Text Label 6950 3950 0    60   ~ 0
+Text Label 7100 3950 0    60   ~ 0
 PA2
-Text Label 6950 4050 0    60   ~ 0
+Text Label 7100 4050 0    60   ~ 0
 PA3
-Text Label 7100 4450 0    60   ~ 0
+Text Label 7100 4400 0    60   ~ 0
 PA4
-Text Label 7100 4550 0    60   ~ 0
+Text Label 7100 4500 0    60   ~ 0
 PA5
-Text Label 7100 4650 0    60   ~ 0
+Text Label 7100 4600 0    60   ~ 0
 PA6
-Text Label 7100 4750 0    60   ~ 0
+Text Label 7100 4700 0    60   ~ 0
 PA7
 $Comp
 L Conn_01x04_Male J106
 U 1 1 59EF8DC0
-P 7500 4550
-F 0 "J106" H 7500 4750 50  0000 C CNN
-F 1 "GPIO_B" H 7600 4300 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x04_Pitch2.54mm" H 7500 4550 50  0001 C CNN
-F 3 "" H 7500 4550 50  0001 C CNN
-	1    7500 4550
+P 7500 4500
+F 0 "J106" H 7500 4700 50  0000 C CNN
+F 1 "GPIO_B" H 7600 4250 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x04_Pitch2.54mm" H 7500 4500 50  0001 C CNN
+F 3 "" H 7500 4500 50  0001 C CNN
+	1    7500 4500
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -180,18 +180,6 @@ Text Label 4250 4800 0    60   ~ 0
 PB2
 Text Label 4250 4950 0    60   ~ 0
 PB3
-$Comp
-L C C101
-U 1 1 59EF9591
-P 4300 4050
-F 0 "C101" H 4325 4150 50  0000 L CNN
-F 1 "100nF 50V" H 3850 4150 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0805_HandSoldering" H 4338 3900 50  0001 C CNN
-F 3 "" H 4300 4050 50  0001 C CNN
-F 4 "Value" H 4300 4050 60  0001 C CNN "Link"
-	1    4300 4050
-	1    0    0    -1  
-$EndComp
 $Comp
 L C C103
 U 1 1 59EF980D
@@ -226,7 +214,7 @@ L R R101
 U 1 1 59EFA380
 P 9050 2750
 F 0 "R101" V 9130 2750 50  0000 C CNN
-F 1 "4k7Ω" V 9050 2750 50  0000 C CNN
+F 1 "470Ω" V 9050 2750 50  0000 C CNN
 F 2 "Resistors_SMD:R_0805_HandSoldering" V 8980 2750 50  0001 C CNN
 F 3 "" H 9050 2750 50  0001 C CNN
 	1    9050 2750
@@ -281,7 +269,11 @@ F 3 "" H 1900 4150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3800 4300 4800 4300
+	3800 4300 4300 4300
+Wire Wire Line
+	4300 4300 4600 4300
+Wire Wire Line
+	4600 4300 4800 4300
 Wire Wire Line
 	4600 4300 4600 4200
 Wire Wire Line
@@ -298,34 +290,35 @@ Wire Wire Line
 Wire Wire Line
 	6450 3850 7300 3850
 Wire Wire Line
-	6450 4000 6700 4000
+	6450 4000 7000 4000
 Wire Wire Line
-	6700 4000 6700 3950
+	7000 4000 7000 3950
 Wire Wire Line
-	6700 3950 7300 3950
+	7000 3950 7300 3950
 Wire Wire Line
-	6450 4150 6750 4150
+	6450 4150 7000 4150
 Wire Wire Line
-	6750 4150 6750 4050
+	7000 4150 7000 4050
 Wire Wire Line
-	6750 4050 7300 4050
+	7000 4050 7300 4050
 Wire Wire Line
 	6450 4300 7000 4300
 Wire Wire Line
-	6450 4450 6950 4450
+	6450 4450 7000 4450
 Wire Wire Line
-	6450 4600 6900 4600
+	6450 4600 7300 4600
 Wire Wire Line
-	6450 4750 7300 4750
+	6450 4750 7000 4750
 Wire Wire Line
-	1300 3850 2500 3850
+	1300 3850 1900 3850
+Wire Wire Line
+	1900 3850 2000 3850
+Wire Wire Line
+	2000 3850 2500 3850
 Wire Wire Line
 	4100 4650 4800 4650
 Wire Wire Line
 	4800 4950 3800 4950
-Wire Wire Line
-	4300 4200 4300 4300
-Connection ~ 4300 4300
 Wire Wire Line
 	3250 3850 3250 4050
 Wire Wire Line
@@ -339,17 +332,13 @@ Wire Notes Line
 Wire Notes Line
 	4400 3400 4400 2200
 Wire Wire Line
-	6900 4600 6900 4650
+	7000 4450 7000 4500
 Wire Wire Line
-	6900 4650 7300 4650
+	7000 4500 7300 4500
 Wire Wire Line
-	6950 4450 6950 4550
+	7000 4300 7000 4400
 Wire Wire Line
-	6950 4550 7300 4550
-Wire Wire Line
-	7000 4300 7000 4450
-Wire Wire Line
-	7000 4450 7300 4450
+	7000 4400 7300 4400
 Wire Wire Line
 	4150 4800 4800 4800
 Wire Wire Line
@@ -386,7 +375,11 @@ Connection ~ 1900 3850
 Wire Wire Line
 	1900 4300 1900 4700
 Wire Wire Line
-	1500 4700 3250 4700
+	1500 4700 1900 4700
+Wire Wire Line
+	1900 4700 2550 4700
+Wire Wire Line
+	2550 4700 3250 4700
 Wire Wire Line
 	2550 4700 2550 4900
 Connection ~ 1900 4700
@@ -443,14 +436,21 @@ F 6 "Value" H 2650 3850 60  0001 C CNN "Label"
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	2800 3850 4800 3850
-Connection ~ 3250 3850
+	2800 3850 3250 3850
 Wire Wire Line
-	4300 3900 4300 3850
-Connection ~ 4300 3850
+	3250 3850 4300 3850
+Wire Wire Line
+	4300 3850 4600 3850
+Wire Wire Line
+	4600 3850 4800 3850
+Connection ~ 3250 3850
 Wire Wire Line
 	4600 3900 4600 3850
 Connection ~ 4600 3850
 Text Notes 1550 6150 0    60   ~ 0
 TODO \nVerify, once more, the Diode i.e. the current rating\nDouble check the connection for the UPDI - is there a need for a \nzero Ohm resistor to deal with any issues?
+Wire Wire Line
+	7000 4750 7000 4700
+Wire Wire Line
+	7000 4700 7300 4700
 $EndSCHEMATC

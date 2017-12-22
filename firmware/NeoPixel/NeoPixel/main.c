@@ -11,129 +11,6 @@
 #include "neopixel.h"
 
 
-#define BIT_TEST(byte, bitCount) (((byte >> bitCount) & 0x01) << bitCount)
-
-    unsigned int count = 0;
-
-uint8_t NeoGreen [NeoNum];
-uint8_t NeoBlue [NeoNum];
-uint8_t NeoRed [NeoNum];
-
-void NeoBit (uint8_t neobit)
-{
-	if (neobit > 0)
-	{ 
-	   PORTA.OUTSET = NeoPin; 
-	   _delay_loop_1(4);
-	   PORTA.OUTCLR = NeoPin; 
-    } // delay_cycles (3); // Bit '1'
-	else
-	{ 
-	    PORTA.OUTSET = NeoPin; 
-	   _delay_loop_1(3);
-		PORTA.OUTCLR = NeoPin; 
-		// _delay_us(1);
-		} // delay_cycles (6); // Bit '0'
-}
-
-void NeoInit (void)
-{
-	uint8_t NeoPixel;
-	for (NeoPixel = 0; NeoPixel < NeoNum; NeoPixel++)
-	{
-		if (NeoPixel < 10)
-		{ 
-		   NeoGreen[NeoPixel] = 0; 
-		   NeoBlue[NeoPixel] = 0; 
-		   NeoRed[NeoPixel] = 0xFF; 
-		} else if ((NeoPixel >= 10) & (NeoPixel < 20)) { 
-		   NeoGreen[NeoPixel] = 0; 
-		   NeoBlue[NeoPixel] = 0xFF; 
-		   NeoRed[NeoPixel] = 0; 
-		} else if ((NeoPixel >= 20) & (NeoPixel < 30)) { 
-		   NeoGreen[NeoPixel] = 0; 
-		   NeoBlue[NeoPixel] = 0xFF; 
-		   NeoRed[NeoPixel] = 0xFF; 
-		} else if ((NeoPixel >= 30) & (NeoPixel < 40)) { 
-		   NeoGreen[NeoPixel] = 0xFF; 
-		   NeoBlue[NeoPixel] = 0; 
-		   NeoRed[NeoPixel] = 0; 
-		} else if ((NeoPixel >= 40) & (NeoPixel < 50)) { 
-		   NeoGreen[NeoPixel] = 0xFF; 
-		   NeoBlue[NeoPixel] = 0; 
-		   NeoRed[NeoPixel] = 0xFF; 
-		} else if ((NeoPixel >= 50) & (NeoPixel < NeoNum)) { 
-		   NeoGreen[NeoPixel] = 0xFF; 
-		   NeoBlue[NeoPixel] = 0xFF; 
-		   NeoRed[NeoPixel] = 0; 
-		}
-	}
-}
-
-
-void NeoInit_all_on (void)
-{
-	uint8_t NeoPixel;
-	for (NeoPixel = 0; NeoPixel < NeoNum; NeoPixel++)
-	{
-		NeoGreen[NeoPixel] = 0xFF; NeoBlue[NeoPixel] = 0xFF; NeoRed[NeoPixel] = 0xFF;
-	}
-}
-
-void NeoInit_all_off (void)
-{
-	uint8_t NeoPixel;
-	for (NeoPixel = 0; NeoPixel < NeoNum; NeoPixel++)
-	{
-		NeoGreen[NeoPixel] = 0x00; NeoBlue[NeoPixel] = 0x00; NeoRed[NeoPixel] = 0x00;
-	}
-}
-
-
-void NeoDraw (void)
-{
-	uint8_t NeoPixel;
-	uint8_t BitCount;
-	for (NeoPixel = 0; NeoPixel < NeoNum; NeoPixel++)
-	{
-	    uint8_t byte;
-		byte = NeoGreen[NeoPixel];
-		for (BitCount = 7; BitCount >= 0; BitCount--){
-		   // NeoBit(BIT_TEST(NeoGreen[NeoPixel], BitCount));
-		   NeoBit( (byte & 1<<BitCount) );
-
-		}
-		byte = NeoRed[NeoPixel];
-		for (BitCount = 7; BitCount >= 0; BitCount--) {
-		   // NeoBit(BIT_TEST(NeoRed[NeoPixel], BitCount));
-		   NeoBit( (byte & 1<<BitCount) );
-		}
-		byte = NeoBlue[NeoPixel];
-		for (BitCount = 7; BitCount >= 0; BitCount--) {
-		   // NeoBit(BIT_TEST(NeoBlue[NeoPixel], BitCount));
-		   NeoBit( (byte & 1<<BitCount) );
-		}
-	}
-	 PORTA.OUTCLR = NeoPin;
-	  _delay_us(100);
-}
-
-void NeoRotate (void)
-{
-	uint8_t NeoPixel;
-	for (NeoPixel = 0; NeoPixel < NeoNum - 1; NeoPixel++)
-	{
-		NeoGreen[NeoPixel] = NeoGreen[NeoPixel + 1];
-		NeoBlue[NeoPixel] = NeoBlue[NeoPixel + 1];
-		NeoRed[NeoPixel] = NeoRed[NeoPixel + 1];
-	}
-	NeoGreen[NeoNum - 1] = NeoGreen[0];
-	NeoBlue[NeoNum - 1] = NeoBlue[0];
-	NeoRed[NeoNum - 1] = NeoRed[0];
-}
-
-
-
 
 int main(void)
 {
@@ -147,15 +24,28 @@ int main(void)
     CLKCTRL.MCLKCTRLB = 0x00;
 
     PORTA.DIR |= 1 << 1;
-
-
-	NeoInit_all_off ();
 	while(1)
 	{
-		NeoDraw ();
-		NeoRotate ();
-		_delay_ms (100);
+        for (int i = 0; i < neopixel_pixels; i++)
+        {
+	        neopixel_setPixel(i, 0x7F, 0x00, 0x00);
+        }
+		neopixel_show();
+		_delay_ms(1000);
+		for (int i = 0; i < neopixel_pixels; i++)
+		{
+			neopixel_setPixel(i, 0x00, 0x7F, 0x00);
+		}
+		neopixel_show();
+		_delay_ms(1000);
+		for (int i = 0; i < neopixel_pixels; i++)
+		{
+			neopixel_setPixel(i, 0x00, 0x00, 0x7F);
+		}
+		neopixel_show();
+		_delay_ms(1000);
 	}
+
 	return 0;
 }
 

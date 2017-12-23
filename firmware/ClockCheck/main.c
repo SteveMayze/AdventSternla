@@ -29,11 +29,14 @@ int main(void)
 	
     while (1) 
     {
-		PORTA.OUTTGL = 1 << 1;
+		VPORTA_OUT |= (1 << 1);
+		//PORTA.OUT |= (1 << 1);
+		// PORTA.OUTTGL = 1 << 1;
 		count++;
-	    _delay_ms(500);
+	    _delay_ms(10);
+		VPORTA_OUT &= ~(1 << 1);
 		// PORTA.OUT &= ~(1 << 1);
-		//_delay_ms(500);
+		_delay_ms(10);
 	//	count--;
     }
 }

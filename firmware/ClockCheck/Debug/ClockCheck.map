@@ -171,7 +171,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000       0xe4
+.text           0x00000000       0xea
  *(.vectors)
  .vectors       0x00000000       0x7c C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATtiny_DFP/1.3.147/gcc/dev/attiny1614/avrxmega3/crtattiny1614.o
                 0x00000000                __vector_default
@@ -261,13 +261,13 @@ END GROUP
                 0x000000a0                __vector_20
                 0x000000a4                . = ALIGN (0x2)
  *(.text.*)
- .text.main     0x000000a4       0x3c main.o
+ .text.main     0x000000a4       0x42 main.o
                 0x000000a4                main
-                0x000000e0                . = ALIGN (0x2)
+                0x000000e6                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000000e0        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_exit.o)
-                0x000000e0                _exit
-                0x000000e0                exit
+ .fini9         0x000000e6        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_exit.o)
+                0x000000e6                _exit
+                0x000000e6                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -286,16 +286,16 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000000e0        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_exit.o)
+ .fini0         0x000000e6        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_exit.o)
  *(.fini0)
-                0x000000e4                _etext = .
+                0x000000ea                _etext = .
 
 .rodata
  *(.rodata)
  *(.rodata*)
  *(.gnu.linkonce.r*)
 
-.data           0x00803800        0x0 load address 0x000000e4
+.data           0x00803800        0x0 load address 0x000000ea
                 [!provide]                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -312,8 +312,8 @@ END GROUP
                 0x00803800                count
  *(COMMON)
                 0x00803802                PROVIDE (__bss_end, .)
-                0x000000e4                __data_load_start = LOADADDR (.data)
-                0x000000e4                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000000ea                __data_load_start = LOADADDR (.data)
+                0x000000ea                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00803802        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -392,20 +392,20 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x1f36
+.debug_info     0x00000000     0x1f6f
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000     0x19ed C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATtiny_DFP/1.3.147/gcc/dev/attiny1614/avrxmega3/crtattiny1614.o
- .debug_info    0x000019ed      0x549 main.o
+ .debug_info    0x000019ed      0x582 main.o
 
-.debug_abbrev   0x00000000     0x19bb
+.debug_abbrev   0x00000000     0x19de
  *(.debug_abbrev)
  .debug_abbrev  0x00000000     0x1888 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATtiny_DFP/1.3.147/gcc/dev/attiny1614/avrxmega3/crtattiny1614.o
- .debug_abbrev  0x00001888      0x133 main.o
+ .debug_abbrev  0x00001888      0x156 main.o
 
-.debug_line     0x00000000      0x2ee
+.debug_line     0x00000000      0x300
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x151 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATtiny_DFP/1.3.147/gcc/dev/attiny1614/avrxmega3/crtattiny1614.o
- .debug_line    0x00000151      0x19d main.o
+ .debug_line    0x00000151      0x1af main.o
 
 .debug_frame    0x00000000       0x24
  *(.debug_frame)
@@ -417,8 +417,9 @@ END GROUP
  .debug_str     0x00000acf      0x413 main.o
                                 0x453 (size before relaxing)
 
-.debug_loc
+.debug_loc      0x00000000       0x48
  *(.debug_loc)
+ .debug_loc     0x00000000       0x48 main.o
 
 .debug_macinfo
  *(.debug_macinfo)

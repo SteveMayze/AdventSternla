@@ -21,26 +21,32 @@ int main(void)
     // This needs to be checked for the electrical characteristics is such that the full 5V is required.
 
     CPU_CCP = CCP_IOREG_gc;
-    CLKCTRL.MCLKCTRLB = 0x00;
+    CLKCTRL.MCLKCTRLB = 0x02;
 
     PORTA.DIR |= 1 << 1;
+/*
+        for (int i = 0; i < neopixel_pixels; i++)
+        {
+	        neopixel_setPixel(i, 0xFF, 0xFF, 0xFF);
+        }
+*/
 	while(1)
 	{
         for (int i = 0; i < neopixel_pixels; i++)
         {
-	        neopixel_setPixel(i, 0x7F, 0x00, 0x00);
+	        neopixel_setPixel(i, 0xFF, 0x00, 0x00);
         }
 		neopixel_show();
 		_delay_ms(1000);
 		for (int i = 0; i < neopixel_pixels; i++)
 		{
-			neopixel_setPixel(i, 0x00, 0x7F, 0x00);
+			neopixel_setPixel(i, 0x00, 0xFF, 0x00);
 		}
 		neopixel_show();
 		_delay_ms(1000);
 		for (int i = 0; i < neopixel_pixels; i++)
 		{
-			neopixel_setPixel(i, 0x00, 0x00, 0x7F);
+			neopixel_setPixel(i, 0x00, 0x00, 0xFF);
 		}
 		neopixel_show();
 		_delay_ms(1000);

@@ -24,14 +24,15 @@ int main(void)
     CLKCTRL.MCLKCTRLB = 0x02;
 
     PORTA.DIR |= 1 << 1;
-/*
         for (int i = 0; i < neopixel_pixels; i++)
         {
-	        neopixel_setPixel(i, 0xFF, 0xFF, 0xFF);
+	        neopixel_setPixel(i, 0x00, 0x00, 0x00);
         }
-*/
+
 	while(1)
 	{
+		neopixel_show();
+/*
         for (int i = 0; i < neopixel_pixels; i++)
         {
 	        neopixel_setPixel(i, 0xFF, 0x00, 0x00);
@@ -49,7 +50,7 @@ int main(void)
 			neopixel_setPixel(i, 0x00, 0x00, 0xFF);
 		}
 		neopixel_show();
-		_delay_ms(1000);
+		_delay_ms(1000);*/
 	}
 
 	return 0;

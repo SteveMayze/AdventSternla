@@ -8,7 +8,7 @@
 #include <avr/io.h>
 #include "neopixel.h"
 
-#define _NEO_SHOW_SLOW
+#define _NEO_ALGORITHM_3
 
 #define BIT_TEST(byte, bitCount) (((byte >> bitCount) & 0x01) << bitCount)
 
@@ -24,7 +24,73 @@ void neopixel_setPixel(uint8_t pixel, uint8_t red, uint8_t green, uint8_t blue)
 
 }
 
-#ifdef _NEO_SHOW_SLOW
+
+
+
+#ifdef _NEO_ALGORITHM_3
+void neopixel_show()
+{
+	volatile uint16_t  i = neopixel_buffer_size; // Loop counter
+
+	volatile uint8_t *port;
+
+	volatile uint8_t *ptr = &buffer[0],   // Pointer to next byte
+	b   = *ptr++,   // Current byte value
+	hi,             // PORT w/output bit set high
+	lo;             // PORT w/output bit set low
+
+	volatile uint8_t bit;
+
+	hi = VPORTA_OUT |  pinMask;
+	lo = VPORTA_OUT & ~pinMask;
+    bit  = 8;
+
+	port = &VPORTA_OUT;
+
+	VPORTA_OUT = lo;
+
+    asm volatile(
+    "neo_start:"						"\n\t"	//	Clk		Pseudocode	
+		"st %a[port], %[hi]"			"\n\t"	//	2		PORT = Hi
+	    "sbrc %[byte],  7"				"\n\t"	//	1-2		if(b & 128)
+		"rjmp do_HI"					"\n\t"	//	0-2		next = hi
+	"do_LOW:"							"\n\t"	//			At 3 cycles. For LOW, still need 5 for HI and then 17 LOW
+		"rjmp .+0"						"\n\t"	//	2		nop, nop
+		"nop"							"\n\t"	//	1
+		"st %a[port], %[lo]"			"\n\t"	//	2		PORT = Low (Finish of 8 Hi cycles- start the 17 LOW)
+		"rjmp next_bit"					"\n\t"	//	2
+	"do_HI:"							"\n\t"	//			At 3 cycles. For HI, still need 13 for HI and then 9 LOW
+		"rjmp .+0"						"\n\t"	//	2
+		"rjmp .+0"						"\n\t"	//	2
+		"rjmp .+0"						"\n\t"	//	2
+		"rjmp .+0"						"\n\t"	//	2
+		"nop"							"\n\t"	//	1
+		"st %a[port], %[lo]"			"\n\t"	//	2		PORT = Low (Finish of 16 Hi cycles- start the 9 LOW)
+		"rjmp next_bit"					"\n\t"	//	2
+		"nop"							"\n\t"	//	1
+	"next_bit:"							"\n\t"	//			This section costs 3 - 5 cycles
+		"dec  %[bit]"					"\n\t"	//	1		bit--
+		"breq next_byte"				"\n\t"	//	1-2		branch if(bit == 0) (from dec above)
+		"rol  %[byte]"					"\n\t"	//	1		b <<= 1 - Roll the byte left one bit.
+		"rjmp neo_start"				"\n\t"	//	2		Jump to start for the next bit
+	"next_byte:"						"\n\t"	//			This section costs 9 cycles!
+		"ldi %[bit], 8"					"\n\t"	// 1		Set bit = 8
+		"ld %[byte], %a[ptr]+"			"\n\t"	// 2		Set b = *ptr++
+		"st %a[port], %[lo]"			"\n\t"	// 2		PORT = lo
+		"sbiw %[count], 1"				"\n\t"	// 2		i--
+		"brne neo_start"				"\n"	// 2		if(i != 0) -> (next byte)
+    : [port]  "+e" (port),
+    [byte]  "+r" (b),
+    [bit]   "+r" (bit),
+    [count] "+w" (i)
+    : [ptr]    "e" (ptr),
+    [hi]     "r" (hi),
+    [lo]     "r" (lo));
+
+}
+#endif
+
+#ifdef _NEO_ALGORITHM_2
 void neopixel_show()
 {
 	volatile uint16_t  i   = neopixel_buffer_size; // Loop counter
@@ -128,7 +194,10 @@ void neopixel_show()
 
 
 }
-#else
+#endif
+
+#ifdef _NEO_ALGORITHM_1
+
 void neopixel_show()
 {
 

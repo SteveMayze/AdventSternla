@@ -12,6 +12,12 @@
 #define NEO_GREEN 0
 #define NEO_BLUE 2
 
+
+
+#define NEO_ALL_ON 0xFF
+#define NEO_ALL_OFF 0x00
+
+
 void neopixel_setPixel(uint8_t pixel, uint8_t red, uint8_t green, uint8_t blue);
 void neopixel_show();
 

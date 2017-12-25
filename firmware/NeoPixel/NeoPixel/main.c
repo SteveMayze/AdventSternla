@@ -10,7 +10,12 @@
 #include <util/delay.h>
 #include "neopixel.h"
 
-#define _MAIN_ALL_ON 
+// _MAIN_ALL_OFF
+// _MAIN_ALL_ON
+// _MAIN_TEST_1
+#define _MAIN_TEST_1
+#define _MAIN_CLOCK 0x00
+// (0x00 << CLKCTRL_PDIV_gp) | ( 0x00 << CLKCTRL_PEN_bp )
 
 #ifdef _MAIN_TEST_1
 
@@ -23,7 +28,7 @@ int main(void)
     // This needs to be checked for the electrical characteristics is such that the full 5V is required.
 
     CPU_CCP = CCP_IOREG_gc;
-    CLKCTRL.MCLKCTRLB = 0x02;
+    CLKCTRL.MCLKCTRLB = _MAIN_CLOCK;
 
     PORTA.DIR |= 1 << 1;
 
@@ -31,23 +36,36 @@ int main(void)
 	{
         for (int i = 0; i < neopixel_pixels; i++)
         {
-	        neopixel_setPixel(i, 0xFF, 0x00, 0x00);
+	        neopixel_setPixel(i, NEO_ALL_ON, NEO_ALL_ON, NEO_ALL_ON);
         }
-		neopixel_show();
+        neopixel_show();
+		_delay_ms(1000);
+        for (int i = 0; i < neopixel_pixels; i++)
+        {
+	        neopixel_setPixel(i, NEO_ALL_ON, NEO_ALL_OFF, NEO_ALL_OFF);
+        }
+        neopixel_show();
 		_delay_ms(1000);
 		for (int i = 0; i < neopixel_pixels; i++)
 		{
-			neopixel_setPixel(i, 0x00, 0xFF, 0x00);
+			neopixel_setPixel(i, NEO_ALL_OFF, NEO_ALL_ON, NEO_ALL_OFF);
 		}
 		neopixel_show();
 		_delay_ms(1000);
 		for (int i = 0; i < neopixel_pixels; i++)
 		{
-			neopixel_setPixel(i, 0x00, 0x00, 0xFF);
+			neopixel_setPixel(i, NEO_ALL_OFF, NEO_ALL_OFF, NEO_ALL_ON);
 		}
 		neopixel_show();
-		_delay_ms(1000);	}
-
+		_delay_ms(1000);	
+        for (int i = 0; i < neopixel_pixels; i++)
+        {
+	        neopixel_setPixel(i, NEO_ALL_OFF, NEO_ALL_OFF, NEO_ALL_OFF);
+        }
+        neopixel_show();
+        _delay_ms(1000);
+	}
+	
 	return 0;
 }
 
@@ -66,13 +84,13 @@ int main(void)
     // This needs to be checked for the electrical characteristics is such that the full 5V is required.
 
     CPU_CCP = CCP_IOREG_gc;
-    CLKCTRL.MCLKCTRLB = 0x02;
+    CLKCTRL.MCLKCTRLB = _MAIN_CLOCK;
 
     PORTA.DIR |= 1 << 1;
-        for (int i = 0; i < neopixel_pixels; i++)
-        {
-	        neopixel_setPixel(i, 0x00, 0x00, 0x00);
-        }
+    for (int i = 0; i < neopixel_pixels; i++)
+    {
+	    neopixel_setPixel(i, NEO_ALL_OFF, NEO_ALL_OFF, NEO_ALL_OFF);
+    }
 
 	while(1)
 	{
@@ -96,17 +114,18 @@ int main(void)
     // This needs to be checked for the electrical characteristics is such that the full 5V is required.
 
     CPU_CCP = CCP_IOREG_gc;
-    CLKCTRL.MCLKCTRLB = 0x02;
+    CLKCTRL.MCLKCTRLB = _MAIN_CLOCK;
 
     PORTA.DIR |= 1 << 1;
-        for (int i = 0; i < neopixel_pixels; i++)
-        {
-	        neopixel_setPixel(i, 0xFF, 0xFF, 0xFF);
-        }
+    for (int i = 0; i < neopixel_pixels; i++)
+    {
+	    neopixel_setPixel(i, NEO_ALL_ON, NEO_ALL_ON, NEO_ALL_ON);
+    }
 
 	while(1)
 	{
 		neopixel_show();
+		_delay_ms(50);
 	}
 
 	return 0;

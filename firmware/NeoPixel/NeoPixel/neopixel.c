@@ -10,6 +10,7 @@
 
 #define _NEO_ALGORITHM_3
 
+
 #define BIT_TEST(byte, bitCount) (((byte >> bitCount) & 0x01) << bitCount)
 
 uint8_t buffer[neopixel_buffer_size];
@@ -25,9 +26,67 @@ void neopixel_setPixel(uint8_t pixel, uint8_t red, uint8_t green, uint8_t blue)
 }
 
 
+#ifdef _NEO_ALGORITHM_4
+void neopixel_show()
+{
+	volatile uint16_t  i = neopixel_buffer_size; // Loop counter
+	volatile uint8_t *port;
+
+	volatile uint8_t *ptr = &buffer[0],   // Pointer to next byte
+	b   = *ptr++,   // Current byte value
+	hi,             // PORT w/output bit set high
+	lo;             // PORT w/output bit set low
+
+	volatile uint8_t next, bit;
+
+	hi = VPORTA_OUT |  pinMask;
+	lo = VPORTA_OUT & ~pinMask;
+	bit  = 8;
+
+	port = &VPORTA_OUT;
+
+	VPORTA_OUT = lo;
+
+	asm volatile(
+     "head20:"                   "\n\t" // Clk  Pseudocode    (T =  0)
+     "st   %a[port],  %[hi]"    "\n\t" // 2    PORT = hi     (T =  2)
+     "sbrc %[byte],  7"         "\n\t" // 1-2  if(b & 128)
+     "mov  %[next], %[hi]"     "\n\t" // 0-1   next = hi    (T =  4)
+     "dec  %[bit]"              "\n\t" // 1    bit--         (T =  5)
+     "st   %a[port],  %[next]"  "\n\t" // 2    PORT = next   (T =  7)
+     "mov  %[next] ,  %[lo]"    "\n\t" // 1    next = lo     (T =  8)
+     "breq nextbyte20"          "\n\t" // 1-2  if(bit == 0) (from dec above)
+     "rol  %[byte]"             "\n\t" // 1    b <<= 1       (T = 10)
+     "rjmp .+0"                 "\n\t" // 2    nop nop       (T = 12)
+     "nop"                      "\n\t" // 1    nop           (T = 13)
+     "st   %a[port],  %[lo]"    "\n\t" // 2    PORT = lo     (T = 15)
+     "nop"                      "\n\t" // 1    nop           (T = 16)
+     "rjmp .+0"                 "\n\t" // 2    nop nop       (T = 18)
+     "rjmp head20"              "\n\t" // 2    -> head20 (next bit out)
+     "nextbyte20:"               "\n\t" //                    (T = 10)
+     "ldi  %[bit]  ,  8"        "\n\t" // 1    bit = 8       (T = 11)
+     "ld   %[byte] ,  %a[ptr]+" "\n\t" // 2    b = *ptr++    (T = 13)
+     "st   %a[port], %[lo]"     "\n\t" // 2    PORT = lo     (T = 15)
+     "nop"                      "\n\t" // 1    nop           (T = 16)
+     "sbiw %[count], 1"         "\n\t" // 2    i--           (T = 18)
+     "brne head20"             "\n"   // 2    if(i != 0) -> (next byte)
+     : [port]  "+e" (port),
+     [byte]  "+r" (b),
+     [bit]   "+r" (bit),
+     [next]  "+r" (next),
+     [count] "+w" (i)
+     : [ptr]    "e" (ptr),
+     [hi]     "r" (hi),
+     [lo]     "r" (lo));
+
+}
+
+
+#endif
 
 
 #ifdef _NEO_ALGORITHM_3
+
 void neopixel_show()
 {
 	volatile uint16_t  i = neopixel_buffer_size; // Loop counter
@@ -50,29 +109,37 @@ void neopixel_show()
 	VPORTA_OUT = lo;
 
     asm volatile(
-    "neo_start:"						"\n\t"	//	Clk		Pseudocode	
+    "neo_start:"						"\n\t"	//	Tick	Pseudo code	
 		"st %a[port], %[hi]"			"\n\t"	//	2		PORT = Hi
-	    "sbrc %[byte],  7"				"\n\t"	//	1-2		if(b & 128)
-		"rjmp do_HI"					"\n\t"	//	0-2		next = hi
+	    "sbrc %[byte],  7"				"\n\t"	//	1-2		Skip the next operation if bit 7 is clear
+		"rjmp do_HI"					"\n\t"	//	0-2		Jump and Do the HI case
 	"do_LOW:"							"\n\t"	//			At 3 cycles. For LOW, still need 5 for HI and then 17 LOW
+		//"rjmp .+0"						"\n\t"	//	2		nop, nop
 		"rjmp .+0"						"\n\t"	//	2		nop, nop
-		"nop"							"\n\t"	//	1
 		"st %a[port], %[lo]"			"\n\t"	//	2		PORT = Low (Finish of 8 Hi cycles- start the 17 LOW)
+		"rjmp .+0"						"\n\t"	//	2
+		"rjmp .+0"						"\n\t"	//	2
+		"rjmp .+0"						"\n\t"	//	2
+		"rjmp .+0"						"\n\t"	//	2
+		"rjmp .+0"						"\n\t"	//	2
 		"rjmp next_bit"					"\n\t"	//	2
 	"do_HI:"							"\n\t"	//			At 3 cycles. For HI, still need 13 for HI and then 9 LOW
-		"rjmp .+0"						"\n\t"	//	2
-		"rjmp .+0"						"\n\t"	//	2
-		"rjmp .+0"						"\n\t"	//	2
-		"rjmp .+0"						"\n\t"	//	2
-		"nop"							"\n\t"	//	1
+		"nop"							"\n\t"	//	1		4
+		"rjmp .+0"						"\n\t"	//	2		6
+		"rjmp .+0"						"\n\t"	//	2		8
+		"rjmp .+0"						"\n\t"	//	2		10
+		"rjmp .+0"						"\n\t"	//	2		12
+		"rjmp .+0"						"\n\t"	//	2		14
+		"nop"							"\n\t"	//	1		14 + 2 = 16
 		"st %a[port], %[lo]"			"\n\t"	//	2		PORT = Low (Finish of 16 Hi cycles- start the 9 LOW)
 		"rjmp next_bit"					"\n\t"	//	2
-		"nop"							"\n\t"	//	1
+		 "nop"							"\n\t"	//	1
 	"next_bit:"							"\n\t"	//			This section costs 3 - 5 cycles
 		"dec  %[bit]"					"\n\t"	//	1		bit--
 		"breq next_byte"				"\n\t"	//	1-2		branch if(bit == 0) (from dec above)
 		"rol  %[byte]"					"\n\t"	//	1		b <<= 1 - Roll the byte left one bit.
 		"rjmp neo_start"				"\n\t"	//	2		Jump to start for the next bit
+
 	"next_byte:"						"\n\t"	//			This section costs 9 cycles!
 		"ldi %[bit], 8"					"\n\t"	// 1		Set bit = 8
 		"ld %[byte], %a[ptr]+"			"\n\t"	// 2		Set b = *ptr++
@@ -80,12 +147,12 @@ void neopixel_show()
 		"sbiw %[count], 1"				"\n\t"	// 2		i--
 		"brne neo_start"				"\n"	// 2		if(i != 0) -> (next byte)
     : [port]  "+e" (port),
-    [byte]  "+r" (b),
-    [bit]   "+r" (bit),
-    [count] "+w" (i)
+      [byte]  "+r" (b),
+      [bit]   "+r" (bit),
+      [count] "+w" (i)
     : [ptr]    "e" (ptr),
-    [hi]     "r" (hi),
-    [lo]     "r" (lo));
+      [hi]     "r" (hi),
+      [lo]     "r" (lo));
 
 }
 #endif
@@ -114,7 +181,7 @@ void neopixel_show()
 	VPORTA_OUT = lo;
 
     asm volatile(
-    "head20:"                   "\n\t" // Clk  Pseudocode    (T =  0)
+    "head20:"                   "\n\t" // Clk  Pseudo code    (T =  0)
     "st   %a[port],  %[hi]"    "\n\t" // 2    PORT = hi     (T =  2)
     "sbrc %[byte],  7"         "\n\t" // 1-2  if(b & 128)
     "mov  %[next], %[hi]"     "\n\t" // 0-1   next = hi    (T =  4)
@@ -159,7 +226,7 @@ void neopixel_show()
 
 /*
     asm volatile(
-    "head20:"                   "\n\t" // Clk  Pseudocode    (T =  0)
+    "head20:"                   "\n\t" // Clk  Pseudo code    (T =  0)
     "st   %a[port],  %[hi]"    "\n\t" // 2    PORT = hi     (T =  2)
     "sbrc %[byte],  7"         "\n\t" // 1-2  if(b & 128)
     "mov  %[next], %[hi]"     "\n\t" // 0-1   next = hi    (T =  4)
@@ -230,7 +297,7 @@ void neopixel_show()
     // loop down to exactly 64 words -- the maximum possible for a
     // relative branch
     asm volatile (
-	    "headD:"                   "\n\t" // Clk  Pseudocode
+	    "headD:"                   "\n\t" // Clk  Pseudo code
 	    // Bit 7:
 	    "out  %[port] , %[hi]"    "\n\t" // 1    PORT = hi
 	    "mov  %[n2]   , %[lo]"    "\n\t" // 1    n2   = lo

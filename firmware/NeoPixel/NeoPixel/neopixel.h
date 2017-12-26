@@ -19,6 +19,7 @@
 
 
 void neopixel_setPixel(uint8_t pixel, uint8_t red, uint8_t green, uint8_t blue);
+void neopixel_shift();
 void neopixel_show();
 
 #endif 

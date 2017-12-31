@@ -7,6 +7,8 @@
 #define neopixel_pixels 60
 
 #define neopixel_buffer_size neopixel_pixels * 3
+#define FIRST_PIXEL 0
+#define LAST_PIXEL ((neopixel_pixels-1) *3)
 
 #define NEO_RED 1
 #define NEO_GREEN 0
@@ -19,7 +21,8 @@
 
 
 void neopixel_setPixel(uint8_t pixel, uint8_t red, uint8_t green, uint8_t blue);
-void neopixel_shift();
+void neopixel_shift( bool direction );
+void neopixel_alloff(void);
 void neopixel_show();
 
 #endif 

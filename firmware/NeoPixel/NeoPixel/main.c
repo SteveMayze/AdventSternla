@@ -12,13 +12,14 @@
 #include "neopixel.h"
 
 
-#define _MAIN_ANIMATION_2
+#define _MAIN_INIT_TEST
 
 
 #define _MAIN_CLOCK 0x00
 // (0x00 << CLKCTRL_PDIV_gp) | ( 0x00 << CLKCTRL_PEN_bp )
 
 #define LOW_INTENSITY 0x03
+#define BASE_HUE 100
 
 
 void delay_ms(int ms){
@@ -42,12 +43,14 @@ void init_rainbow_pulse(void) {
 	uint8_t blue_color = 0;
 
 	int grade = -5;
-	int colour = 0x1F;
+	int colour = 100;
+	int page;
 
 	for(int group = 0; group < 6; group++) {
 		grade = -5;
+		page = group * 10;
 		for(int pix = 0; pix < 5; pix++) {
-			colour = 0x1F + (grade * 10);
+			colour = BASE_HUE + (grade * 10);
 			grade++;
 			switch( group ) {
 				case 0:
@@ -83,10 +86,10 @@ void init_rainbow_pulse(void) {
 				default:
 					break;
 			}
-			neopixel_setPixel((group * 10)+pix, red_color, green_color, blue_color);
+			neopixel_setPixel( page+pix, red_color, green_color, blue_color);
 		}
 		for(int pix = 0; pix < 5; pix++){
-			colour = 0x1F + grade * 10;
+			colour = BASE_HUE + grade * 10;
 			grade--;
 			switch( group ){
 				case 0:
@@ -122,7 +125,7 @@ void init_rainbow_pulse(void) {
 				default:
 					break;
 			}
-			neopixel_setPixel((group * 10)+pix, red_color, green_color, blue_color);
+			neopixel_setPixel(page+pix, red_color, green_color, blue_color);
 		}
 	}
 }
@@ -190,6 +193,37 @@ void wipe(uint8_t red, uint8_t green, uint8_t blue, bool direction, int delay){
 }
 
 
+#ifdef _MAIN_INIT_TEST
+
+
+int main(void)
+{
+
+	// This register is protected and can not be changed until the CPP register in the CPU
+	// is written with the signature of 0xD8 ... I think I need to insert some assembly code here
+	// This PEN flag is reset, this means that the Source clock is fed right through and not pre-scaled.
+	// This needs to be checked for the electrical characteristics is such that the full 5V is required.
+
+	CPU_CCP = CCP_IOREG_gc;
+	CLKCTRL.MCLKCTRLB = _MAIN_CLOCK;
+
+	PORTA.DIR |= 1 << 1;
+
+	int delay, positions;
+	positions = 60;
+	delay = 50;
+	init_rainbow_pulse();
+
+	while(true){
+		init_rainbow_pulse();
+	}
+
+	
+	return 0;
+}
+
+
+#endif
 
 #ifdef _MAIN_ANIMATION_6
 

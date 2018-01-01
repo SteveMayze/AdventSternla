@@ -24,10 +24,10 @@ void neopixel_setPixel(uint8_t pixel, uint8_t red, uint8_t green, uint8_t blue)
 	buffer[ location + NEO_BLUE ] = blue;
 }
 
-void neopixel_alloff(void){
+void neopixel_fill(uint8_t red, uint8_t green, uint8_t blue){
    for(int i = 0; i < neopixel_pixels; i++)
    {
-      neopixel_setPixel(i, 0x00, 0x00, 0x00);
+      neopixel_setPixel(i, red, green, blue);
    }
 }
 

@@ -19,10 +19,24 @@
 #define NEO_ALL_ON 0xFF
 #define NEO_ALL_OFF 0x00
 
-
+/*!
+	\brief	Sets a pixel with the RGB code
+ */
 void neopixel_setPixel(uint8_t pixel, uint8_t red, uint8_t green, uint8_t blue);
+
+/*!
+	\brief	Shifts the pixels one pixel in the indicated direction
+ */
 void neopixel_shift( bool direction );
-void neopixel_alloff(void);
+
+/*!
+	\brief	Initialises the buffer with the given colour 
+ */
+void neopixel_fill(uint8_t red, uint8_t green, uint8_t blue);
+
+/*!
+	\brief Pushes the buffer out to the pixel strip.
+ */
 void neopixel_show();
 
 #endif 

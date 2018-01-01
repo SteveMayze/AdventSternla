@@ -3,31 +3,31 @@ NeoPixel.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00803800  00803800  0000027e  2**0
+  0 .data         00000000  00803800  00803800  000002a2  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         0000020a  00000000  00000000  00000074  2**1
+  1 .text         0000022e  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          000000b4  00803800  00803800  0000027e  2**0
+  2 .bss          000000b4  00803800  00803800  000002a2  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  0000027e  2**0
+  3 .comment      00000030  00000000  00000000  000002a2  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000002b0  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000002d4  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000080  00000000  00000000  000002f0  2**0
+  5 .debug_aranges 00000088  00000000  00000000  00000314  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   000025df  00000000  00000000  00000370  2**0
+  6 .debug_info   0000277f  00000000  00000000  0000039c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00001be6  00000000  00000000  0000294f  2**0
+  7 .debug_abbrev 00001be6  00000000  00000000  00002b1b  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000007ab  00000000  00000000  00004535  2**0
+  8 .debug_line   0000096a  00000000  00000000  00004701  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000180  00000000  00000000  00004ce0  2**2
+  9 .debug_frame  00000204  00000000  00000000  0000506c  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    0000103f  00000000  00000000  00004e60  2**0
+ 10 .debug_str    00001045  00000000  00000000  00005270  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000092e  00000000  00000000  00005e9f  2**0
+ 11 .debug_loc    00000d5d  00000000  00000000  000062b5  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000098  00000000  00000000  000067cd  2**0
+ 12 .debug_ranges 000000a0  00000000  00000000  00007012  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -77,7 +77,7 @@ Disassembly of section .text:
   88:	18 e3       	ldi	r17, 0x38	; 56
   8a:	a0 e0       	ldi	r26, 0x00	; 0
   8c:	b8 e3       	ldi	r27, 0x38	; 56
-  8e:	ea e0       	ldi	r30, 0x0A	; 10
+  8e:	ee e2       	ldi	r30, 0x2E	; 46
   90:	f2 e0       	ldi	r31, 0x02	; 2
   92:	02 c0       	rjmp	.+4      	; 0x98 <__do_copy_data+0x10>
   94:	05 90       	lpm	r0, Z+
@@ -99,8 +99,8 @@ Disassembly of section .text:
   a8:	a4 3b       	cpi	r26, 0xB4	; 180
   aa:	b2 07       	cpc	r27, r18
   ac:	e1 f7       	brne	.-8      	; 0xa6 <.do_clear_bss_loop>
-  ae:	0e 94 ea 00 	call	0x1d4	; 0x1d4 <main>
-  b2:	0c 94 03 01 	jmp	0x206	; 0x206 <_exit>
+  ae:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <main>
+  b2:	0c 94 15 01 	jmp	0x22a	; 0x22a <_exit>
 
 000000b6 <__bad_interrupt>:
   b6:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -112,199 +112,217 @@ Disassembly of section .text:
 
 	}
 }
-  ba:	bf 92       	push	r11
-  bc:	cf 92       	push	r12
-  be:	df 92       	push	r13
-  c0:	ef 92       	push	r14
-  c2:	ff 92       	push	r15
-  c4:	0f 93       	push	r16
-  c6:	1f 93       	push	r17
-  c8:	cf 93       	push	r28
-  ca:	df 93       	push	r29
-  cc:	c1 2c       	mov	r12, r1
-  ce:	c0 e0       	ldi	r28, 0x00	; 0
-  d0:	d0 e0       	ldi	r29, 0x00	; 0
-  d2:	e1 2c       	mov	r14, r1
-  d4:	f1 2c       	mov	r15, r1
-  d6:	00 e0       	ldi	r16, 0x00	; 0
-  d8:	0f 2e       	mov	r0, r31
-  da:	f4 e6       	ldi	r31, 0x64	; 100
-  dc:	bf 2e       	mov	r11, r31
-  de:	f0 2d       	mov	r31, r0
-  e0:	dc 2c       	mov	r13, r12
-  e2:	12 e3       	ldi	r17, 0x32	; 50
-  e4:	c2 30       	cpi	r28, 0x02	; 2
-  e6:	d1 05       	cpc	r29, r1
-  e8:	99 f0       	breq	.+38     	; 0x110 <init_rainbow_pulse+0x56>
-  ea:	34 f4       	brge	.+12     	; 0xf8 <init_rainbow_pulse+0x3e>
-  ec:	20 97       	sbiw	r28, 0x00	; 0
-  ee:	01 f1       	breq	.+64     	; 0x130 <init_rainbow_pulse+0x76>
-  f0:	c1 30       	cpi	r28, 0x01	; 1
-  f2:	d1 05       	cpc	r29, r1
-  f4:	49 f0       	breq	.+18     	; 0x108 <init_rainbow_pulse+0x4e>
-  f6:	1f c0       	rjmp	.+62     	; 0x136 <init_rainbow_pulse+0x7c>
-  f8:	c4 30       	cpi	r28, 0x04	; 4
-  fa:	d1 05       	cpc	r29, r1
-  fc:	89 f0       	breq	.+34     	; 0x120 <init_rainbow_pulse+0x66>
-  fe:	64 f0       	brlt	.+24     	; 0x118 <init_rainbow_pulse+0x5e>
- 100:	c5 30       	cpi	r28, 0x05	; 5
- 102:	d1 05       	cpc	r29, r1
- 104:	89 f0       	breq	.+34     	; 0x128 <init_rainbow_pulse+0x6e>
- 106:	17 c0       	rjmp	.+46     	; 0x136 <init_rainbow_pulse+0x7c>
- 108:	01 2f       	mov	r16, r17
- 10a:	e1 2c       	mov	r14, r1
- 10c:	f1 2c       	mov	r15, r1
- 10e:	13 c0       	rjmp	.+38     	; 0x136 <init_rainbow_pulse+0x7c>
- 110:	f1 2e       	mov	r15, r17
- 112:	01 2f       	mov	r16, r17
- 114:	e1 2c       	mov	r14, r1
- 116:	0f c0       	rjmp	.+30     	; 0x136 <init_rainbow_pulse+0x7c>
- 118:	f1 2e       	mov	r15, r17
- 11a:	e1 2c       	mov	r14, r1
- 11c:	00 e0       	ldi	r16, 0x00	; 0
- 11e:	0b c0       	rjmp	.+22     	; 0x136 <init_rainbow_pulse+0x7c>
- 120:	e1 2e       	mov	r14, r17
- 122:	f1 2e       	mov	r15, r17
- 124:	00 e0       	ldi	r16, 0x00	; 0
- 126:	07 c0       	rjmp	.+14     	; 0x136 <init_rainbow_pulse+0x7c>
- 128:	e1 2e       	mov	r14, r17
- 12a:	f1 2c       	mov	r15, r1
- 12c:	00 e0       	ldi	r16, 0x00	; 0
- 12e:	03 c0       	rjmp	.+6      	; 0x136 <init_rainbow_pulse+0x7c>
- 130:	e1 2e       	mov	r14, r17
- 132:	01 2f       	mov	r16, r17
- 134:	f1 2c       	mov	r15, r1
- 136:	2e 2d       	mov	r18, r14
- 138:	4f 2d       	mov	r20, r15
- 13a:	60 2f       	mov	r22, r16
- 13c:	8d 2d       	mov	r24, r13
- 13e:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <neopixel_setPixel>
- 142:	d3 94       	inc	r13
- 144:	16 5f       	subi	r17, 0xF6	; 246
- 146:	14 36       	cpi	r17, 0x64	; 100
- 148:	69 f6       	brne	.-102    	; 0xe4 <init_rainbow_pulse+0x2a>
- 14a:	dc 2c       	mov	r13, r12
- 14c:	1b 2d       	mov	r17, r11
- 14e:	c2 30       	cpi	r28, 0x02	; 2
- 150:	d1 05       	cpc	r29, r1
- 152:	99 f0       	breq	.+38     	; 0x17a <init_rainbow_pulse+0xc0>
- 154:	34 f4       	brge	.+12     	; 0x162 <init_rainbow_pulse+0xa8>
- 156:	20 97       	sbiw	r28, 0x00	; 0
- 158:	01 f1       	breq	.+64     	; 0x19a <init_rainbow_pulse+0xe0>
- 15a:	c1 30       	cpi	r28, 0x01	; 1
- 15c:	d1 05       	cpc	r29, r1
- 15e:	49 f0       	breq	.+18     	; 0x172 <init_rainbow_pulse+0xb8>
- 160:	1f c0       	rjmp	.+62     	; 0x1a0 <init_rainbow_pulse+0xe6>
- 162:	c4 30       	cpi	r28, 0x04	; 4
- 164:	d1 05       	cpc	r29, r1
- 166:	89 f0       	breq	.+34     	; 0x18a <init_rainbow_pulse+0xd0>
- 168:	64 f0       	brlt	.+24     	; 0x182 <init_rainbow_pulse+0xc8>
- 16a:	c5 30       	cpi	r28, 0x05	; 5
+  ba:	9f 92       	push	r9
+  bc:	af 92       	push	r10
+  be:	bf 92       	push	r11
+  c0:	cf 92       	push	r12
+  c2:	df 92       	push	r13
+  c4:	ef 92       	push	r14
+  c6:	ff 92       	push	r15
+  c8:	0f 93       	push	r16
+  ca:	1f 93       	push	r17
+  cc:	cf 93       	push	r28
+  ce:	df 93       	push	r29
+  d0:	0f 2e       	mov	r0, r31
+  d2:	f5 e0       	ldi	r31, 0x05	; 5
+  d4:	cf 2e       	mov	r12, r31
+  d6:	f0 2d       	mov	r31, r0
+  d8:	c0 e0       	ldi	r28, 0x00	; 0
+  da:	d0 e0       	ldi	r29, 0x00	; 0
+  dc:	e1 2c       	mov	r14, r1
+  de:	f1 2c       	mov	r15, r1
+  e0:	00 e0       	ldi	r16, 0x00	; 0
+  e2:	0f 2e       	mov	r0, r31
+  e4:	f6 ef       	ldi	r31, 0xF6	; 246
+  e6:	9f 2e       	mov	r9, r31
+  e8:	f0 2d       	mov	r31, r0
+  ea:	98 0e       	add	r9, r24
+  ec:	0f 2e       	mov	r0, r31
+  ee:	f4 ef       	ldi	r31, 0xF4	; 244
+  f0:	bf 2e       	mov	r11, r31
+  f2:	f0 2d       	mov	r31, r0
+  f4:	b8 0e       	add	r11, r24
+  f6:	a8 2e       	mov	r10, r24
+  f8:	1b ef       	ldi	r17, 0xFB	; 251
+  fa:	1c 0d       	add	r17, r12
+  fc:	d9 2c       	mov	r13, r9
+  fe:	c2 30       	cpi	r28, 0x02	; 2
+ 100:	d1 05       	cpc	r29, r1
+ 102:	99 f0       	breq	.+38     	; 0x12a <init_rainbow_pulse+0x70>
+ 104:	34 f4       	brge	.+12     	; 0x112 <init_rainbow_pulse+0x58>
+ 106:	20 97       	sbiw	r28, 0x00	; 0
+ 108:	01 f1       	breq	.+64     	; 0x14a <init_rainbow_pulse+0x90>
+ 10a:	c1 30       	cpi	r28, 0x01	; 1
+ 10c:	d1 05       	cpc	r29, r1
+ 10e:	49 f0       	breq	.+18     	; 0x122 <init_rainbow_pulse+0x68>
+ 110:	1f c0       	rjmp	.+62     	; 0x150 <init_rainbow_pulse+0x96>
+ 112:	c4 30       	cpi	r28, 0x04	; 4
+ 114:	d1 05       	cpc	r29, r1
+ 116:	89 f0       	breq	.+34     	; 0x13a <init_rainbow_pulse+0x80>
+ 118:	64 f0       	brlt	.+24     	; 0x132 <init_rainbow_pulse+0x78>
+ 11a:	c5 30       	cpi	r28, 0x05	; 5
+ 11c:	d1 05       	cpc	r29, r1
+ 11e:	89 f0       	breq	.+34     	; 0x142 <init_rainbow_pulse+0x88>
+ 120:	17 c0       	rjmp	.+46     	; 0x150 <init_rainbow_pulse+0x96>
+ 122:	0d 2d       	mov	r16, r13
+ 124:	e1 2c       	mov	r14, r1
+ 126:	f1 2c       	mov	r15, r1
+ 128:	13 c0       	rjmp	.+38     	; 0x150 <init_rainbow_pulse+0x96>
+ 12a:	fd 2c       	mov	r15, r13
+ 12c:	0d 2d       	mov	r16, r13
+ 12e:	e1 2c       	mov	r14, r1
+ 130:	0f c0       	rjmp	.+30     	; 0x150 <init_rainbow_pulse+0x96>
+ 132:	fd 2c       	mov	r15, r13
+ 134:	e1 2c       	mov	r14, r1
+ 136:	00 e0       	ldi	r16, 0x00	; 0
+ 138:	0b c0       	rjmp	.+22     	; 0x150 <init_rainbow_pulse+0x96>
+ 13a:	ed 2c       	mov	r14, r13
+ 13c:	fd 2c       	mov	r15, r13
+ 13e:	00 e0       	ldi	r16, 0x00	; 0
+ 140:	07 c0       	rjmp	.+14     	; 0x150 <init_rainbow_pulse+0x96>
+ 142:	ed 2c       	mov	r14, r13
+ 144:	f1 2c       	mov	r15, r1
+ 146:	00 e0       	ldi	r16, 0x00	; 0
+ 148:	03 c0       	rjmp	.+6      	; 0x150 <init_rainbow_pulse+0x96>
+ 14a:	ed 2c       	mov	r14, r13
+ 14c:	0d 2d       	mov	r16, r13
+ 14e:	f1 2c       	mov	r15, r1
+ 150:	2e 2d       	mov	r18, r14
+ 152:	4f 2d       	mov	r20, r15
+ 154:	60 2f       	mov	r22, r16
+ 156:	81 2f       	mov	r24, r17
+ 158:	0e 94 0a 01 	call	0x214	; 0x214 <neopixel_setPixel>
+ 15c:	1f 5f       	subi	r17, 0xFF	; 255
+ 15e:	d3 94       	inc	r13
+ 160:	d3 94       	inc	r13
+ 162:	1c 11       	cpse	r17, r12
+ 164:	cc cf       	rjmp	.-104    	; 0xfe <init_rainbow_pulse+0x44>
+ 166:	dc 2c       	mov	r13, r12
+ 168:	1a 2d       	mov	r17, r10
+ 16a:	c2 30       	cpi	r28, 0x02	; 2
  16c:	d1 05       	cpc	r29, r1
- 16e:	89 f0       	breq	.+34     	; 0x192 <init_rainbow_pulse+0xd8>
- 170:	17 c0       	rjmp	.+46     	; 0x1a0 <init_rainbow_pulse+0xe6>
- 172:	01 2f       	mov	r16, r17
- 174:	e1 2c       	mov	r14, r1
- 176:	f1 2c       	mov	r15, r1
- 178:	13 c0       	rjmp	.+38     	; 0x1a0 <init_rainbow_pulse+0xe6>
- 17a:	f1 2e       	mov	r15, r17
- 17c:	01 2f       	mov	r16, r17
- 17e:	e1 2c       	mov	r14, r1
- 180:	0f c0       	rjmp	.+30     	; 0x1a0 <init_rainbow_pulse+0xe6>
- 182:	f1 2e       	mov	r15, r17
- 184:	e1 2c       	mov	r14, r1
- 186:	00 e0       	ldi	r16, 0x00	; 0
- 188:	0b c0       	rjmp	.+22     	; 0x1a0 <init_rainbow_pulse+0xe6>
- 18a:	e1 2e       	mov	r14, r17
- 18c:	f1 2e       	mov	r15, r17
- 18e:	00 e0       	ldi	r16, 0x00	; 0
- 190:	07 c0       	rjmp	.+14     	; 0x1a0 <init_rainbow_pulse+0xe6>
- 192:	e1 2e       	mov	r14, r17
- 194:	f1 2c       	mov	r15, r1
- 196:	00 e0       	ldi	r16, 0x00	; 0
- 198:	03 c0       	rjmp	.+6      	; 0x1a0 <init_rainbow_pulse+0xe6>
- 19a:	e1 2e       	mov	r14, r17
- 19c:	01 2f       	mov	r16, r17
- 19e:	f1 2c       	mov	r15, r1
- 1a0:	2e 2d       	mov	r18, r14
- 1a2:	4f 2d       	mov	r20, r15
- 1a4:	60 2f       	mov	r22, r16
- 1a6:	8d 2d       	mov	r24, r13
- 1a8:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <neopixel_setPixel>
- 1ac:	d3 94       	inc	r13
- 1ae:	1a 50       	subi	r17, 0x0A	; 10
- 1b0:	12 33       	cpi	r17, 0x32	; 50
- 1b2:	69 f6       	brne	.-102    	; 0x14e <init_rainbow_pulse+0x94>
- 1b4:	21 96       	adiw	r28, 0x01	; 1
- 1b6:	8a e0       	ldi	r24, 0x0A	; 10
- 1b8:	c8 0e       	add	r12, r24
- 1ba:	8c e3       	ldi	r24, 0x3C	; 60
- 1bc:	c8 12       	cpse	r12, r24
- 1be:	90 cf       	rjmp	.-224    	; 0xe0 <init_rainbow_pulse+0x26>
- 1c0:	df 91       	pop	r29
- 1c2:	cf 91       	pop	r28
- 1c4:	1f 91       	pop	r17
- 1c6:	0f 91       	pop	r16
- 1c8:	ff 90       	pop	r15
- 1ca:	ef 90       	pop	r14
- 1cc:	df 90       	pop	r13
- 1ce:	cf 90       	pop	r12
- 1d0:	bf 90       	pop	r11
- 1d2:	08 95       	ret
+ 16e:	99 f0       	breq	.+38     	; 0x196 <init_rainbow_pulse+0xdc>
+ 170:	34 f4       	brge	.+12     	; 0x17e <init_rainbow_pulse+0xc4>
+ 172:	20 97       	sbiw	r28, 0x00	; 0
+ 174:	01 f1       	breq	.+64     	; 0x1b6 <init_rainbow_pulse+0xfc>
+ 176:	c1 30       	cpi	r28, 0x01	; 1
+ 178:	d1 05       	cpc	r29, r1
+ 17a:	49 f0       	breq	.+18     	; 0x18e <init_rainbow_pulse+0xd4>
+ 17c:	1f c0       	rjmp	.+62     	; 0x1bc <init_rainbow_pulse+0x102>
+ 17e:	c4 30       	cpi	r28, 0x04	; 4
+ 180:	d1 05       	cpc	r29, r1
+ 182:	89 f0       	breq	.+34     	; 0x1a6 <init_rainbow_pulse+0xec>
+ 184:	64 f0       	brlt	.+24     	; 0x19e <init_rainbow_pulse+0xe4>
+ 186:	c5 30       	cpi	r28, 0x05	; 5
+ 188:	d1 05       	cpc	r29, r1
+ 18a:	89 f0       	breq	.+34     	; 0x1ae <init_rainbow_pulse+0xf4>
+ 18c:	17 c0       	rjmp	.+46     	; 0x1bc <init_rainbow_pulse+0x102>
+ 18e:	01 2f       	mov	r16, r17
+ 190:	e1 2c       	mov	r14, r1
+ 192:	f1 2c       	mov	r15, r1
+ 194:	13 c0       	rjmp	.+38     	; 0x1bc <init_rainbow_pulse+0x102>
+ 196:	f1 2e       	mov	r15, r17
+ 198:	01 2f       	mov	r16, r17
+ 19a:	e1 2c       	mov	r14, r1
+ 19c:	0f c0       	rjmp	.+30     	; 0x1bc <init_rainbow_pulse+0x102>
+ 19e:	f1 2e       	mov	r15, r17
+ 1a0:	e1 2c       	mov	r14, r1
+ 1a2:	00 e0       	ldi	r16, 0x00	; 0
+ 1a4:	0b c0       	rjmp	.+22     	; 0x1bc <init_rainbow_pulse+0x102>
+ 1a6:	e1 2e       	mov	r14, r17
+ 1a8:	f1 2e       	mov	r15, r17
+ 1aa:	00 e0       	ldi	r16, 0x00	; 0
+ 1ac:	07 c0       	rjmp	.+14     	; 0x1bc <init_rainbow_pulse+0x102>
+ 1ae:	e1 2e       	mov	r14, r17
+ 1b0:	f1 2c       	mov	r15, r1
+ 1b2:	00 e0       	ldi	r16, 0x00	; 0
+ 1b4:	03 c0       	rjmp	.+6      	; 0x1bc <init_rainbow_pulse+0x102>
+ 1b6:	e1 2e       	mov	r14, r17
+ 1b8:	01 2f       	mov	r16, r17
+ 1ba:	f1 2c       	mov	r15, r1
+ 1bc:	2e 2d       	mov	r18, r14
+ 1be:	4f 2d       	mov	r20, r15
+ 1c0:	60 2f       	mov	r22, r16
+ 1c2:	8d 2d       	mov	r24, r13
+ 1c4:	0e 94 0a 01 	call	0x214	; 0x214 <neopixel_setPixel>
+ 1c8:	d3 94       	inc	r13
+ 1ca:	12 50       	subi	r17, 0x02	; 2
+ 1cc:	1b 11       	cpse	r17, r11
+ 1ce:	cd cf       	rjmp	.-102    	; 0x16a <init_rainbow_pulse+0xb0>
+ 1d0:	21 96       	adiw	r28, 0x01	; 1
+ 1d2:	8a e0       	ldi	r24, 0x0A	; 10
+ 1d4:	c8 0e       	add	r12, r24
+ 1d6:	81 e4       	ldi	r24, 0x41	; 65
+ 1d8:	c8 12       	cpse	r12, r24
+ 1da:	8e cf       	rjmp	.-228    	; 0xf8 <init_rainbow_pulse+0x3e>
+ 1dc:	df 91       	pop	r29
+ 1de:	cf 91       	pop	r28
+ 1e0:	1f 91       	pop	r17
+ 1e2:	0f 91       	pop	r16
+ 1e4:	ff 90       	pop	r15
+ 1e6:	ef 90       	pop	r14
+ 1e8:	df 90       	pop	r13
+ 1ea:	cf 90       	pop	r12
+ 1ec:	bf 90       	pop	r11
+ 1ee:	af 90       	pop	r10
+ 1f0:	9f 90       	pop	r9
+ 1f2:	08 95       	ret
 
-000001d4 <main>:
+000001f4 <main>:
 	// This register is protected and can not be changed until the CPP register in the CPU
 	// is written with the signature of 0xD8 ... I think I need to insert some assembly code here
 	// This PEN flag is reset, this means that the Source clock is fed right through and not pre-scaled.
 	// This needs to be checked for the electrical characteristics is such that the full 5V is required.
 
 	CPU_CCP = CCP_IOREG_gc;
- 1d4:	88 ed       	ldi	r24, 0xD8	; 216
- 1d6:	84 bf       	out	0x34, r24	; 52
+ 1f4:	88 ed       	ldi	r24, 0xD8	; 216
+ 1f6:	84 bf       	out	0x34, r24	; 52
 	CLKCTRL.MCLKCTRLB = _MAIN_CLOCK;
- 1d8:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <__TEXT_REGION_LENGTH__+0x700061>
+ 1f8:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <__TEXT_REGION_LENGTH__+0x700061>
 
 	PORTA.DIR |= 1 << 1;
- 1dc:	e0 e0       	ldi	r30, 0x00	; 0
- 1de:	f4 e0       	ldi	r31, 0x04	; 4
- 1e0:	80 81       	ld	r24, Z
- 1e2:	82 60       	ori	r24, 0x02	; 2
- 1e4:	80 83       	st	Z, r24
+ 1fc:	e0 e0       	ldi	r30, 0x00	; 0
+ 1fe:	f4 e0       	ldi	r31, 0x04	; 4
+ 200:	80 81       	ld	r24, Z
+ 202:	82 60       	ori	r24, 0x02	; 2
+ 204:	80 83       	st	Z, r24
 
-	int delay, positions;
-	positions = 60;
-	delay = 50;
-	init_rainbow_pulse();
- 1e6:	0e 94 5d 00 	call	0xba	; 0xba <init_rainbow_pulse>
+	// int delay, positions;
+	// positions = 60;
+	// delay = 50;
+	init_rainbow_pulse( BASE_HUE );
+ 206:	8f e1       	ldi	r24, 0x1F	; 31
+ 208:	0e 94 5d 00 	call	0xba	; 0xba <init_rainbow_pulse>
 
 	while(true){
-		init_rainbow_pulse();
- 1ea:	0e 94 5d 00 	call	0xba	; 0xba <init_rainbow_pulse>
- 1ee:	fd cf       	rjmp	.-6      	; 0x1ea <main+0x16>
+		init_rainbow_pulse( BASE_HUE );
+ 20c:	8f e1       	ldi	r24, 0x1F	; 31
+ 20e:	0e 94 5d 00 	call	0xba	; 0xba <init_rainbow_pulse>
+ 212:	fc cf       	rjmp	.-8      	; 0x20c <main+0x18>
 
-000001f0 <neopixel_setPixel>:
+00000214 <neopixel_setPixel>:
 
 
 void neopixel_setPixel(uint8_t pixel, uint8_t red, uint8_t green, uint8_t blue)
 {
     uint8_t location = pixel * 3;
 	buffer[ location + NEO_RED ] = red;
- 1f0:	e8 2f       	mov	r30, r24
- 1f2:	ee 0f       	add	r30, r30
- 1f4:	8e 0f       	add	r24, r30
- 1f6:	e8 2f       	mov	r30, r24
- 1f8:	f0 e0       	ldi	r31, 0x00	; 0
- 1fa:	e0 50       	subi	r30, 0x00	; 0
- 1fc:	f8 4c       	sbci	r31, 0xC8	; 200
- 1fe:	61 83       	std	Z+1, r22	; 0x01
+ 214:	e8 2f       	mov	r30, r24
+ 216:	ee 0f       	add	r30, r30
+ 218:	8e 0f       	add	r24, r30
+ 21a:	e8 2f       	mov	r30, r24
+ 21c:	f0 e0       	ldi	r31, 0x00	; 0
+ 21e:	e0 50       	subi	r30, 0x00	; 0
+ 220:	f8 4c       	sbci	r31, 0xC8	; 200
+ 222:	61 83       	std	Z+1, r22	; 0x01
 	buffer[ location + NEO_GREEN ] = green;
- 200:	40 83       	st	Z, r20
+ 224:	40 83       	st	Z, r20
 	buffer[ location + NEO_BLUE ] = blue;
- 202:	22 83       	std	Z+2, r18	; 0x02
- 204:	08 95       	ret
+ 226:	22 83       	std	Z+2, r18	; 0x02
+ 228:	08 95       	ret
 
-00000206 <_exit>:
- 206:	f8 94       	cli
+0000022a <_exit>:
+ 22a:	f8 94       	cli
 
-00000208 <__stop_program>:
- 208:	ff cf       	rjmp	.-2      	; 0x208 <__stop_program>
+0000022c <__stop_program>:
+ 22c:	ff cf       	rjmp	.-2      	; 0x22c <__stop_program>

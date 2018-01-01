@@ -1,3 +1,6 @@
+//////////////////////////////////////////////////////////////////////////
+///	\brief The main file for the NeoPixel driver for the ATTiny1614
+//////////////////////////////////////////////////////////////////////////
 /*
  * NewPixel.c
  *
@@ -19,15 +22,29 @@
 // (0x00 << CLKCTRL_PDIV_gp) | ( 0x00 << CLKCTRL_PEN_bp )
 
 #define LOW_INTENSITY 0x03
-#define BASE_HUE 100
+#define BASE_HUE 0x1F
 
+/*!
+	\brief a wrapper over the _delay_ms function
 
+	This wrapper enables the ms count to be passed in as variable
+	and not as a integer constant as dictated by the _delay_ms 
+	function.
+ */
 void delay_ms(int ms){
 	for(int i =0; i < ms; i++){
 		_delay_ms(1);
 	}
 }
 
+/*!
+ \brief	Rolls the pixels in a direction, the number of positions.
+ 
+ rolls the pixels one direction or the other the number of positions
+ with an intermediate animation of delay ms. The neopixel_show 
+ function will be called.
+
+*/
 void pixel_chaser(bool direction, int positions, int delay){
 	for( int i = 0; i < positions; i++)
 	{
@@ -37,7 +54,15 @@ void pixel_chaser(bool direction, int positions, int delay){
 	}
 }
 
-void init_rainbow_pulse(void) {
+//////////////////////////////////////////////////////////////////////////
+///	\brief	Intialise the buffer with a "pulsed rainbow" type 
+///			sequence.
+///
+///	The "rainbow" is dived over the 60 pixels. A group of 10 
+///	pixels for each colour group. The "pulse"effect is to have
+///	the middle pixel at the highest hue intensity.
+//////////////////////////////////////////////////////////////////////////
+void init_rainbow_pulse(uint8_t hue) {
 	uint8_t red_color = 0;
 	uint8_t green_color = 0;
 	uint8_t blue_color = 0;
@@ -50,7 +75,7 @@ void init_rainbow_pulse(void) {
 		grade = -5;
 		page = group * 10;
 		for(int pix = 0; pix < 5; pix++) {
-			colour = BASE_HUE + (grade * 10);
+			colour = hue + (grade * 2);
 			grade++;
 			switch( group ) {
 				case 0:
@@ -88,8 +113,9 @@ void init_rainbow_pulse(void) {
 			}
 			neopixel_setPixel( page+pix, red_color, green_color, blue_color);
 		}
-		for(int pix = 0; pix < 5; pix++){
-			colour = BASE_HUE + grade * 10;
+		grade = 0;
+		for(int pix = 5; pix < 11; pix++){
+			colour = hue + (grade * 2);
 			grade--;
 			switch( group ){
 				case 0:
@@ -130,7 +156,13 @@ void init_rainbow_pulse(void) {
 	}
 }
 
-void init_rainbow(void){
+//////////////////////////////////////////////////////////////////////////
+///	\brief	Initialise the pixels with a "rainbow" series.
+///
+///	The colours are divided over the 60 pixels with six colours allocated
+///	to each group of 10 pixels.
+//////////////////////////////////////////////////////////////////////////
+void init_rainbow(uint8_t hue){
 	uint8_t red_color = 0;
 	uint8_t green_color = 0;
 	uint8_t blue_color = 0;
@@ -138,50 +170,137 @@ void init_rainbow(void){
 	for (int i = 0; i < neopixel_pixels; i++)
 	{
 		if ( i <= 9) {
-			red_color = LOW_INTENSITY;
+			red_color = hue;
 			green_color = NEO_ALL_OFF;
-			blue_color = LOW_INTENSITY;
+			blue_color = hue;
 		}
 		if ( i >= 10 && i <= 19) {
-			red_color = LOW_INTENSITY;
+			red_color = hue;
 			green_color = NEO_ALL_OFF;
 			blue_color = NEO_ALL_OFF;
 		}
 		if ( i >= 20 && i <= 29) {
-			red_color = LOW_INTENSITY;
-			green_color = LOW_INTENSITY;
+			red_color = hue;
+			green_color = hue;
 			blue_color = NEO_ALL_OFF;
 		}
 		if ( i >= 30 && i <= 39) {
 			red_color = NEO_ALL_OFF;
-			green_color = LOW_INTENSITY;
+			green_color = hue;
 			blue_color = NEO_ALL_OFF;
 		}
 		if ( i >= 40 && i <= 49) {
 			red_color = NEO_ALL_OFF;
-			green_color = LOW_INTENSITY;
-			blue_color = LOW_INTENSITY;
+			green_color = hue;
+			blue_color = hue;
 		}
 		if ( i >= 50 ) {
 			red_color = NEO_ALL_OFF;
 			green_color = NEO_ALL_OFF;
-			blue_color = LOW_INTENSITY;
+			blue_color = hue;
 		}
 		neopixel_setPixel(i, red_color, green_color, blue_color);
 	}
 }
 
-
+//////////////////////////////////////////////////////////////////////////
+///	\brief	Fills the pixel strip with a colour
+///
+///	The colour is filled based on the direction and with an animation delay.
+///	The neopixel_show will be called.
+//////////////////////////////////////////////////////////////////////////
 void wipe(uint8_t red, uint8_t green, uint8_t blue, bool direction, int delay){
 
-    uint8_t pixel = ( direction )? neopixel_pixels - 1: 0;
+	uint8_t pixel = ( direction )? neopixel_pixels - 1: 0;
 	// uint8_t pixel = neopixel_pixels - 1;
 	for(int i = 0; i < neopixel_pixels; i++){
-	    if( direction ) {
+		if( direction ) {
+			neopixel_setPixel(pixel, red, green, blue);
+			neopixel_show();
+			neopixel_shift(direction);
+			} else {
+			neopixel_setPixel(0, red, green, blue);
+			neopixel_setPixel(neopixel_pixels - 1, red, green, blue);
+			neopixel_show();
+			neopixel_shift(direction);
+		}
+		delay_ms(delay);
+
+	}
+}
+
+void rainbow_wipe(uint8_t hue, bool direction, int delay){
+
+	uint8_t pixel = ( direction )? neopixel_pixels - 1: 0;
+	uint8_t red, green, blue;
+	for(int i = 0; i < neopixel_pixels; i++){
+		if( direction ) {
+			if ( i <= 9) {
+				red = hue;
+				green = NEO_ALL_OFF;
+				blue = hue;
+			}
+			if ( i >= 10 && i <= 19) {
+				red = hue;
+				green = NEO_ALL_OFF;
+				blue = NEO_ALL_OFF;
+			}
+			if ( i >= 20 && i <= 29) {
+				red = hue;
+				green = hue;
+				blue = NEO_ALL_OFF;
+			}
+			if ( i >= 30 && i <= 39) {
+				red = NEO_ALL_OFF;
+				green = hue;
+				blue = NEO_ALL_OFF;
+			}
+			if ( i >= 40 && i <= 49) {
+				red = NEO_ALL_OFF;
+				green = hue;
+				blue = hue;
+			}
+			if ( i >= 50 ) {
+				red = NEO_ALL_OFF;
+				green = NEO_ALL_OFF;
+				blue = hue;
+			}
+
 			neopixel_setPixel(pixel, red, green, blue);
 			neopixel_show();
 			neopixel_shift(direction);
 		} else {
+			if ( i <= 9) {
+				red = hue;
+				green = NEO_ALL_OFF;
+				blue = hue;
+			}
+			if ( i >= 10 && i <= 19) {
+				red = hue;
+				green = NEO_ALL_OFF;
+				blue = NEO_ALL_OFF;
+			}
+			if ( i >= 20 && i <= 29) {
+				red = hue;
+				green = hue;
+				blue = NEO_ALL_OFF;
+			}
+			if ( i >= 30 && i <= 39) {
+				red = NEO_ALL_OFF;
+				green = hue;
+				blue = NEO_ALL_OFF;
+			}
+			if ( i >= 40 && i <= 49) {
+				red = NEO_ALL_OFF;
+				green = hue;
+				blue = hue;
+			}
+			if ( i >= 50 ) {
+				red = NEO_ALL_OFF;
+				green = NEO_ALL_OFF;
+				blue = hue;
+			}
+
 			neopixel_setPixel(0, red, green, blue);
 			neopixel_setPixel(neopixel_pixels - 1, red, green, blue);
 			neopixel_show();
@@ -209,13 +328,13 @@ int main(void)
 
 	PORTA.DIR |= 1 << 1;
 
-	int delay, positions;
-	positions = 60;
-	delay = 50;
-	init_rainbow_pulse();
+	// int delay, positions;
+	// positions = 60;
+	// delay = 50;
+	init_rainbow_pulse( BASE_HUE );
 
 	while(true){
-		init_rainbow_pulse();
+		init_rainbow_pulse( BASE_HUE );
 	}
 
 	
@@ -244,7 +363,7 @@ int main(void)
 	int delay, positions;
 	positions = 60;
 	delay = 50;
-	init_rainbow_pulse();
+	init_rainbow_pulse( BASE_HUE );
 
 	while(true){
 
@@ -279,16 +398,37 @@ int main(void)
 	PORTA.DIR |= 1 << 1;
 
 	int delay, positions;
-	positions = 60;
-	delay = 50;
-	init_rainbow();
+	positions =neopixel_pixels * 4;
+	bool filltype = true;
 	while( true ) {
+		delay = 50;
+        wipe(LOW_INTENSITY, 0x00, 0x00, true, delay);
+		_delay_ms(100);
+        wipe(LOW_INTENSITY, LOW_INTENSITY, 0x00, false, delay);
+		_delay_ms(100);
+        wipe(0x00, LOW_INTENSITY, 0x00, true, delay);
+		_delay_ms(100);
+        wipe(0x00, LOW_INTENSITY, LOW_INTENSITY, false, delay);
+		_delay_ms(100);
+        wipe(0x00, 0x00, LOW_INTENSITY, true, delay);
+		_delay_ms(100);
+        wipe(LOW_INTENSITY, 0x00, LOW_INTENSITY, false, delay);
+		_delay_ms(100);
+
+		delay = 100;
+		if ( filltype ) {
+			// init_rainbow( LOW_INTENSITY );
+			rainbow_wipe( LOW_INTENSITY, true, delay);
+			filltype = false;
+		} else {
+			init_rainbow_pulse( BASE_HUE );
+			filltype = true;
+		}
 		pixel_chaser(true, positions, delay);
 		_delay_ms(500);
 		pixel_chaser(false, positions, delay);
-        wipe(0x00, 0x00, 0x00, false, delay);
-	    _delay_ms(500);
-		init_rainbow();		
+		_delay_ms(500);
+
 	}
 	return 0;
 }

@@ -1,35 +1,39 @@
-//////////////////////////////////////////////////////////////////////////
-///	\brief The main file for the NeoPixel driver for the ATTiny1614
-//////////////////////////////////////////////////////////////////////////
-/*
- * NewPixel.c
+/*!
+ * \brief The main file for the NeoPixel driver for the ATTiny1614
  *
- * Created: 19/12/2017 14:59:51
- * Author : Steven
+ * \file main.c
+ *
+ * Created 19/12/2017 14:59:51
+ * \author Steve Mayze
+ * \version 1.0
  */ 
 
+ /*! The CPU Clock for use by delay.h */
 #define F_CPU 20000000UL
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdbool.h>
 #include "neopixel.h"
 
+/*! The Animation sequence implementation chosen for the build */
+#define _MAIN_ANIMATION_5
 
-#define _MAIN_INIT_TEST
 
-
+/*! The setting for the CLKCTRL.MCLKCTRLB register */
 #define _MAIN_CLOCK 0x00
 // (0x00 << CLKCTRL_PDIV_gp) | ( 0x00 << CLKCTRL_PEN_bp )
 
+/*! The pixel hue to indicate a "low" intensity. */
 #define LOW_INTENSITY 0x03
-#define BASE_HUE 0x1F
+/*! The basic hue for a bright pixel */
+#define BASE_HUE 15
 
 /*!
-	\brief a wrapper over the _delay_ms function
-
-	This wrapper enables the ms count to be passed in as variable
-	and not as a integer constant as dictated by the _delay_ms 
-	function.
+ * \brief a wrapper over the _delay_ms function
+ *
+ *	This wrapper enables the ms count to be passed in as variable
+ *	and not as a integer constant as dictated by the _delay_ms 
+ *	function.
  */
 void delay_ms(int ms){
 	for(int i =0; i < ms; i++){
@@ -38,11 +42,11 @@ void delay_ms(int ms){
 }
 
 /*!
- \brief	Rolls the pixels in a direction, the number of positions.
- 
- rolls the pixels one direction or the other the number of positions
- with an intermediate animation of delay ms. The neopixel_show 
- function will be called.
+ * \brief	Rolls the pixels in a direction, the number of positions.
+ * 
+ * rolls the pixels one direction or the other the number of positions
+ * with an intermediate animation of delay ms. The neopixel_show 
+ * function will be called.
 
 */
 void pixel_chaser(bool direction, int positions, int delay){
@@ -54,14 +58,15 @@ void pixel_chaser(bool direction, int positions, int delay){
 	}
 }
 
-//////////////////////////////////////////////////////////////////////////
-///	\brief	Intialise the buffer with a "pulsed rainbow" type 
-///			sequence.
-///
-///	The "rainbow" is dived over the 60 pixels. A group of 10 
-///	pixels for each colour group. The "pulse"effect is to have
-///	the middle pixel at the highest hue intensity.
-//////////////////////////////////////////////////////////////////////////
+/*!
+ *	\brief	Intialise the buffer with a "pulsed rainbow" type 
+ *			sequence.
+ *
+ *	The "rainbow" is dived over the 60 pixels. A group of 10 
+ *	pixels for each colour group. The "pulse"effect is to have
+ *	the middle pixel at the highest hue intensity.
+ *
+ */
 void init_rainbow_pulse(uint8_t hue) {
 	uint8_t red_color = 0;
 	uint8_t green_color = 0;
@@ -70,12 +75,13 @@ void init_rainbow_pulse(uint8_t hue) {
 	int grade = -5;
 	int colour = 100;
 	int page;
+	int grade_factor = hue / 5 ;
 
 	for(int group = 0; group < 6; group++) {
 		grade = -5;
 		page = group * 10;
 		for(int pix = 0; pix < 5; pix++) {
-			colour = hue + (grade * 2);
+			colour = (hue + (grade * grade_factor));
 			grade++;
 			switch( group ) {
 				case 0:
@@ -115,7 +121,7 @@ void init_rainbow_pulse(uint8_t hue) {
 		}
 		grade = 0;
 		for(int pix = 5; pix < 11; pix++){
-			colour = hue + (grade * 2);
+			colour = hue + (grade * grade_factor);
 			grade--;
 			switch( group ){
 				case 0:
@@ -156,12 +162,12 @@ void init_rainbow_pulse(uint8_t hue) {
 	}
 }
 
-//////////////////////////////////////////////////////////////////////////
-///	\brief	Initialise the pixels with a "rainbow" series.
-///
-///	The colours are divided over the 60 pixels with six colours allocated
-///	to each group of 10 pixels.
-//////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief	Initialise the pixels with a "rainbow" series.
+ *
+ *	The colours are divided over the 60 pixels with six colours allocated
+ *	to each group of 10 pixels.
+ */
 void init_rainbow(uint8_t hue){
 	uint8_t red_color = 0;
 	uint8_t green_color = 0;
@@ -203,12 +209,12 @@ void init_rainbow(uint8_t hue){
 	}
 }
 
-//////////////////////////////////////////////////////////////////////////
-///	\brief	Fills the pixel strip with a colour
-///
-///	The colour is filled based on the direction and with an animation delay.
-///	The neopixel_show will be called.
-//////////////////////////////////////////////////////////////////////////
+/*!
+ *	\brief	Fills the pixel strip with a colour
+ *
+ *	The colour is filled based on the direction and with an animation delay.
+ *	The neopixel_show will be called.
+ */
 void wipe(uint8_t red, uint8_t green, uint8_t blue, bool direction, int delay){
 
 	uint8_t pixel = ( direction )? neopixel_pixels - 1: 0;
@@ -229,6 +235,10 @@ void wipe(uint8_t red, uint8_t green, uint8_t blue, bool direction, int delay){
 	}
 }
 
+/*!
+ * \brief The wipe function that will wipe in a "rainbow"
+ *
+ */
 void rainbow_wipe(uint8_t hue, bool direction, int delay){
 
 	uint8_t pixel = ( direction )? neopixel_pixels - 1: 0;
@@ -384,6 +394,9 @@ int main(void)
 
 #ifdef _MAIN_ANIMATION_5
 
+/*!
+ * \brief The main function for the animation and driver
+ */
 int main(void)
 {
 
@@ -398,10 +411,10 @@ int main(void)
 	PORTA.DIR |= 1 << 1;
 
 	int delay, positions;
-	positions =neopixel_pixels * 4;
+	positions = neopixel_pixels * 4;
 	bool filltype = true;
 	while( true ) {
-		delay = 50;
+		delay = 10;
         wipe(LOW_INTENSITY, 0x00, 0x00, true, delay);
 		_delay_ms(100);
         wipe(LOW_INTENSITY, LOW_INTENSITY, 0x00, false, delay);
@@ -415,7 +428,7 @@ int main(void)
         wipe(LOW_INTENSITY, 0x00, LOW_INTENSITY, false, delay);
 		_delay_ms(100);
 
-		delay = 100;
+		delay = 50;
 		if ( filltype ) {
 			// init_rainbow( LOW_INTENSITY );
 			rainbow_wipe( LOW_INTENSITY, true, delay);
@@ -424,6 +437,7 @@ int main(void)
 			init_rainbow_pulse( BASE_HUE );
 			filltype = true;
 		}
+		delay = 100;
 		pixel_chaser(true, positions, delay);
 		_delay_ms(500);
 		pixel_chaser(false, positions, delay);

@@ -1,8 +1,11 @@
-/*
- * neopixel.c
+/*!
+ * \brief The library for driving the NeoPixels for the ATTiny1614
+ *
+ * \file neopixel.c
  *
  * Created: 22/12/2017 22:07:00
- *  Author: Steve
+ * \author Steve Mayze
+ * \version 1.0
  */ 
 
 #include <avr/io.h>
@@ -10,12 +13,15 @@
 
 #include "neopixel.h"
 
-// #define BIT_TEST(byte, bitCount) (((byte >> bitCount) & 0x01) << bitCount)
-
+/*! The buffer that contains all pixel and colour data */
 uint8_t buffer[neopixel_buffer_size];
+/*! The pin mask for the output port pin that drives the NeoPixels */
 uint8_t pinMask = 0x02;
 
 
+/*!
+ * \brief	Sets a pixel with the RGB code
+ */
 void neopixel_setPixel(uint8_t pixel, uint8_t red, uint8_t green, uint8_t blue)
 {
     uint8_t location = pixel * 3;
@@ -24,6 +30,9 @@ void neopixel_setPixel(uint8_t pixel, uint8_t red, uint8_t green, uint8_t blue)
 	buffer[ location + NEO_BLUE ] = blue;
 }
 
+/*!
+ * \brief	Initialises the buffer with the given colour 
+ */
 void neopixel_fill(uint8_t red, uint8_t green, uint8_t blue){
    for(int i = 0; i < neopixel_pixels; i++)
    {
@@ -31,9 +40,9 @@ void neopixel_fill(uint8_t red, uint8_t green, uint8_t blue){
    }
 }
 
-
-
-
+/*!
+ * \brief	Shifts the pixels one pixel in the indicated direction
+ */
 void neopixel_shift(bool direction){
 
    if( direction ) {
@@ -68,8 +77,9 @@ void neopixel_shift(bool direction){
 	}
 }
 
-
-
+/*!
+ * \brief Pushes the buffer out to the pixel strip.
+ */
 void neopixel_show()
 {
 	volatile uint16_t  i = neopixel_buffer_size; // Loop counter

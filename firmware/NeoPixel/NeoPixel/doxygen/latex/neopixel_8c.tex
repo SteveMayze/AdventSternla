@@ -1,0 +1,59 @@
+\hypertarget{neopixel_8c}{}\section{neopixel.\+c File Reference}
+\label{neopixel_8c}\index{neopixel.\+c@{neopixel.\+c}}
+
+
+The library for driving the Neo\+Pixels for the A\+T\+Tiny1614.  
+
+
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}neopixel.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{neopixel_8c_a85c3209df579f121014fbcd29e30a25a}\label{neopixel_8c_a85c3209df579f121014fbcd29e30a25a}} 
+void \hyperlink{neopixel_8c_a85c3209df579f121014fbcd29e30a25a}{neopixel\+\_\+set\+Pixel} (uint8\+\_\+t pixel, uint8\+\_\+t red, uint8\+\_\+t green, uint8\+\_\+t blue)
+\begin{DoxyCompactList}\small\item\em Sets a pixel with the R\+GB code. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{neopixel_8c_a1ad74df02d425c5744ed93cbb815b1d7}\label{neopixel_8c_a1ad74df02d425c5744ed93cbb815b1d7}} 
+void \hyperlink{neopixel_8c_a1ad74df02d425c5744ed93cbb815b1d7}{neopixel\+\_\+fill} (uint8\+\_\+t red, uint8\+\_\+t green, uint8\+\_\+t blue)
+\begin{DoxyCompactList}\small\item\em Initialises the buffer with the given colour. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{neopixel_8c_ad9082ab1bf2e6f5cbb978584ec737815}\label{neopixel_8c_ad9082ab1bf2e6f5cbb978584ec737815}} 
+void \hyperlink{neopixel_8c_ad9082ab1bf2e6f5cbb978584ec737815}{neopixel\+\_\+shift} (bool direction)
+\begin{DoxyCompactList}\small\item\em Shifts the pixels one pixel in the indicated direction. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{neopixel_8c_a611ef5079871163a7fe74c8c0e6a9340}\label{neopixel_8c_a611ef5079871163a7fe74c8c0e6a9340}} 
+void \hyperlink{neopixel_8c_a611ef5079871163a7fe74c8c0e6a9340}{neopixel\+\_\+show} ()
+\begin{DoxyCompactList}\small\item\em Pushes the buffer out to the pixel strip. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \hyperlink{neopixel_8c_a38e3ac3a40d967bbc384ea05ebeb1636}{buffer} \mbox{[}neopixel\+\_\+buffer\+\_\+size\mbox{]}
+\item 
+uint8\+\_\+t \hyperlink{neopixel_8c_ad5c223c604ab667afaadeb035b9721d9}{pin\+Mask} = 0x02
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The library for driving the Neo\+Pixels for the A\+T\+Tiny1614. 
+
+Created\+: 22/12/2017 22\+:07\+:00 \begin{DoxyAuthor}{Author}
+Steve Mayze 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{neopixel_8c_a38e3ac3a40d967bbc384ea05ebeb1636}\label{neopixel_8c_a38e3ac3a40d967bbc384ea05ebeb1636}} 
+\index{neopixel.\+c@{neopixel.\+c}!buffer@{buffer}}
+\index{buffer@{buffer}!neopixel.\+c@{neopixel.\+c}}
+\subsubsection{\texorpdfstring{buffer}{buffer}}
+{\footnotesize\ttfamily uint8\+\_\+t buffer\mbox{[}neopixel\+\_\+buffer\+\_\+size\mbox{]}}
+
+The buffer that contains all pixel and colour data \mbox{\Hypertarget{neopixel_8c_ad5c223c604ab667afaadeb035b9721d9}\label{neopixel_8c_ad5c223c604ab667afaadeb035b9721d9}} 
+\index{neopixel.\+c@{neopixel.\+c}!pin\+Mask@{pin\+Mask}}
+\index{pin\+Mask@{pin\+Mask}!neopixel.\+c@{neopixel.\+c}}
+\subsubsection{\texorpdfstring{pin\+Mask}{pinMask}}
+{\footnotesize\ttfamily uint8\+\_\+t pin\+Mask = 0x02}
+
+The pin mask for the output port pin that drives the Neo\+Pixels 

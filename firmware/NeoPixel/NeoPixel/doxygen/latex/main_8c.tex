@@ -1,0 +1,141 @@
+\hypertarget{main_8c}{}\section{main.\+c File Reference}
+\label{main_8c}\index{main.\+c@{main.\+c}}
+
+
+The main file for the Neo\+Pixel driver for the A\+T\+Tiny1614.  
+
+
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+{\ttfamily \#include $<$util/delay.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}neopixel.\+h\char`\"{}}\newline
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{main_8c_a43bafb28b29491ec7f871319b5a3b2f8}{F\+\_\+\+C\+PU}~20000000\+UL
+\item 
+\#define \hyperlink{main_8c_a47bb7862afc480863e15f61dedd3608c}{\+\_\+\+M\+A\+I\+N\+\_\+\+A\+N\+I\+M\+A\+T\+I\+O\+N\+\_\+5}
+\item 
+\#define \hyperlink{main_8c_a8b912b1eac4bf9cdf74fafe37bbb1242}{\+\_\+\+M\+A\+I\+N\+\_\+\+C\+L\+O\+CK}~0x00
+\item 
+\#define \hyperlink{main_8c_ae4ffa4c52f61da612df2f2d2abf2063f}{L\+O\+W\+\_\+\+I\+N\+T\+E\+N\+S\+I\+TY}~0x03
+\item 
+\#define \hyperlink{main_8c_a622f1768bc75749047146b769f8afe76}{B\+A\+S\+E\+\_\+\+H\+UE}~15
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{main_8c_a8aa473f8ae9a91df4bc9ea700983c72d}{delay\+\_\+ms} (int ms)
+\begin{DoxyCompactList}\small\item\em a wrapper over the \+\_\+delay\+\_\+ms function \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_afadee49bec52a42770c76e5205493158}{pixel\+\_\+chaser} (bool direction, int positions, int delay)
+\begin{DoxyCompactList}\small\item\em Rolls the pixels in a direction, the number of positions. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_aa8b69dae8d965215d18f3bfcd060c84d}{init\+\_\+rainbow\+\_\+pulse} (uint8\+\_\+t hue)
+\begin{DoxyCompactList}\small\item\em Intialise the buffer with a \char`\"{}pulsed rainbow\char`\"{} type sequence. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_a9572b6d71eeafe56ad33aa310fc8860f}{init\+\_\+rainbow} (uint8\+\_\+t hue)
+\begin{DoxyCompactList}\small\item\em Initialise the pixels with a \char`\"{}rainbow\char`\"{} series. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_ae7ce35c17e7e1440ad2ef0456afcfac4}{wipe} (uint8\+\_\+t red, uint8\+\_\+t green, uint8\+\_\+t blue, bool direction, int delay)
+\begin{DoxyCompactList}\small\item\em Fills the pixel strip with a colour. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{main_8c_a2cb5ed2b89e417b69f72ae6849bc0509}\label{main_8c_a2cb5ed2b89e417b69f72ae6849bc0509}} 
+void \hyperlink{main_8c_a2cb5ed2b89e417b69f72ae6849bc0509}{rainbow\+\_\+wipe} (uint8\+\_\+t hue, bool direction, int delay)
+\begin{DoxyCompactList}\small\item\em The wipe function that will wipe in a \char`\"{}rainbow\char`\"{}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\label{main_8c_a840291bc02cba5474a4cb46a9b9566fe}} 
+int \hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main} (void)
+\begin{DoxyCompactList}\small\item\em The main function for the animation and driver. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The main file for the Neo\+Pixel driver for the A\+T\+Tiny1614. 
+
+Created 19/12/2017 14\+:59\+:51 \begin{DoxyAuthor}{Author}
+Steve Mayze 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{main_8c_a47bb7862afc480863e15f61dedd3608c}\label{main_8c_a47bb7862afc480863e15f61dedd3608c}} 
+\index{main.\+c@{main.\+c}!\+\_\+\+M\+A\+I\+N\+\_\+\+A\+N\+I\+M\+A\+T\+I\+O\+N\+\_\+5@{\+\_\+\+M\+A\+I\+N\+\_\+\+A\+N\+I\+M\+A\+T\+I\+O\+N\+\_\+5}}
+\index{\+\_\+\+M\+A\+I\+N\+\_\+\+A\+N\+I\+M\+A\+T\+I\+O\+N\+\_\+5@{\+\_\+\+M\+A\+I\+N\+\_\+\+A\+N\+I\+M\+A\+T\+I\+O\+N\+\_\+5}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+\+M\+A\+I\+N\+\_\+\+A\+N\+I\+M\+A\+T\+I\+O\+N\+\_\+5}{\_MAIN\_ANIMATION\_5}}
+{\footnotesize\ttfamily \#define \+\_\+\+M\+A\+I\+N\+\_\+\+A\+N\+I\+M\+A\+T\+I\+O\+N\+\_\+5}
+
+The Animation sequence implementation chosen for the build \mbox{\Hypertarget{main_8c_a8b912b1eac4bf9cdf74fafe37bbb1242}\label{main_8c_a8b912b1eac4bf9cdf74fafe37bbb1242}} 
+\index{main.\+c@{main.\+c}!\+\_\+\+M\+A\+I\+N\+\_\+\+C\+L\+O\+CK@{\+\_\+\+M\+A\+I\+N\+\_\+\+C\+L\+O\+CK}}
+\index{\+\_\+\+M\+A\+I\+N\+\_\+\+C\+L\+O\+CK@{\+\_\+\+M\+A\+I\+N\+\_\+\+C\+L\+O\+CK}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+\+M\+A\+I\+N\+\_\+\+C\+L\+O\+CK}{\_MAIN\_CLOCK}}
+{\footnotesize\ttfamily \#define \+\_\+\+M\+A\+I\+N\+\_\+\+C\+L\+O\+CK~0x00}
+
+The setting for the C\+L\+K\+C\+T\+R\+L.\+M\+C\+L\+K\+C\+T\+R\+LB register \mbox{\Hypertarget{main_8c_a622f1768bc75749047146b769f8afe76}\label{main_8c_a622f1768bc75749047146b769f8afe76}} 
+\index{main.\+c@{main.\+c}!B\+A\+S\+E\+\_\+\+H\+UE@{B\+A\+S\+E\+\_\+\+H\+UE}}
+\index{B\+A\+S\+E\+\_\+\+H\+UE@{B\+A\+S\+E\+\_\+\+H\+UE}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{B\+A\+S\+E\+\_\+\+H\+UE}{BASE\_HUE}}
+{\footnotesize\ttfamily \#define B\+A\+S\+E\+\_\+\+H\+UE~15}
+
+The basic hue for a bright pixel \mbox{\Hypertarget{main_8c_a43bafb28b29491ec7f871319b5a3b2f8}\label{main_8c_a43bafb28b29491ec7f871319b5a3b2f8}} 
+\index{main.\+c@{main.\+c}!F\+\_\+\+C\+PU@{F\+\_\+\+C\+PU}}
+\index{F\+\_\+\+C\+PU@{F\+\_\+\+C\+PU}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{F\+\_\+\+C\+PU}{F\_CPU}}
+{\footnotesize\ttfamily \#define F\+\_\+\+C\+PU~20000000\+UL}
+
+The C\+PU Clock for use by delay.\+h \mbox{\Hypertarget{main_8c_ae4ffa4c52f61da612df2f2d2abf2063f}\label{main_8c_ae4ffa4c52f61da612df2f2d2abf2063f}} 
+\index{main.\+c@{main.\+c}!L\+O\+W\+\_\+\+I\+N\+T\+E\+N\+S\+I\+TY@{L\+O\+W\+\_\+\+I\+N\+T\+E\+N\+S\+I\+TY}}
+\index{L\+O\+W\+\_\+\+I\+N\+T\+E\+N\+S\+I\+TY@{L\+O\+W\+\_\+\+I\+N\+T\+E\+N\+S\+I\+TY}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{L\+O\+W\+\_\+\+I\+N\+T\+E\+N\+S\+I\+TY}{LOW\_INTENSITY}}
+{\footnotesize\ttfamily \#define L\+O\+W\+\_\+\+I\+N\+T\+E\+N\+S\+I\+TY~0x03}
+
+The pixel hue to indicate a \char`\"{}low\char`\"{} intensity. 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{main_8c_a8aa473f8ae9a91df4bc9ea700983c72d}\label{main_8c_a8aa473f8ae9a91df4bc9ea700983c72d}} 
+\index{main.\+c@{main.\+c}!delay\+\_\+ms@{delay\+\_\+ms}}
+\index{delay\+\_\+ms@{delay\+\_\+ms}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{delay\+\_\+ms()}{delay\_ms()}}
+{\footnotesize\ttfamily void delay\+\_\+ms (\begin{DoxyParamCaption}\item[{int}]{ms }\end{DoxyParamCaption})}
+
+
+
+a wrapper over the \+\_\+delay\+\_\+ms function 
+
+This wrapper enables the ms count to be passed in as variable and not as a integer constant as dictated by the \+\_\+delay\+\_\+ms function. \mbox{\Hypertarget{main_8c_a9572b6d71eeafe56ad33aa310fc8860f}\label{main_8c_a9572b6d71eeafe56ad33aa310fc8860f}} 
+\index{main.\+c@{main.\+c}!init\+\_\+rainbow@{init\+\_\+rainbow}}
+\index{init\+\_\+rainbow@{init\+\_\+rainbow}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{init\+\_\+rainbow()}{init\_rainbow()}}
+{\footnotesize\ttfamily void init\+\_\+rainbow (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{hue }\end{DoxyParamCaption})}
+
+
+
+Initialise the pixels with a \char`\"{}rainbow\char`\"{} series. 
+
+The colours are divided over the 60 pixels with six colours allocated to each group of 10 pixels. \mbox{\Hypertarget{main_8c_aa8b69dae8d965215d18f3bfcd060c84d}\label{main_8c_aa8b69dae8d965215d18f3bfcd060c84d}} 
+\index{main.\+c@{main.\+c}!init\+\_\+rainbow\+\_\+pulse@{init\+\_\+rainbow\+\_\+pulse}}
+\index{init\+\_\+rainbow\+\_\+pulse@{init\+\_\+rainbow\+\_\+pulse}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{init\+\_\+rainbow\+\_\+pulse()}{init\_rainbow\_pulse()}}
+{\footnotesize\ttfamily void init\+\_\+rainbow\+\_\+pulse (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{hue }\end{DoxyParamCaption})}
+
+
+
+Intialise the buffer with a \char`\"{}pulsed rainbow\char`\"{} type sequence. 
+
+The \char`\"{}rainbow\char`\"{} is dived over the 60 pixels. A group of 10 pixels for each colour group. The \char`\"{}pulse\char`\"{}effect is to have the middle pixel at the highest hue intensity. \mbox{\Hypertarget{main_8c_afadee49bec52a42770c76e5205493158}\label{main_8c_afadee49bec52a42770c76e5205493158}} 
+\index{main.\+c@{main.\+c}!pixel\+\_\+chaser@{pixel\+\_\+chaser}}
+\index{pixel\+\_\+chaser@{pixel\+\_\+chaser}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{pixel\+\_\+chaser()}{pixel\_chaser()}}
+{\footnotesize\ttfamily void pixel\+\_\+chaser (\begin{DoxyParamCaption}\item[{bool}]{direction,  }\item[{int}]{positions,  }\item[{int}]{delay }\end{DoxyParamCaption})}
+
+
+
+Rolls the pixels in a direction, the number of positions. 
+
+rolls the pixels one direction or the other the number of positions with an intermediate animation of delay ms. The neopixel\+\_\+show function will be called. \mbox{\Hypertarget{main_8c_ae7ce35c17e7e1440ad2ef0456afcfac4}\label{main_8c_ae7ce35c17e7e1440ad2ef0456afcfac4}} 
+\index{main.\+c@{main.\+c}!wipe@{wipe}}
+\index{wipe@{wipe}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{wipe()}{wipe()}}
+{\footnotesize\ttfamily void wipe (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{red,  }\item[{uint8\+\_\+t}]{green,  }\item[{uint8\+\_\+t}]{blue,  }\item[{bool}]{direction,  }\item[{int}]{delay }\end{DoxyParamCaption})}
+
+
+
+Fills the pixel strip with a colour. 
+
+The colour is filled based on the direction and with an animation delay. The neopixel\+\_\+show will be called. 

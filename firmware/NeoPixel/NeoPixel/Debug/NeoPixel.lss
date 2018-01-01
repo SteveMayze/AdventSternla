@@ -3,31 +3,31 @@ NeoPixel.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00803800  00803800  000002a2  2**0
+  0 .data         00000002  00803800  000006f8  0000078c  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         0000022e  00000000  00000000  00000074  2**1
+  1 .text         000006f8  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          000000b4  00803800  00803800  000002a2  2**0
+  2 .bss          000000b4  00803802  00803802  0000078e  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  000002a2  2**0
+  3 .comment      00000030  00000000  00000000  0000078e  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000002d4  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000007c0  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000088  00000000  00000000  00000314  2**0
+  5 .debug_aranges 00000088  00000000  00000000  00000800  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   0000277f  00000000  00000000  0000039c  2**0
+  6 .debug_info   00002afd  00000000  00000000  00000888  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00001be6  00000000  00000000  00002b1b  2**0
+  7 .debug_abbrev 00001c30  00000000  00000000  00003385  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   0000096a  00000000  00000000  00004701  2**0
+  8 .debug_line   00000a0b  00000000  00000000  00004fb5  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000204  00000000  00000000  0000506c  2**2
+  9 .debug_frame  00000210  00000000  00000000  000059c0  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00001045  00000000  00000000  00005270  2**0
+ 10 .debug_str    0000105b  00000000  00000000  00005bd0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000d5d  00000000  00000000  000062b5  2**0
+ 11 .debug_loc    00001043  00000000  00000000  00006c2b  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000000a0  00000000  00000000  00007012  2**0
+ 12 .debug_ranges 000000a0  00000000  00000000  00007c6e  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -77,18 +77,18 @@ Disassembly of section .text:
   88:	18 e3       	ldi	r17, 0x38	; 56
   8a:	a0 e0       	ldi	r26, 0x00	; 0
   8c:	b8 e3       	ldi	r27, 0x38	; 56
-  8e:	ee e2       	ldi	r30, 0x2E	; 46
-  90:	f2 e0       	ldi	r31, 0x02	; 2
+  8e:	e8 ef       	ldi	r30, 0xF8	; 248
+  90:	f6 e0       	ldi	r31, 0x06	; 6
   92:	02 c0       	rjmp	.+4      	; 0x98 <__do_copy_data+0x10>
   94:	05 90       	lpm	r0, Z+
   96:	0d 92       	st	X+, r0
-  98:	a0 30       	cpi	r26, 0x00	; 0
+  98:	a2 30       	cpi	r26, 0x02	; 2
   9a:	b1 07       	cpc	r27, r17
   9c:	d9 f7       	brne	.-10     	; 0x94 <__do_copy_data+0xc>
 
 0000009e <__do_clear_bss>:
   9e:	28 e3       	ldi	r18, 0x38	; 56
-  a0:	a0 e0       	ldi	r26, 0x00	; 0
+  a0:	a2 e0       	ldi	r26, 0x02	; 2
   a2:	b8 e3       	ldi	r27, 0x38	; 56
   a4:	01 c0       	rjmp	.+2      	; 0xa8 <.do_clear_bss_start>
 
@@ -96,233 +96,1180 @@ Disassembly of section .text:
   a6:	1d 92       	st	X+, r1
 
 000000a8 <.do_clear_bss_start>:
-  a8:	a4 3b       	cpi	r26, 0xB4	; 180
+  a8:	a6 3b       	cpi	r26, 0xB6	; 182
   aa:	b2 07       	cpc	r27, r18
   ac:	e1 f7       	brne	.-8      	; 0xa6 <.do_clear_bss_loop>
-  ae:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <main>
-  b2:	0c 94 15 01 	jmp	0x22a	; 0x22a <_exit>
+  ae:	0e 94 44 02 	call	0x488	; 0x488 <main>
+  b2:	0c 94 7a 03 	jmp	0x6f4	; 0x6f4 <_exit>
 
 000000b6 <__bad_interrupt>:
   b6:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-000000ba <init_rainbow_pulse>:
+000000ba <delay_ms>:
+			green_color = NEO_ALL_OFF;
+			blue_color = hue;
+		}
+		neopixel_setPixel(i, red_color, green_color, blue_color);
+	}
+}
+  ba:	18 16       	cp	r1, r24
+  bc:	19 06       	cpc	r1, r25
+  be:	6c f4       	brge	.+26     	; 0xda <delay_ms+0x20>
+  c0:	20 e0       	ldi	r18, 0x00	; 0
+  c2:	30 e0       	ldi	r19, 0x00	; 0
+  c4:	e7 e8       	ldi	r30, 0x87	; 135
+  c6:	f3 e1       	ldi	r31, 0x13	; 19
+  c8:	31 97       	sbiw	r30, 0x01	; 1
+  ca:	f1 f7       	brne	.-4      	; 0xc8 <delay_ms+0xe>
+  cc:	00 c0       	rjmp	.+0      	; 0xce <delay_ms+0x14>
+  ce:	00 00       	nop
+  d0:	2f 5f       	subi	r18, 0xFF	; 255
+  d2:	3f 4f       	sbci	r19, 0xFF	; 255
+  d4:	82 17       	cp	r24, r18
+  d6:	93 07       	cpc	r25, r19
+  d8:	a9 f7       	brne	.-22     	; 0xc4 <delay_ms+0xa>
+  da:	08 95       	ret
+
+000000dc <pixel_chaser>:
+  dc:	cf 92       	push	r12
+  de:	df 92       	push	r13
+  e0:	ff 92       	push	r15
+  e2:	0f 93       	push	r16
+  e4:	1f 93       	push	r17
+  e6:	cf 93       	push	r28
+  e8:	df 93       	push	r29
+  ea:	16 16       	cp	r1, r22
+  ec:	17 06       	cpc	r1, r23
+  ee:	8c f4       	brge	.+34     	; 0x112 <pixel_chaser+0x36>
+  f0:	6a 01       	movw	r12, r20
+  f2:	8b 01       	movw	r16, r22
+  f4:	f8 2e       	mov	r15, r24
+  f6:	c0 e0       	ldi	r28, 0x00	; 0
+  f8:	d0 e0       	ldi	r29, 0x00	; 0
+  fa:	8f 2d       	mov	r24, r15
+  fc:	0e 94 e4 02 	call	0x5c8	; 0x5c8 <neopixel_shift>
+ 100:	0e 94 23 03 	call	0x646	; 0x646 <neopixel_show>
+ 104:	c6 01       	movw	r24, r12
+ 106:	0e 94 5d 00 	call	0xba	; 0xba <delay_ms>
+ 10a:	21 96       	adiw	r28, 0x01	; 1
+ 10c:	0c 17       	cp	r16, r28
+ 10e:	1d 07       	cpc	r17, r29
+ 110:	a1 f7       	brne	.-24     	; 0xfa <pixel_chaser+0x1e>
+ 112:	df 91       	pop	r29
+ 114:	cf 91       	pop	r28
+ 116:	1f 91       	pop	r17
+ 118:	0f 91       	pop	r16
+ 11a:	ff 90       	pop	r15
+ 11c:	df 90       	pop	r13
+ 11e:	cf 90       	pop	r12
+ 120:	08 95       	ret
+
+00000122 <init_rainbow_pulse>:
+ 122:	7f 92       	push	r7
+ 124:	8f 92       	push	r8
+ 126:	9f 92       	push	r9
+ 128:	af 92       	push	r10
+ 12a:	bf 92       	push	r11
+ 12c:	cf 92       	push	r12
+ 12e:	df 92       	push	r13
+ 130:	ef 92       	push	r14
+ 132:	ff 92       	push	r15
+ 134:	0f 93       	push	r16
+ 136:	1f 93       	push	r17
+ 138:	cf 93       	push	r28
+ 13a:	df 93       	push	r29
+ 13c:	9d ec       	ldi	r25, 0xCD	; 205
+ 13e:	89 9f       	mul	r24, r25
+ 140:	91 2c       	mov	r9, r1
+ 142:	11 24       	eor	r1, r1
+ 144:	96 94       	lsr	r9
+ 146:	96 94       	lsr	r9
+ 148:	0f 2e       	mov	r0, r31
+ 14a:	f5 e0       	ldi	r31, 0x05	; 5
+ 14c:	cf 2e       	mov	r12, r31
+ 14e:	f0 2d       	mov	r31, r0
+ 150:	c0 e0       	ldi	r28, 0x00	; 0
+ 152:	d0 e0       	ldi	r29, 0x00	; 0
+ 154:	e1 2c       	mov	r14, r1
+ 156:	f1 2c       	mov	r15, r1
+ 158:	00 e0       	ldi	r16, 0x00	; 0
+ 15a:	78 2e       	mov	r7, r24
+ 15c:	95 e0       	ldi	r25, 0x05	; 5
+ 15e:	99 9e       	mul	r9, r25
+ 160:	70 18       	sub	r7, r0
+ 162:	11 24       	eor	r1, r1
+ 164:	a9 2c       	mov	r10, r9
+ 166:	a1 94       	neg	r10
+ 168:	88 2e       	mov	r8, r24
+ 16a:	1b ef       	ldi	r17, 0xFB	; 251
+ 16c:	1c 0d       	add	r17, r12
+ 16e:	d7 2c       	mov	r13, r7
+ 170:	c2 30       	cpi	r28, 0x02	; 2
+ 172:	d1 05       	cpc	r29, r1
+ 174:	99 f0       	breq	.+38     	; 0x19c <init_rainbow_pulse+0x7a>
+ 176:	34 f4       	brge	.+12     	; 0x184 <init_rainbow_pulse+0x62>
+ 178:	20 97       	sbiw	r28, 0x00	; 0
+ 17a:	01 f1       	breq	.+64     	; 0x1bc <init_rainbow_pulse+0x9a>
+ 17c:	c1 30       	cpi	r28, 0x01	; 1
+ 17e:	d1 05       	cpc	r29, r1
+ 180:	49 f0       	breq	.+18     	; 0x194 <init_rainbow_pulse+0x72>
+ 182:	1f c0       	rjmp	.+62     	; 0x1c2 <init_rainbow_pulse+0xa0>
+ 184:	c4 30       	cpi	r28, 0x04	; 4
+ 186:	d1 05       	cpc	r29, r1
+ 188:	89 f0       	breq	.+34     	; 0x1ac <init_rainbow_pulse+0x8a>
+ 18a:	64 f0       	brlt	.+24     	; 0x1a4 <init_rainbow_pulse+0x82>
+ 18c:	c5 30       	cpi	r28, 0x05	; 5
+ 18e:	d1 05       	cpc	r29, r1
+ 190:	89 f0       	breq	.+34     	; 0x1b4 <init_rainbow_pulse+0x92>
+ 192:	17 c0       	rjmp	.+46     	; 0x1c2 <init_rainbow_pulse+0xa0>
+ 194:	0d 2d       	mov	r16, r13
+ 196:	e1 2c       	mov	r14, r1
+ 198:	f1 2c       	mov	r15, r1
+ 19a:	13 c0       	rjmp	.+38     	; 0x1c2 <init_rainbow_pulse+0xa0>
+ 19c:	fd 2c       	mov	r15, r13
+ 19e:	0d 2d       	mov	r16, r13
+ 1a0:	e1 2c       	mov	r14, r1
+ 1a2:	0f c0       	rjmp	.+30     	; 0x1c2 <init_rainbow_pulse+0xa0>
+ 1a4:	fd 2c       	mov	r15, r13
+ 1a6:	e1 2c       	mov	r14, r1
+ 1a8:	00 e0       	ldi	r16, 0x00	; 0
+ 1aa:	0b c0       	rjmp	.+22     	; 0x1c2 <init_rainbow_pulse+0xa0>
+ 1ac:	ed 2c       	mov	r14, r13
+ 1ae:	fd 2c       	mov	r15, r13
+ 1b0:	00 e0       	ldi	r16, 0x00	; 0
+ 1b2:	07 c0       	rjmp	.+14     	; 0x1c2 <init_rainbow_pulse+0xa0>
+ 1b4:	ed 2c       	mov	r14, r13
+ 1b6:	f1 2c       	mov	r15, r1
+ 1b8:	00 e0       	ldi	r16, 0x00	; 0
+ 1ba:	03 c0       	rjmp	.+6      	; 0x1c2 <init_rainbow_pulse+0xa0>
+ 1bc:	ed 2c       	mov	r14, r13
+ 1be:	0d 2d       	mov	r16, r13
+ 1c0:	f1 2c       	mov	r15, r1
+ 1c2:	2e 2d       	mov	r18, r14
+ 1c4:	4f 2d       	mov	r20, r15
+ 1c6:	60 2f       	mov	r22, r16
+ 1c8:	81 2f       	mov	r24, r17
+ 1ca:	0e 94 d9 02 	call	0x5b2	; 0x5b2 <neopixel_setPixel>
+ 1ce:	1f 5f       	subi	r17, 0xFF	; 255
+ 1d0:	d9 0c       	add	r13, r9
+ 1d2:	1c 11       	cpse	r17, r12
+ 1d4:	cd cf       	rjmp	.-102    	; 0x170 <init_rainbow_pulse+0x4e>
+ 1d6:	0f 2e       	mov	r0, r31
+ 1d8:	f6 e0       	ldi	r31, 0x06	; 6
+ 1da:	bf 2e       	mov	r11, r31
+ 1dc:	f0 2d       	mov	r31, r0
+ 1de:	bc 0c       	add	r11, r12
+ 1e0:	1c 2d       	mov	r17, r12
+ 1e2:	d8 2c       	mov	r13, r8
+ 1e4:	c2 30       	cpi	r28, 0x02	; 2
+ 1e6:	d1 05       	cpc	r29, r1
+ 1e8:	99 f0       	breq	.+38     	; 0x210 <init_rainbow_pulse+0xee>
+ 1ea:	34 f4       	brge	.+12     	; 0x1f8 <init_rainbow_pulse+0xd6>
+ 1ec:	20 97       	sbiw	r28, 0x00	; 0
+ 1ee:	01 f1       	breq	.+64     	; 0x230 <init_rainbow_pulse+0x10e>
+ 1f0:	c1 30       	cpi	r28, 0x01	; 1
+ 1f2:	d1 05       	cpc	r29, r1
+ 1f4:	49 f0       	breq	.+18     	; 0x208 <init_rainbow_pulse+0xe6>
+ 1f6:	1f c0       	rjmp	.+62     	; 0x236 <init_rainbow_pulse+0x114>
+ 1f8:	c4 30       	cpi	r28, 0x04	; 4
+ 1fa:	d1 05       	cpc	r29, r1
+ 1fc:	89 f0       	breq	.+34     	; 0x220 <init_rainbow_pulse+0xfe>
+ 1fe:	64 f0       	brlt	.+24     	; 0x218 <init_rainbow_pulse+0xf6>
+ 200:	c5 30       	cpi	r28, 0x05	; 5
+ 202:	d1 05       	cpc	r29, r1
+ 204:	89 f0       	breq	.+34     	; 0x228 <init_rainbow_pulse+0x106>
+ 206:	17 c0       	rjmp	.+46     	; 0x236 <init_rainbow_pulse+0x114>
+ 208:	0d 2d       	mov	r16, r13
+ 20a:	e1 2c       	mov	r14, r1
+ 20c:	f1 2c       	mov	r15, r1
+ 20e:	13 c0       	rjmp	.+38     	; 0x236 <init_rainbow_pulse+0x114>
+ 210:	fd 2c       	mov	r15, r13
+ 212:	0d 2d       	mov	r16, r13
+ 214:	e1 2c       	mov	r14, r1
+ 216:	0f c0       	rjmp	.+30     	; 0x236 <init_rainbow_pulse+0x114>
+ 218:	fd 2c       	mov	r15, r13
+ 21a:	e1 2c       	mov	r14, r1
+ 21c:	00 e0       	ldi	r16, 0x00	; 0
+ 21e:	0b c0       	rjmp	.+22     	; 0x236 <init_rainbow_pulse+0x114>
+ 220:	ed 2c       	mov	r14, r13
+ 222:	fd 2c       	mov	r15, r13
+ 224:	00 e0       	ldi	r16, 0x00	; 0
+ 226:	07 c0       	rjmp	.+14     	; 0x236 <init_rainbow_pulse+0x114>
+ 228:	ed 2c       	mov	r14, r13
+ 22a:	f1 2c       	mov	r15, r1
+ 22c:	00 e0       	ldi	r16, 0x00	; 0
+ 22e:	03 c0       	rjmp	.+6      	; 0x236 <init_rainbow_pulse+0x114>
+ 230:	ed 2c       	mov	r14, r13
+ 232:	0d 2d       	mov	r16, r13
+ 234:	f1 2c       	mov	r15, r1
+ 236:	2e 2d       	mov	r18, r14
+ 238:	4f 2d       	mov	r20, r15
+ 23a:	60 2f       	mov	r22, r16
+ 23c:	81 2f       	mov	r24, r17
+ 23e:	0e 94 d9 02 	call	0x5b2	; 0x5b2 <neopixel_setPixel>
+ 242:	1f 5f       	subi	r17, 0xFF	; 255
+ 244:	da 0c       	add	r13, r10
+ 246:	b1 12       	cpse	r11, r17
+ 248:	cd cf       	rjmp	.-102    	; 0x1e4 <init_rainbow_pulse+0xc2>
+ 24a:	21 96       	adiw	r28, 0x01	; 1
+ 24c:	8a e0       	ldi	r24, 0x0A	; 10
+ 24e:	c8 0e       	add	r12, r24
+ 250:	91 e4       	ldi	r25, 0x41	; 65
+ 252:	c9 12       	cpse	r12, r25
+ 254:	8a cf       	rjmp	.-236    	; 0x16a <init_rainbow_pulse+0x48>
+ 256:	df 91       	pop	r29
+ 258:	cf 91       	pop	r28
+ 25a:	1f 91       	pop	r17
+ 25c:	0f 91       	pop	r16
+ 25e:	ff 90       	pop	r15
+ 260:	ef 90       	pop	r14
+ 262:	df 90       	pop	r13
+ 264:	cf 90       	pop	r12
+ 266:	bf 90       	pop	r11
+ 268:	af 90       	pop	r10
+ 26a:	9f 90       	pop	r9
+ 26c:	8f 90       	pop	r8
+ 26e:	7f 90       	pop	r7
+ 270:	08 95       	ret
+
+00000272 <wipe>:
+ *	\brief	Fills the pixel strip with a colour
+ *
+ *	The colour is filled based on the direction and with an animation delay.
+ *	The neopixel_show will be called.
+ */
+void wipe(uint8_t red, uint8_t green, uint8_t blue, bool direction, int delay){
+ 272:	bf 92       	push	r11
+ 274:	cf 92       	push	r12
+ 276:	df 92       	push	r13
+ 278:	ef 92       	push	r14
+ 27a:	ff 92       	push	r15
+ 27c:	0f 93       	push	r16
+ 27e:	1f 93       	push	r17
+ 280:	cf 93       	push	r28
+ 282:	df 93       	push	r29
+ 284:	f8 2e       	mov	r15, r24
+ 286:	e6 2e       	mov	r14, r22
+ 288:	d4 2e       	mov	r13, r20
+ 28a:	c2 2e       	mov	r12, r18
+
+	uint8_t pixel = ( direction )? neopixel_pixels - 1: 0;
+ 28c:	21 11       	cpse	r18, r1
+ 28e:	02 c0       	rjmp	.+4      	; 0x294 <wipe+0x22>
+ 290:	b1 2c       	mov	r11, r1
+ 292:	04 c0       	rjmp	.+8      	; 0x29c <wipe+0x2a>
+ 294:	0f 2e       	mov	r0, r31
+ 296:	fb e3       	ldi	r31, 0x3B	; 59
+ 298:	bf 2e       	mov	r11, r31
+ 29a:	f0 2d       	mov	r31, r0
+ 29c:	cc e3       	ldi	r28, 0x3C	; 60
+ 29e:	d0 e0       	ldi	r29, 0x00	; 0
+	// uint8_t pixel = neopixel_pixels - 1;
+	for(int i = 0; i < neopixel_pixels; i++){
+		if( direction ) {
+ 2a0:	cc 20       	and	r12, r12
+ 2a2:	61 f0       	breq	.+24     	; 0x2bc <wipe+0x4a>
+			neopixel_setPixel(pixel, red, green, blue);
+ 2a4:	2d 2d       	mov	r18, r13
+ 2a6:	4e 2d       	mov	r20, r14
+ 2a8:	6f 2d       	mov	r22, r15
+ 2aa:	8b 2d       	mov	r24, r11
+ 2ac:	0e 94 d9 02 	call	0x5b2	; 0x5b2 <neopixel_setPixel>
+			neopixel_show();
+ 2b0:	0e 94 23 03 	call	0x646	; 0x646 <neopixel_show>
+			neopixel_shift(direction);
+ 2b4:	81 e0       	ldi	r24, 0x01	; 1
+ 2b6:	0e 94 e4 02 	call	0x5c8	; 0x5c8 <neopixel_shift>
+ 2ba:	11 c0       	rjmp	.+34     	; 0x2de <wipe+0x6c>
+			} else {
+			neopixel_setPixel(0, red, green, blue);
+ 2bc:	2d 2d       	mov	r18, r13
+ 2be:	4e 2d       	mov	r20, r14
+ 2c0:	6f 2d       	mov	r22, r15
+ 2c2:	80 e0       	ldi	r24, 0x00	; 0
+ 2c4:	0e 94 d9 02 	call	0x5b2	; 0x5b2 <neopixel_setPixel>
+			neopixel_setPixel(neopixel_pixels - 1, red, green, blue);
+ 2c8:	2d 2d       	mov	r18, r13
+ 2ca:	4e 2d       	mov	r20, r14
+ 2cc:	6f 2d       	mov	r22, r15
+ 2ce:	8b e3       	ldi	r24, 0x3B	; 59
+ 2d0:	0e 94 d9 02 	call	0x5b2	; 0x5b2 <neopixel_setPixel>
+			neopixel_show();
+ 2d4:	0e 94 23 03 	call	0x646	; 0x646 <neopixel_show>
+			neopixel_shift(direction);
+ 2d8:	80 e0       	ldi	r24, 0x00	; 0
+ 2da:	0e 94 e4 02 	call	0x5c8	; 0x5c8 <neopixel_shift>
+		}
+		delay_ms(delay);
+ 2de:	c8 01       	movw	r24, r16
+ 2e0:	0e 94 5d 00 	call	0xba	; 0xba <delay_ms>
+ 2e4:	21 97       	sbiw	r28, 0x01	; 1
+ */
+void wipe(uint8_t red, uint8_t green, uint8_t blue, bool direction, int delay){
+
+	uint8_t pixel = ( direction )? neopixel_pixels - 1: 0;
+	// uint8_t pixel = neopixel_pixels - 1;
+	for(int i = 0; i < neopixel_pixels; i++){
+ 2e6:	e1 f6       	brne	.-72     	; 0x2a0 <wipe+0x2e>
 			neopixel_shift(direction);
 		}
 		delay_ms(delay);
 
 	}
 }
-  ba:	9f 92       	push	r9
-  bc:	af 92       	push	r10
-  be:	bf 92       	push	r11
-  c0:	cf 92       	push	r12
-  c2:	df 92       	push	r13
-  c4:	ef 92       	push	r14
-  c6:	ff 92       	push	r15
-  c8:	0f 93       	push	r16
-  ca:	1f 93       	push	r17
-  cc:	cf 93       	push	r28
-  ce:	df 93       	push	r29
-  d0:	0f 2e       	mov	r0, r31
-  d2:	f5 e0       	ldi	r31, 0x05	; 5
-  d4:	cf 2e       	mov	r12, r31
-  d6:	f0 2d       	mov	r31, r0
-  d8:	c0 e0       	ldi	r28, 0x00	; 0
-  da:	d0 e0       	ldi	r29, 0x00	; 0
-  dc:	e1 2c       	mov	r14, r1
-  de:	f1 2c       	mov	r15, r1
-  e0:	00 e0       	ldi	r16, 0x00	; 0
-  e2:	0f 2e       	mov	r0, r31
-  e4:	f6 ef       	ldi	r31, 0xF6	; 246
-  e6:	9f 2e       	mov	r9, r31
-  e8:	f0 2d       	mov	r31, r0
-  ea:	98 0e       	add	r9, r24
-  ec:	0f 2e       	mov	r0, r31
-  ee:	f4 ef       	ldi	r31, 0xF4	; 244
-  f0:	bf 2e       	mov	r11, r31
-  f2:	f0 2d       	mov	r31, r0
-  f4:	b8 0e       	add	r11, r24
-  f6:	a8 2e       	mov	r10, r24
-  f8:	1b ef       	ldi	r17, 0xFB	; 251
-  fa:	1c 0d       	add	r17, r12
-  fc:	d9 2c       	mov	r13, r9
-  fe:	c2 30       	cpi	r28, 0x02	; 2
- 100:	d1 05       	cpc	r29, r1
- 102:	99 f0       	breq	.+38     	; 0x12a <init_rainbow_pulse+0x70>
- 104:	34 f4       	brge	.+12     	; 0x112 <init_rainbow_pulse+0x58>
- 106:	20 97       	sbiw	r28, 0x00	; 0
- 108:	01 f1       	breq	.+64     	; 0x14a <init_rainbow_pulse+0x90>
- 10a:	c1 30       	cpi	r28, 0x01	; 1
- 10c:	d1 05       	cpc	r29, r1
- 10e:	49 f0       	breq	.+18     	; 0x122 <init_rainbow_pulse+0x68>
- 110:	1f c0       	rjmp	.+62     	; 0x150 <init_rainbow_pulse+0x96>
- 112:	c4 30       	cpi	r28, 0x04	; 4
- 114:	d1 05       	cpc	r29, r1
- 116:	89 f0       	breq	.+34     	; 0x13a <init_rainbow_pulse+0x80>
- 118:	64 f0       	brlt	.+24     	; 0x132 <init_rainbow_pulse+0x78>
- 11a:	c5 30       	cpi	r28, 0x05	; 5
- 11c:	d1 05       	cpc	r29, r1
- 11e:	89 f0       	breq	.+34     	; 0x142 <init_rainbow_pulse+0x88>
- 120:	17 c0       	rjmp	.+46     	; 0x150 <init_rainbow_pulse+0x96>
- 122:	0d 2d       	mov	r16, r13
- 124:	e1 2c       	mov	r14, r1
- 126:	f1 2c       	mov	r15, r1
- 128:	13 c0       	rjmp	.+38     	; 0x150 <init_rainbow_pulse+0x96>
- 12a:	fd 2c       	mov	r15, r13
- 12c:	0d 2d       	mov	r16, r13
- 12e:	e1 2c       	mov	r14, r1
- 130:	0f c0       	rjmp	.+30     	; 0x150 <init_rainbow_pulse+0x96>
- 132:	fd 2c       	mov	r15, r13
- 134:	e1 2c       	mov	r14, r1
- 136:	00 e0       	ldi	r16, 0x00	; 0
- 138:	0b c0       	rjmp	.+22     	; 0x150 <init_rainbow_pulse+0x96>
- 13a:	ed 2c       	mov	r14, r13
- 13c:	fd 2c       	mov	r15, r13
- 13e:	00 e0       	ldi	r16, 0x00	; 0
- 140:	07 c0       	rjmp	.+14     	; 0x150 <init_rainbow_pulse+0x96>
- 142:	ed 2c       	mov	r14, r13
- 144:	f1 2c       	mov	r15, r1
- 146:	00 e0       	ldi	r16, 0x00	; 0
- 148:	03 c0       	rjmp	.+6      	; 0x150 <init_rainbow_pulse+0x96>
- 14a:	ed 2c       	mov	r14, r13
- 14c:	0d 2d       	mov	r16, r13
- 14e:	f1 2c       	mov	r15, r1
- 150:	2e 2d       	mov	r18, r14
- 152:	4f 2d       	mov	r20, r15
- 154:	60 2f       	mov	r22, r16
- 156:	81 2f       	mov	r24, r17
- 158:	0e 94 0a 01 	call	0x214	; 0x214 <neopixel_setPixel>
- 15c:	1f 5f       	subi	r17, 0xFF	; 255
- 15e:	d3 94       	inc	r13
- 160:	d3 94       	inc	r13
- 162:	1c 11       	cpse	r17, r12
- 164:	cc cf       	rjmp	.-104    	; 0xfe <init_rainbow_pulse+0x44>
- 166:	dc 2c       	mov	r13, r12
- 168:	1a 2d       	mov	r17, r10
- 16a:	c2 30       	cpi	r28, 0x02	; 2
- 16c:	d1 05       	cpc	r29, r1
- 16e:	99 f0       	breq	.+38     	; 0x196 <init_rainbow_pulse+0xdc>
- 170:	34 f4       	brge	.+12     	; 0x17e <init_rainbow_pulse+0xc4>
- 172:	20 97       	sbiw	r28, 0x00	; 0
- 174:	01 f1       	breq	.+64     	; 0x1b6 <init_rainbow_pulse+0xfc>
- 176:	c1 30       	cpi	r28, 0x01	; 1
- 178:	d1 05       	cpc	r29, r1
- 17a:	49 f0       	breq	.+18     	; 0x18e <init_rainbow_pulse+0xd4>
- 17c:	1f c0       	rjmp	.+62     	; 0x1bc <init_rainbow_pulse+0x102>
- 17e:	c4 30       	cpi	r28, 0x04	; 4
- 180:	d1 05       	cpc	r29, r1
- 182:	89 f0       	breq	.+34     	; 0x1a6 <init_rainbow_pulse+0xec>
- 184:	64 f0       	brlt	.+24     	; 0x19e <init_rainbow_pulse+0xe4>
- 186:	c5 30       	cpi	r28, 0x05	; 5
- 188:	d1 05       	cpc	r29, r1
- 18a:	89 f0       	breq	.+34     	; 0x1ae <init_rainbow_pulse+0xf4>
- 18c:	17 c0       	rjmp	.+46     	; 0x1bc <init_rainbow_pulse+0x102>
- 18e:	01 2f       	mov	r16, r17
- 190:	e1 2c       	mov	r14, r1
- 192:	f1 2c       	mov	r15, r1
- 194:	13 c0       	rjmp	.+38     	; 0x1bc <init_rainbow_pulse+0x102>
- 196:	f1 2e       	mov	r15, r17
- 198:	01 2f       	mov	r16, r17
- 19a:	e1 2c       	mov	r14, r1
- 19c:	0f c0       	rjmp	.+30     	; 0x1bc <init_rainbow_pulse+0x102>
- 19e:	f1 2e       	mov	r15, r17
- 1a0:	e1 2c       	mov	r14, r1
- 1a2:	00 e0       	ldi	r16, 0x00	; 0
- 1a4:	0b c0       	rjmp	.+22     	; 0x1bc <init_rainbow_pulse+0x102>
- 1a6:	e1 2e       	mov	r14, r17
- 1a8:	f1 2e       	mov	r15, r17
- 1aa:	00 e0       	ldi	r16, 0x00	; 0
- 1ac:	07 c0       	rjmp	.+14     	; 0x1bc <init_rainbow_pulse+0x102>
- 1ae:	e1 2e       	mov	r14, r17
- 1b0:	f1 2c       	mov	r15, r1
- 1b2:	00 e0       	ldi	r16, 0x00	; 0
- 1b4:	03 c0       	rjmp	.+6      	; 0x1bc <init_rainbow_pulse+0x102>
- 1b6:	e1 2e       	mov	r14, r17
- 1b8:	01 2f       	mov	r16, r17
- 1ba:	f1 2c       	mov	r15, r1
- 1bc:	2e 2d       	mov	r18, r14
- 1be:	4f 2d       	mov	r20, r15
- 1c0:	60 2f       	mov	r22, r16
- 1c2:	8d 2d       	mov	r24, r13
- 1c4:	0e 94 0a 01 	call	0x214	; 0x214 <neopixel_setPixel>
- 1c8:	d3 94       	inc	r13
- 1ca:	12 50       	subi	r17, 0x02	; 2
- 1cc:	1b 11       	cpse	r17, r11
- 1ce:	cd cf       	rjmp	.-102    	; 0x16a <init_rainbow_pulse+0xb0>
- 1d0:	21 96       	adiw	r28, 0x01	; 1
- 1d2:	8a e0       	ldi	r24, 0x0A	; 10
- 1d4:	c8 0e       	add	r12, r24
- 1d6:	81 e4       	ldi	r24, 0x41	; 65
- 1d8:	c8 12       	cpse	r12, r24
- 1da:	8e cf       	rjmp	.-228    	; 0xf8 <init_rainbow_pulse+0x3e>
- 1dc:	df 91       	pop	r29
- 1de:	cf 91       	pop	r28
- 1e0:	1f 91       	pop	r17
- 1e2:	0f 91       	pop	r16
- 1e4:	ff 90       	pop	r15
- 1e6:	ef 90       	pop	r14
- 1e8:	df 90       	pop	r13
- 1ea:	cf 90       	pop	r12
- 1ec:	bf 90       	pop	r11
- 1ee:	af 90       	pop	r10
- 1f0:	9f 90       	pop	r9
- 1f2:	08 95       	ret
+ 2e8:	df 91       	pop	r29
+ 2ea:	cf 91       	pop	r28
+ 2ec:	1f 91       	pop	r17
+ 2ee:	0f 91       	pop	r16
+ 2f0:	ff 90       	pop	r15
+ 2f2:	ef 90       	pop	r14
+ 2f4:	df 90       	pop	r13
+ 2f6:	cf 90       	pop	r12
+ 2f8:	bf 90       	pop	r11
+ 2fa:	08 95       	ret
 
-000001f4 <main>:
+000002fc <rainbow_wipe>:
+
+/*!
+ * \brief The wipe function that will wipe in a "rainbow"
+ *
+ */
+void rainbow_wipe(uint8_t hue, bool direction, int delay){
+ 2fc:	2f 92       	push	r2
+ 2fe:	3f 92       	push	r3
+ 300:	4f 92       	push	r4
+ 302:	5f 92       	push	r5
+ 304:	6f 92       	push	r6
+ 306:	7f 92       	push	r7
+ 308:	8f 92       	push	r8
+ 30a:	9f 92       	push	r9
+ 30c:	af 92       	push	r10
+ 30e:	bf 92       	push	r11
+ 310:	cf 92       	push	r12
+ 312:	df 92       	push	r13
+ 314:	ef 92       	push	r14
+ 316:	ff 92       	push	r15
+ 318:	0f 93       	push	r16
+ 31a:	1f 93       	push	r17
+ 31c:	cf 93       	push	r28
+ 31e:	df 93       	push	r29
+ 320:	46 2e       	mov	r4, r22
+ 322:	4a 01       	movw	r8, r20
+
+	uint8_t pixel = ( direction )? neopixel_pixels - 1: 0;
+ 324:	61 11       	cpse	r22, r1
+ 326:	02 c0       	rjmp	.+4      	; 0x32c <rainbow_wipe+0x30>
+ 328:	21 2c       	mov	r2, r1
+ 32a:	04 c0       	rjmp	.+8      	; 0x334 <rainbow_wipe+0x38>
+ 32c:	0f 2e       	mov	r0, r31
+ 32e:	fb e3       	ldi	r31, 0x3B	; 59
+ 330:	2f 2e       	mov	r2, r31
+ 332:	f0 2d       	mov	r31, r0
+ 334:	0f 2e       	mov	r0, r31
+ 336:	f6 ef       	ldi	r31, 0xF6	; 246
+ 338:	af 2e       	mov	r10, r31
+ 33a:	bb 24       	eor	r11, r11
+ 33c:	ba 94       	dec	r11
+ 33e:	f0 2d       	mov	r31, r0
+ 340:	0f 2e       	mov	r0, r31
+ 342:	fc ee       	ldi	r31, 0xEC	; 236
+ 344:	cf 2e       	mov	r12, r31
+ 346:	dd 24       	eor	r13, r13
+ 348:	da 94       	dec	r13
+ 34a:	f0 2d       	mov	r31, r0
+ 34c:	0f 2e       	mov	r0, r31
+ 34e:	f2 ee       	ldi	r31, 0xE2	; 226
+ 350:	ef 2e       	mov	r14, r31
+ 352:	ff 24       	eor	r15, r15
+ 354:	fa 94       	dec	r15
+ 356:	f0 2d       	mov	r31, r0
+ 358:	08 ed       	ldi	r16, 0xD8	; 216
+ 35a:	1f ef       	ldi	r17, 0xFF	; 255
+	uint8_t red, green, blue;
+	for(int i = 0; i < neopixel_pixels; i++){
+ 35c:	c0 e0       	ldi	r28, 0x00	; 0
+ 35e:	d0 e0       	ldi	r29, 0x00	; 0
+				blue = hue;
+			}
+			if ( i >= 50 ) {
+				red = NEO_ALL_OFF;
+				green = NEO_ALL_OFF;
+				blue = hue;
+ 360:	38 2e       	mov	r3, r24
+void rainbow_wipe(uint8_t hue, bool direction, int delay){
+
+	uint8_t pixel = ( direction )? neopixel_pixels - 1: 0;
+	uint8_t red, green, blue;
+	for(int i = 0; i < neopixel_pixels; i++){
+		if( direction ) {
+ 362:	44 20       	and	r4, r4
+ 364:	99 f1       	breq	.+102    	; 0x3cc <rainbow_wipe+0xd0>
+			if ( i <= 9) {
+ 366:	ca 30       	cpi	r28, 0x0A	; 10
+ 368:	d1 05       	cpc	r29, r1
+ 36a:	1c f4       	brge	.+6      	; 0x372 <rainbow_wipe+0x76>
+				red = hue;
+				green = NEO_ALL_OFF;
+				blue = hue;
+ 36c:	53 2c       	mov	r5, r3
+	uint8_t pixel = ( direction )? neopixel_pixels - 1: 0;
+	uint8_t red, green, blue;
+	for(int i = 0; i < neopixel_pixels; i++){
+		if( direction ) {
+			if ( i <= 9) {
+				red = hue;
+ 36e:	73 2c       	mov	r7, r3
+				green = NEO_ALL_OFF;
+ 370:	61 2c       	mov	r6, r1
+				blue = hue;
+			}
+			if ( i >= 10 && i <= 19) {
+ 372:	8a e0       	ldi	r24, 0x0A	; 10
+ 374:	a8 16       	cp	r10, r24
+ 376:	b1 04       	cpc	r11, r1
+ 378:	18 f4       	brcc	.+6      	; 0x380 <rainbow_wipe+0x84>
+				red = hue;
+ 37a:	73 2c       	mov	r7, r3
+				green = NEO_ALL_OFF;
+				blue = NEO_ALL_OFF;
+ 37c:	51 2c       	mov	r5, r1
+				green = NEO_ALL_OFF;
+				blue = hue;
+			}
+			if ( i >= 10 && i <= 19) {
+				red = hue;
+				green = NEO_ALL_OFF;
+ 37e:	61 2c       	mov	r6, r1
+				blue = NEO_ALL_OFF;
+			}
+			if ( i >= 20 && i <= 29) {
+ 380:	8a e0       	ldi	r24, 0x0A	; 10
+ 382:	c8 16       	cp	r12, r24
+ 384:	d1 04       	cpc	r13, r1
+ 386:	18 f4       	brcc	.+6      	; 0x38e <rainbow_wipe+0x92>
+				red = hue;
+				green = hue;
+ 388:	63 2c       	mov	r6, r3
+				red = hue;
+				green = NEO_ALL_OFF;
+				blue = NEO_ALL_OFF;
+			}
+			if ( i >= 20 && i <= 29) {
+				red = hue;
+ 38a:	73 2c       	mov	r7, r3
+				green = hue;
+				blue = NEO_ALL_OFF;
+ 38c:	51 2c       	mov	r5, r1
+			}
+			if ( i >= 30 && i <= 39) {
+ 38e:	8a e0       	ldi	r24, 0x0A	; 10
+ 390:	e8 16       	cp	r14, r24
+ 392:	f1 04       	cpc	r15, r1
+ 394:	18 f4       	brcc	.+6      	; 0x39c <rainbow_wipe+0xa0>
+				red = NEO_ALL_OFF;
+				green = hue;
+ 396:	63 2c       	mov	r6, r3
+				blue = NEO_ALL_OFF;
+ 398:	51 2c       	mov	r5, r1
+				red = hue;
+				green = hue;
+				blue = NEO_ALL_OFF;
+			}
+			if ( i >= 30 && i <= 39) {
+				red = NEO_ALL_OFF;
+ 39a:	71 2c       	mov	r7, r1
+				green = hue;
+				blue = NEO_ALL_OFF;
+			}
+			if ( i >= 40 && i <= 49) {
+ 39c:	0a 30       	cpi	r16, 0x0A	; 10
+ 39e:	11 05       	cpc	r17, r1
+ 3a0:	18 f4       	brcc	.+6      	; 0x3a8 <rainbow_wipe+0xac>
+				red = NEO_ALL_OFF;
+				green = hue;
+				blue = hue;
+ 3a2:	53 2c       	mov	r5, r3
+				green = hue;
+				blue = NEO_ALL_OFF;
+			}
+			if ( i >= 40 && i <= 49) {
+				red = NEO_ALL_OFF;
+				green = hue;
+ 3a4:	63 2c       	mov	r6, r3
+				red = NEO_ALL_OFF;
+				green = hue;
+				blue = NEO_ALL_OFF;
+			}
+			if ( i >= 40 && i <= 49) {
+				red = NEO_ALL_OFF;
+ 3a6:	71 2c       	mov	r7, r1
+				green = hue;
+				blue = hue;
+			}
+			if ( i >= 50 ) {
+ 3a8:	c2 33       	cpi	r28, 0x32	; 50
+ 3aa:	d1 05       	cpc	r29, r1
+ 3ac:	1c f0       	brlt	.+6      	; 0x3b4 <rainbow_wipe+0xb8>
+				red = NEO_ALL_OFF;
+				green = NEO_ALL_OFF;
+				blue = hue;
+ 3ae:	53 2c       	mov	r5, r3
+				green = hue;
+				blue = hue;
+			}
+			if ( i >= 50 ) {
+				red = NEO_ALL_OFF;
+				green = NEO_ALL_OFF;
+ 3b0:	61 2c       	mov	r6, r1
+				red = NEO_ALL_OFF;
+				green = hue;
+				blue = hue;
+			}
+			if ( i >= 50 ) {
+				red = NEO_ALL_OFF;
+ 3b2:	71 2c       	mov	r7, r1
+				green = NEO_ALL_OFF;
+				blue = hue;
+			}
+
+			neopixel_setPixel(pixel, red, green, blue);
+ 3b4:	25 2d       	mov	r18, r5
+ 3b6:	46 2d       	mov	r20, r6
+ 3b8:	67 2d       	mov	r22, r7
+ 3ba:	82 2d       	mov	r24, r2
+ 3bc:	0e 94 d9 02 	call	0x5b2	; 0x5b2 <neopixel_setPixel>
+			neopixel_show();
+ 3c0:	0e 94 23 03 	call	0x646	; 0x646 <neopixel_show>
+			neopixel_shift(direction);
+ 3c4:	81 e0       	ldi	r24, 0x01	; 1
+ 3c6:	0e 94 e4 02 	call	0x5c8	; 0x5c8 <neopixel_shift>
+ 3ca:	38 c0       	rjmp	.+112    	; 0x43c <__LOCK_REGION_LENGTH__+0x3c>
+		} else {
+			if ( i <= 9) {
+ 3cc:	ca 30       	cpi	r28, 0x0A	; 10
+ 3ce:	d1 05       	cpc	r29, r1
+ 3d0:	1c f4       	brge	.+6      	; 0x3d8 <rainbow_wipe+0xdc>
+				red = hue;
+				green = NEO_ALL_OFF;
+				blue = hue;
+ 3d2:	53 2c       	mov	r5, r3
+			neopixel_setPixel(pixel, red, green, blue);
+			neopixel_show();
+			neopixel_shift(direction);
+		} else {
+			if ( i <= 9) {
+				red = hue;
+ 3d4:	73 2c       	mov	r7, r3
+				green = NEO_ALL_OFF;
+ 3d6:	61 2c       	mov	r6, r1
+				blue = hue;
+			}
+			if ( i >= 10 && i <= 19) {
+ 3d8:	8a e0       	ldi	r24, 0x0A	; 10
+ 3da:	a8 16       	cp	r10, r24
+ 3dc:	b1 04       	cpc	r11, r1
+ 3de:	18 f4       	brcc	.+6      	; 0x3e6 <rainbow_wipe+0xea>
+				red = hue;
+ 3e0:	73 2c       	mov	r7, r3
+				green = NEO_ALL_OFF;
+				blue = NEO_ALL_OFF;
+ 3e2:	51 2c       	mov	r5, r1
+				green = NEO_ALL_OFF;
+				blue = hue;
+			}
+			if ( i >= 10 && i <= 19) {
+				red = hue;
+				green = NEO_ALL_OFF;
+ 3e4:	61 2c       	mov	r6, r1
+				blue = NEO_ALL_OFF;
+			}
+			if ( i >= 20 && i <= 29) {
+ 3e6:	8a e0       	ldi	r24, 0x0A	; 10
+ 3e8:	c8 16       	cp	r12, r24
+ 3ea:	d1 04       	cpc	r13, r1
+ 3ec:	18 f4       	brcc	.+6      	; 0x3f4 <rainbow_wipe+0xf8>
+				red = hue;
+				green = hue;
+ 3ee:	63 2c       	mov	r6, r3
+				red = hue;
+				green = NEO_ALL_OFF;
+				blue = NEO_ALL_OFF;
+			}
+			if ( i >= 20 && i <= 29) {
+				red = hue;
+ 3f0:	73 2c       	mov	r7, r3
+				green = hue;
+				blue = NEO_ALL_OFF;
+ 3f2:	51 2c       	mov	r5, r1
+			}
+			if ( i >= 30 && i <= 39) {
+ 3f4:	8a e0       	ldi	r24, 0x0A	; 10
+ 3f6:	e8 16       	cp	r14, r24
+ 3f8:	f1 04       	cpc	r15, r1
+ 3fa:	18 f4       	brcc	.+6      	; 0x402 <__LOCK_REGION_LENGTH__+0x2>
+				red = NEO_ALL_OFF;
+				green = hue;
+ 3fc:	63 2c       	mov	r6, r3
+				blue = NEO_ALL_OFF;
+ 3fe:	51 2c       	mov	r5, r1
+				red = hue;
+				green = hue;
+				blue = NEO_ALL_OFF;
+			}
+			if ( i >= 30 && i <= 39) {
+				red = NEO_ALL_OFF;
+ 400:	71 2c       	mov	r7, r1
+				green = hue;
+				blue = NEO_ALL_OFF;
+			}
+			if ( i >= 40 && i <= 49) {
+ 402:	0a 30       	cpi	r16, 0x0A	; 10
+ 404:	11 05       	cpc	r17, r1
+ 406:	18 f4       	brcc	.+6      	; 0x40e <__LOCK_REGION_LENGTH__+0xe>
+				red = NEO_ALL_OFF;
+				green = hue;
+				blue = hue;
+ 408:	53 2c       	mov	r5, r3
+				green = hue;
+				blue = NEO_ALL_OFF;
+			}
+			if ( i >= 40 && i <= 49) {
+				red = NEO_ALL_OFF;
+				green = hue;
+ 40a:	63 2c       	mov	r6, r3
+				red = NEO_ALL_OFF;
+				green = hue;
+				blue = NEO_ALL_OFF;
+			}
+			if ( i >= 40 && i <= 49) {
+				red = NEO_ALL_OFF;
+ 40c:	71 2c       	mov	r7, r1
+				green = hue;
+				blue = hue;
+			}
+			if ( i >= 50 ) {
+ 40e:	c2 33       	cpi	r28, 0x32	; 50
+ 410:	d1 05       	cpc	r29, r1
+ 412:	1c f0       	brlt	.+6      	; 0x41a <__LOCK_REGION_LENGTH__+0x1a>
+				red = NEO_ALL_OFF;
+				green = NEO_ALL_OFF;
+				blue = hue;
+ 414:	53 2c       	mov	r5, r3
+				green = hue;
+				blue = hue;
+			}
+			if ( i >= 50 ) {
+				red = NEO_ALL_OFF;
+				green = NEO_ALL_OFF;
+ 416:	61 2c       	mov	r6, r1
+				red = NEO_ALL_OFF;
+				green = hue;
+				blue = hue;
+			}
+			if ( i >= 50 ) {
+				red = NEO_ALL_OFF;
+ 418:	71 2c       	mov	r7, r1
+				green = NEO_ALL_OFF;
+				blue = hue;
+			}
+
+			neopixel_setPixel(0, red, green, blue);
+ 41a:	25 2d       	mov	r18, r5
+ 41c:	46 2d       	mov	r20, r6
+ 41e:	67 2d       	mov	r22, r7
+ 420:	80 e0       	ldi	r24, 0x00	; 0
+ 422:	0e 94 d9 02 	call	0x5b2	; 0x5b2 <neopixel_setPixel>
+			neopixel_setPixel(neopixel_pixels - 1, red, green, blue);
+ 426:	25 2d       	mov	r18, r5
+ 428:	46 2d       	mov	r20, r6
+ 42a:	67 2d       	mov	r22, r7
+ 42c:	8b e3       	ldi	r24, 0x3B	; 59
+ 42e:	0e 94 d9 02 	call	0x5b2	; 0x5b2 <neopixel_setPixel>
+			neopixel_show();
+ 432:	0e 94 23 03 	call	0x646	; 0x646 <neopixel_show>
+			neopixel_shift(direction);
+ 436:	80 e0       	ldi	r24, 0x00	; 0
+ 438:	0e 94 e4 02 	call	0x5c8	; 0x5c8 <neopixel_shift>
+		}
+		delay_ms(delay);
+ 43c:	c4 01       	movw	r24, r8
+ 43e:	0e 94 5d 00 	call	0xba	; 0xba <delay_ms>
+ */
+void rainbow_wipe(uint8_t hue, bool direction, int delay){
+
+	uint8_t pixel = ( direction )? neopixel_pixels - 1: 0;
+	uint8_t red, green, blue;
+	for(int i = 0; i < neopixel_pixels; i++){
+ 442:	21 96       	adiw	r28, 0x01	; 1
+ 444:	0f 5f       	subi	r16, 0xFF	; 255
+ 446:	1f 4f       	sbci	r17, 0xFF	; 255
+ 448:	8f ef       	ldi	r24, 0xFF	; 255
+ 44a:	e8 1a       	sub	r14, r24
+ 44c:	f8 0a       	sbc	r15, r24
+ 44e:	8f ef       	ldi	r24, 0xFF	; 255
+ 450:	c8 1a       	sub	r12, r24
+ 452:	d8 0a       	sbc	r13, r24
+ 454:	8f ef       	ldi	r24, 0xFF	; 255
+ 456:	a8 1a       	sub	r10, r24
+ 458:	b8 0a       	sbc	r11, r24
+ 45a:	cc 33       	cpi	r28, 0x3C	; 60
+ 45c:	d1 05       	cpc	r29, r1
+ 45e:	09 f0       	breq	.+2      	; 0x462 <__LOCK_REGION_LENGTH__+0x62>
+ 460:	80 cf       	rjmp	.-256    	; 0x362 <rainbow_wipe+0x66>
+			neopixel_shift(direction);
+		}
+		delay_ms(delay);
+
+	}
+}
+ 462:	df 91       	pop	r29
+ 464:	cf 91       	pop	r28
+ 466:	1f 91       	pop	r17
+ 468:	0f 91       	pop	r16
+ 46a:	ff 90       	pop	r15
+ 46c:	ef 90       	pop	r14
+ 46e:	df 90       	pop	r13
+ 470:	cf 90       	pop	r12
+ 472:	bf 90       	pop	r11
+ 474:	af 90       	pop	r10
+ 476:	9f 90       	pop	r9
+ 478:	8f 90       	pop	r8
+ 47a:	7f 90       	pop	r7
+ 47c:	6f 90       	pop	r6
+ 47e:	5f 90       	pop	r5
+ 480:	4f 90       	pop	r4
+ 482:	3f 90       	pop	r3
+ 484:	2f 90       	pop	r2
+ 486:	08 95       	ret
+
+00000488 <main>:
 	// This register is protected and can not be changed until the CPP register in the CPU
 	// is written with the signature of 0xD8 ... I think I need to insert some assembly code here
 	// This PEN flag is reset, this means that the Source clock is fed right through and not pre-scaled.
 	// This needs to be checked for the electrical characteristics is such that the full 5V is required.
 
 	CPU_CCP = CCP_IOREG_gc;
- 1f4:	88 ed       	ldi	r24, 0xD8	; 216
- 1f6:	84 bf       	out	0x34, r24	; 52
+ 488:	88 ed       	ldi	r24, 0xD8	; 216
+ 48a:	84 bf       	out	0x34, r24	; 52
 	CLKCTRL.MCLKCTRLB = _MAIN_CLOCK;
- 1f8:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <__TEXT_REGION_LENGTH__+0x700061>
+ 48c:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <__TEXT_REGION_LENGTH__+0x700061>
 
 	PORTA.DIR |= 1 << 1;
- 1fc:	e0 e0       	ldi	r30, 0x00	; 0
- 1fe:	f4 e0       	ldi	r31, 0x04	; 4
- 200:	80 81       	ld	r24, Z
- 202:	82 60       	ori	r24, 0x02	; 2
- 204:	80 83       	st	Z, r24
+ 490:	e0 e0       	ldi	r30, 0x00	; 0
+ 492:	f4 e0       	ldi	r31, 0x04	; 4
+ 494:	80 81       	ld	r24, Z
+ 496:	82 60       	ori	r24, 0x02	; 2
+ 498:	80 83       	st	Z, r24
 
-	// int delay, positions;
-	// positions = 60;
-	// delay = 50;
-	init_rainbow_pulse( BASE_HUE );
- 206:	8f e1       	ldi	r24, 0x1F	; 31
- 208:	0e 94 5d 00 	call	0xba	; 0xba <init_rainbow_pulse>
+	int delay, positions;
+	positions = neopixel_pixels * 4;
+	bool filltype = true;
+ 49a:	c1 e0       	ldi	r28, 0x01	; 1
+	while( true ) {
+		delay = 10;
+        wipe(LOW_INTENSITY, 0x00, 0x00, true, delay);
+ 49c:	0a e0       	ldi	r16, 0x0A	; 10
+ 49e:	10 e0       	ldi	r17, 0x00	; 0
+ 4a0:	21 e0       	ldi	r18, 0x01	; 1
+ 4a2:	40 e0       	ldi	r20, 0x00	; 0
+ 4a4:	60 e0       	ldi	r22, 0x00	; 0
+ 4a6:	83 e0       	ldi	r24, 0x03	; 3
+ 4a8:	0e 94 39 01 	call	0x272	; 0x272 <wipe>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
 
-	while(true){
-		init_rainbow_pulse( BASE_HUE );
- 20c:	8f e1       	ldi	r24, 0x1F	; 31
- 20e:	0e 94 5d 00 	call	0xba	; 0xba <init_rainbow_pulse>
- 212:	fc cf       	rjmp	.-8      	; 0x20c <main+0x18>
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 4ac:	2f e7       	ldi	r18, 0x7F	; 127
+ 4ae:	8a e1       	ldi	r24, 0x1A	; 26
+ 4b0:	96 e0       	ldi	r25, 0x06	; 6
+ 4b2:	21 50       	subi	r18, 0x01	; 1
+ 4b4:	80 40       	sbci	r24, 0x00	; 0
+ 4b6:	90 40       	sbci	r25, 0x00	; 0
+ 4b8:	e1 f7       	brne	.-8      	; 0x4b2 <main+0x2a>
+ 4ba:	00 c0       	rjmp	.+0      	; 0x4bc <main+0x34>
+ 4bc:	00 00       	nop
+		_delay_ms(100);
+        wipe(LOW_INTENSITY, LOW_INTENSITY, 0x00, false, delay);
+ 4be:	20 e0       	ldi	r18, 0x00	; 0
+ 4c0:	40 e0       	ldi	r20, 0x00	; 0
+ 4c2:	63 e0       	ldi	r22, 0x03	; 3
+ 4c4:	83 e0       	ldi	r24, 0x03	; 3
+ 4c6:	0e 94 39 01 	call	0x272	; 0x272 <wipe>
+ 4ca:	2f e7       	ldi	r18, 0x7F	; 127
+ 4cc:	8a e1       	ldi	r24, 0x1A	; 26
+ 4ce:	96 e0       	ldi	r25, 0x06	; 6
+ 4d0:	21 50       	subi	r18, 0x01	; 1
+ 4d2:	80 40       	sbci	r24, 0x00	; 0
+ 4d4:	90 40       	sbci	r25, 0x00	; 0
+ 4d6:	e1 f7       	brne	.-8      	; 0x4d0 <main+0x48>
+ 4d8:	00 c0       	rjmp	.+0      	; 0x4da <main+0x52>
+ 4da:	00 00       	nop
+		_delay_ms(100);
+        wipe(0x00, LOW_INTENSITY, 0x00, true, delay);
+ 4dc:	21 e0       	ldi	r18, 0x01	; 1
+ 4de:	40 e0       	ldi	r20, 0x00	; 0
+ 4e0:	63 e0       	ldi	r22, 0x03	; 3
+ 4e2:	80 e0       	ldi	r24, 0x00	; 0
+ 4e4:	0e 94 39 01 	call	0x272	; 0x272 <wipe>
+ 4e8:	2f e7       	ldi	r18, 0x7F	; 127
+ 4ea:	8a e1       	ldi	r24, 0x1A	; 26
+ 4ec:	96 e0       	ldi	r25, 0x06	; 6
+ 4ee:	21 50       	subi	r18, 0x01	; 1
+ 4f0:	80 40       	sbci	r24, 0x00	; 0
+ 4f2:	90 40       	sbci	r25, 0x00	; 0
+ 4f4:	e1 f7       	brne	.-8      	; 0x4ee <main+0x66>
+ 4f6:	00 c0       	rjmp	.+0      	; 0x4f8 <main+0x70>
+ 4f8:	00 00       	nop
+		_delay_ms(100);
+        wipe(0x00, LOW_INTENSITY, LOW_INTENSITY, false, delay);
+ 4fa:	20 e0       	ldi	r18, 0x00	; 0
+ 4fc:	43 e0       	ldi	r20, 0x03	; 3
+ 4fe:	63 e0       	ldi	r22, 0x03	; 3
+ 500:	80 e0       	ldi	r24, 0x00	; 0
+ 502:	0e 94 39 01 	call	0x272	; 0x272 <wipe>
+ 506:	2f e7       	ldi	r18, 0x7F	; 127
+ 508:	8a e1       	ldi	r24, 0x1A	; 26
+ 50a:	96 e0       	ldi	r25, 0x06	; 6
+ 50c:	21 50       	subi	r18, 0x01	; 1
+ 50e:	80 40       	sbci	r24, 0x00	; 0
+ 510:	90 40       	sbci	r25, 0x00	; 0
+ 512:	e1 f7       	brne	.-8      	; 0x50c <main+0x84>
+ 514:	00 c0       	rjmp	.+0      	; 0x516 <main+0x8e>
+ 516:	00 00       	nop
+		_delay_ms(100);
+        wipe(0x00, 0x00, LOW_INTENSITY, true, delay);
+ 518:	21 e0       	ldi	r18, 0x01	; 1
+ 51a:	43 e0       	ldi	r20, 0x03	; 3
+ 51c:	60 e0       	ldi	r22, 0x00	; 0
+ 51e:	80 e0       	ldi	r24, 0x00	; 0
+ 520:	0e 94 39 01 	call	0x272	; 0x272 <wipe>
+ 524:	2f e7       	ldi	r18, 0x7F	; 127
+ 526:	8a e1       	ldi	r24, 0x1A	; 26
+ 528:	96 e0       	ldi	r25, 0x06	; 6
+ 52a:	21 50       	subi	r18, 0x01	; 1
+ 52c:	80 40       	sbci	r24, 0x00	; 0
+ 52e:	90 40       	sbci	r25, 0x00	; 0
+ 530:	e1 f7       	brne	.-8      	; 0x52a <main+0xa2>
+ 532:	00 c0       	rjmp	.+0      	; 0x534 <main+0xac>
+ 534:	00 00       	nop
+		_delay_ms(100);
+        wipe(LOW_INTENSITY, 0x00, LOW_INTENSITY, false, delay);
+ 536:	20 e0       	ldi	r18, 0x00	; 0
+ 538:	43 e0       	ldi	r20, 0x03	; 3
+ 53a:	60 e0       	ldi	r22, 0x00	; 0
+ 53c:	83 e0       	ldi	r24, 0x03	; 3
+ 53e:	0e 94 39 01 	call	0x272	; 0x272 <wipe>
+ 542:	2f e7       	ldi	r18, 0x7F	; 127
+ 544:	8a e1       	ldi	r24, 0x1A	; 26
+ 546:	96 e0       	ldi	r25, 0x06	; 6
+ 548:	21 50       	subi	r18, 0x01	; 1
+ 54a:	80 40       	sbci	r24, 0x00	; 0
+ 54c:	90 40       	sbci	r25, 0x00	; 0
+ 54e:	e1 f7       	brne	.-8      	; 0x548 <main+0xc0>
+ 550:	00 c0       	rjmp	.+0      	; 0x552 <main+0xca>
+ 552:	00 00       	nop
+		_delay_ms(100);
 
-00000214 <neopixel_setPixel>:
+		delay = 50;
+		if ( filltype ) {
+ 554:	cc 23       	and	r28, r28
+ 556:	41 f0       	breq	.+16     	; 0x568 <main+0xe0>
+			// init_rainbow( LOW_INTENSITY );
+			rainbow_wipe( LOW_INTENSITY, true, delay);
+ 558:	42 e3       	ldi	r20, 0x32	; 50
+ 55a:	50 e0       	ldi	r21, 0x00	; 0
+ 55c:	61 e0       	ldi	r22, 0x01	; 1
+ 55e:	83 e0       	ldi	r24, 0x03	; 3
+ 560:	0e 94 7e 01 	call	0x2fc	; 0x2fc <rainbow_wipe>
+			filltype = false;
+ 564:	c0 e0       	ldi	r28, 0x00	; 0
+ 566:	04 c0       	rjmp	.+8      	; 0x570 <main+0xe8>
+		} else {
+			init_rainbow_pulse( BASE_HUE );
+ 568:	8f e0       	ldi	r24, 0x0F	; 15
+ 56a:	0e 94 91 00 	call	0x122	; 0x122 <init_rainbow_pulse>
+			filltype = true;
+ 56e:	c1 e0       	ldi	r28, 0x01	; 1
+		}
+		delay = 100;
+		pixel_chaser(true, positions, delay);
+ 570:	44 e6       	ldi	r20, 0x64	; 100
+ 572:	50 e0       	ldi	r21, 0x00	; 0
+ 574:	60 ef       	ldi	r22, 0xF0	; 240
+ 576:	70 e0       	ldi	r23, 0x00	; 0
+ 578:	81 e0       	ldi	r24, 0x01	; 1
+ 57a:	0e 94 6e 00 	call	0xdc	; 0xdc <pixel_chaser>
+ 57e:	2f e7       	ldi	r18, 0x7F	; 127
+ 580:	84 e8       	ldi	r24, 0x84	; 132
+ 582:	9e e1       	ldi	r25, 0x1E	; 30
+ 584:	21 50       	subi	r18, 0x01	; 1
+ 586:	80 40       	sbci	r24, 0x00	; 0
+ 588:	90 40       	sbci	r25, 0x00	; 0
+ 58a:	e1 f7       	brne	.-8      	; 0x584 <main+0xfc>
+ 58c:	00 c0       	rjmp	.+0      	; 0x58e <main+0x106>
+ 58e:	00 00       	nop
+		_delay_ms(500);
+		pixel_chaser(false, positions, delay);
+ 590:	44 e6       	ldi	r20, 0x64	; 100
+ 592:	50 e0       	ldi	r21, 0x00	; 0
+ 594:	60 ef       	ldi	r22, 0xF0	; 240
+ 596:	70 e0       	ldi	r23, 0x00	; 0
+ 598:	80 e0       	ldi	r24, 0x00	; 0
+ 59a:	0e 94 6e 00 	call	0xdc	; 0xdc <pixel_chaser>
+ 59e:	2f e7       	ldi	r18, 0x7F	; 127
+ 5a0:	84 e8       	ldi	r24, 0x84	; 132
+ 5a2:	9e e1       	ldi	r25, 0x1E	; 30
+ 5a4:	21 50       	subi	r18, 0x01	; 1
+ 5a6:	80 40       	sbci	r24, 0x00	; 0
+ 5a8:	90 40       	sbci	r25, 0x00	; 0
+ 5aa:	e1 f7       	brne	.-8      	; 0x5a4 <main+0x11c>
+ 5ac:	00 c0       	rjmp	.+0      	; 0x5ae <main+0x126>
+ 5ae:	00 00       	nop
+ 5b0:	75 cf       	rjmp	.-278    	; 0x49c <main+0x14>
+
+000005b2 <neopixel_setPixel>:
+void neopixel_fill(uint8_t red, uint8_t green, uint8_t blue){
+   for(int i = 0; i < neopixel_pixels; i++)
+   {
+      neopixel_setPixel(i, red, green, blue);
+   }
+}
+ 5b2:	e8 2f       	mov	r30, r24
+ 5b4:	ee 0f       	add	r30, r30
+ 5b6:	8e 0f       	add	r24, r30
+ 5b8:	e8 2f       	mov	r30, r24
+ 5ba:	f0 e0       	ldi	r31, 0x00	; 0
+ 5bc:	ee 5f       	subi	r30, 0xFE	; 254
+ 5be:	f7 4c       	sbci	r31, 0xC7	; 199
+ 5c0:	61 83       	std	Z+1, r22	; 0x01
+ 5c2:	40 83       	st	Z, r20
+ 5c4:	22 83       	std	Z+2, r18	; 0x02
+ 5c6:	08 95       	ret
+
+000005c8 <neopixel_shift>:
+/*!
+ * \brief	Shifts the pixels one pixel in the indicated direction
+ */
+void neopixel_shift(bool direction){
+
+   if( direction ) {
+ 5c8:	88 23       	and	r24, r24
+ 5ca:	d1 f0       	breq	.+52     	; 0x600 <neopixel_shift+0x38>
+ 5cc:	e2 e0       	ldi	r30, 0x02	; 2
+ 5ce:	f8 e3       	ldi	r31, 0x38	; 56
+ 5d0:	23 eb       	ldi	r18, 0xB3	; 179
+ 5d2:	38 e3       	ldi	r19, 0x38	; 56
+		for (int i = 0; i < ( neopixel_pixels - 1); i++){
+			uint8_t baseLocation = i * 3;
+			uint8_t newBaseLocation = (i + 1) * 3;
+
+			buffer[ baseLocation + NEO_RED ] = buffer[ newBaseLocation + NEO_RED ];
+ 5d4:	84 81       	ldd	r24, Z+4	; 0x04
+ 5d6:	81 83       	std	Z+1, r24	; 0x01
+			buffer[ baseLocation + NEO_GREEN ] = buffer[newBaseLocation + NEO_GREEN];
+ 5d8:	83 81       	ldd	r24, Z+3	; 0x03
+ 5da:	80 83       	st	Z, r24
+			buffer[ baseLocation +NEO_BLUE ] = buffer[newBaseLocation + NEO_BLUE];
+ 5dc:	85 81       	ldd	r24, Z+5	; 0x05
+ 5de:	82 83       	std	Z+2, r24	; 0x02
+ 5e0:	33 96       	adiw	r30, 0x03	; 3
+ * \brief	Shifts the pixels one pixel in the indicated direction
+ */
+void neopixel_shift(bool direction){
+
+   if( direction ) {
+		for (int i = 0; i < ( neopixel_pixels - 1); i++){
+ 5e2:	e2 17       	cp	r30, r18
+ 5e4:	f3 07       	cpc	r31, r19
+ 5e6:	b1 f7       	brne	.-20     	; 0x5d4 <neopixel_shift+0xc>
+			buffer[ baseLocation + NEO_RED ] = buffer[ newBaseLocation + NEO_RED ];
+			buffer[ baseLocation + NEO_GREEN ] = buffer[newBaseLocation + NEO_GREEN];
+			buffer[ baseLocation +NEO_BLUE ] = buffer[newBaseLocation + NEO_BLUE];
+		}
+		uint8_t lastLocation = (neopixel_pixels -1) *3;
+		buffer[lastLocation + NEO_RED] = buffer[NEO_RED];
+ 5e8:	e2 e0       	ldi	r30, 0x02	; 2
+ 5ea:	f8 e3       	ldi	r31, 0x38	; 56
+ 5ec:	81 81       	ldd	r24, Z+1	; 0x01
+ 5ee:	80 93 b4 38 	sts	0x38B4, r24	; 0x8038b4 <__data_end+0xb2>
+		buffer[lastLocation + NEO_GREEN] = buffer[NEO_GREEN];
+ 5f2:	80 81       	ld	r24, Z
+ 5f4:	80 93 b3 38 	sts	0x38B3, r24	; 0x8038b3 <__data_end+0xb1>
+		buffer[lastLocation + NEO_BLUE] = buffer[NEO_BLUE];
+ 5f8:	82 81       	ldd	r24, Z+2	; 0x02
+ 5fa:	80 93 b5 38 	sts	0x38B5, r24	; 0x8038b5 <__data_end+0xb3>
+ 5fe:	08 95       	ret
+	} else {
 
 
-void neopixel_setPixel(uint8_t pixel, uint8_t red, uint8_t green, uint8_t blue)
+	    uint8_t firstPixel = 0;
+	    buffer[firstPixel + NEO_RED] =  buffer[ LAST_PIXEL + NEO_RED];
+ 600:	e2 e0       	ldi	r30, 0x02	; 2
+ 602:	f8 e3       	ldi	r31, 0x38	; 56
+ 604:	80 91 b4 38 	lds	r24, 0x38B4	; 0x8038b4 <__data_end+0xb2>
+ 608:	81 83       	std	Z+1, r24	; 0x01
+	    buffer[firstPixel + NEO_GREEN] = buffer[ LAST_PIXEL + NEO_GREEN];
+ 60a:	80 91 b3 38 	lds	r24, 0x38B3	; 0x8038b3 <__data_end+0xb1>
+ 60e:	80 83       	st	Z, r24
+	    buffer[firstPixel + NEO_BLUE] = buffer[ LAST_PIXEL + NEO_BLUE];
+ 610:	80 91 b5 38 	lds	r24, 0x38B5	; 0x8038b5 <__data_end+0xb3>
+ 614:	82 83       	std	Z+2, r24	; 0x02
+ 616:	e3 eb       	ldi	r30, 0xB3	; 179
+ 618:	f8 e3       	ldi	r31, 0x38	; 56
+ 61a:	22 e0       	ldi	r18, 0x02	; 2
+ 61c:	38 e3       	ldi	r19, 0x38	; 56
+ 61e:	8e ea       	ldi	r24, 0xAE	; 174
+
+		for (int i = neopixel_pixels -1; i > 0; i--){
+			uint8_t  baseLocation= i * 3;
+			uint8_t newBaseLocation = ( i - 1) * 3;
+
+			buffer[ baseLocation + NEO_RED ] = buffer[ newBaseLocation + NEO_RED ];
+ 620:	a8 2f       	mov	r26, r24
+ 622:	b0 e0       	ldi	r27, 0x00	; 0
+ 624:	ae 5f       	subi	r26, 0xFE	; 254
+ 626:	b7 4c       	sbci	r27, 0xC7	; 199
+ 628:	11 96       	adiw	r26, 0x01	; 1
+ 62a:	9c 91       	ld	r25, X
+ 62c:	11 97       	sbiw	r26, 0x01	; 1
+ 62e:	91 83       	std	Z+1, r25	; 0x01
+			buffer[ baseLocation + NEO_GREEN ] = buffer[newBaseLocation + NEO_GREEN];
+ 630:	9c 91       	ld	r25, X
+ 632:	90 83       	st	Z, r25
+			buffer[ baseLocation +NEO_BLUE ] = buffer[newBaseLocation + NEO_BLUE];
+ 634:	12 96       	adiw	r26, 0x02	; 2
+ 636:	9c 91       	ld	r25, X
+ 638:	92 83       	std	Z+2, r25	; 0x02
+ 63a:	83 50       	subi	r24, 0x03	; 3
+ 63c:	33 97       	sbiw	r30, 0x03	; 3
+	    uint8_t firstPixel = 0;
+	    buffer[firstPixel + NEO_RED] =  buffer[ LAST_PIXEL + NEO_RED];
+	    buffer[firstPixel + NEO_GREEN] = buffer[ LAST_PIXEL + NEO_GREEN];
+	    buffer[firstPixel + NEO_BLUE] = buffer[ LAST_PIXEL + NEO_BLUE];
+
+		for (int i = neopixel_pixels -1; i > 0; i--){
+ 63e:	e2 17       	cp	r30, r18
+ 640:	f3 07       	cpc	r31, r19
+ 642:	71 f7       	brne	.-36     	; 0x620 <neopixel_shift+0x58>
+ 644:	08 95       	ret
+
+00000646 <neopixel_show>:
+
+/*!
+ * \brief Pushes the buffer out to the pixel strip.
+ */
+void neopixel_show()
 {
-    uint8_t location = pixel * 3;
-	buffer[ location + NEO_RED ] = red;
- 214:	e8 2f       	mov	r30, r24
- 216:	ee 0f       	add	r30, r30
- 218:	8e 0f       	add	r24, r30
- 21a:	e8 2f       	mov	r30, r24
- 21c:	f0 e0       	ldi	r31, 0x00	; 0
- 21e:	e0 50       	subi	r30, 0x00	; 0
- 220:	f8 4c       	sbci	r31, 0xC8	; 200
- 222:	61 83       	std	Z+1, r22	; 0x01
-	buffer[ location + NEO_GREEN ] = green;
- 224:	40 83       	st	Z, r20
-	buffer[ location + NEO_BLUE ] = blue;
- 226:	22 83       	std	Z+2, r18	; 0x02
- 228:	08 95       	ret
+ 646:	cf 93       	push	r28
+ 648:	df 93       	push	r29
+ 64a:	cd b7       	in	r28, 0x3d	; 61
+ 64c:	de b7       	in	r29, 0x3e	; 62
+ 64e:	26 97       	sbiw	r28, 0x06	; 6
+ 650:	cd bf       	out	0x3d, r28	; 61
+ 652:	de bf       	out	0x3e, r29	; 62
+	volatile uint16_t  i = neopixel_buffer_size; // Loop counter
+ 654:	84 eb       	ldi	r24, 0xB4	; 180
+ 656:	90 e0       	ldi	r25, 0x00	; 0
+ 658:	89 83       	std	Y+1, r24	; 0x01
+ 65a:	9a 83       	std	Y+2, r25	; 0x02
 
-0000022a <_exit>:
- 22a:	f8 94       	cli
+	volatile uint8_t *port;
 
-0000022c <__stop_program>:
- 22c:	ff cf       	rjmp	.-2      	; 0x22c <__stop_program>
+	volatile uint8_t *ptr = &buffer[0],   // Pointer to next byte
+	b   = *ptr++,   // Current byte value
+ 65c:	80 91 02 38 	lds	r24, 0x3802	; 0x803802 <__data_end>
+ 660:	8b 83       	std	Y+3, r24	; 0x03
+	hi,             // PORT w/output bit set high
+	lo;             // PORT w/output bit set low
+
+	volatile uint8_t bit;
+
+	hi = VPORTA_OUT |  pinMask;
+ 662:	91 b1       	in	r25, 0x01	; 1
+ 664:	80 91 00 38 	lds	r24, 0x3800	; 0x803800 <__data_start>
+ 668:	98 2b       	or	r25, r24
+ 66a:	9c 83       	std	Y+4, r25	; 0x04
+	lo = VPORTA_OUT & ~pinMask;
+ 66c:	91 b1       	in	r25, 0x01	; 1
+ 66e:	80 95       	com	r24
+ 670:	89 23       	and	r24, r25
+ 672:	8d 83       	std	Y+5, r24	; 0x05
+    bit  = 8;
+ 674:	88 e0       	ldi	r24, 0x08	; 8
+ 676:	8e 83       	std	Y+6, r24	; 0x06
+
+	port = &VPORTA_OUT;
+
+	VPORTA_OUT = lo;
+ 678:	8d 81       	ldd	r24, Y+5	; 0x05
+ 67a:	81 b9       	out	0x01, r24	; 1
+
+    asm volatile(
+ 67c:	4c 81       	ldd	r20, Y+4	; 0x04
+ 67e:	5d 81       	ldd	r21, Y+5	; 0x05
+ 680:	3b 81       	ldd	r19, Y+3	; 0x03
+ 682:	2e 81       	ldd	r18, Y+6	; 0x06
+ 684:	89 81       	ldd	r24, Y+1	; 0x01
+ 686:	9a 81       	ldd	r25, Y+2	; 0x02
+ 688:	e1 e0       	ldi	r30, 0x01	; 1
+ 68a:	f0 e0       	ldi	r31, 0x00	; 0
+ 68c:	a3 e0       	ldi	r26, 0x03	; 3
+ 68e:	b8 e3       	ldi	r27, 0x38	; 56
+
+00000690 <neo_start>:
+ 690:	40 83       	st	Z, r20
+ 692:	37 fd       	sbrc	r19, 7
+ 694:	0e c0       	rjmp	.+28     	; 0x6b2 <do_HI>
+
+00000696 <do_LOW>:
+ 696:	00 00       	nop
+ 698:	00 00       	nop
+ 69a:	50 83       	st	Z, r21
+	...
+ 6b0:	0e c0       	rjmp	.+28     	; 0x6ce <next_bit>
+
+000006b2 <do_HI>:
+	...
+ 6c2:	50 83       	st	Z, r21
+ 6c4:	00 00       	nop
+ 6c6:	00 00       	nop
+ 6c8:	00 00       	nop
+ 6ca:	01 c0       	rjmp	.+2      	; 0x6ce <next_bit>
+	...
+
+000006ce <next_bit>:
+ 6ce:	2a 95       	dec	r18
+ 6d0:	11 f0       	breq	.+4      	; 0x6d6 <next_byte>
+ 6d2:	33 1f       	adc	r19, r19
+ 6d4:	dd cf       	rjmp	.-70     	; 0x690 <neo_start>
+
+000006d6 <next_byte>:
+ 6d6:	28 e0       	ldi	r18, 0x08	; 8
+ 6d8:	3d 91       	ld	r19, X+
+ 6da:	50 83       	st	Z, r21
+ 6dc:	01 97       	sbiw	r24, 0x01	; 1
+ 6de:	c1 f6       	brne	.-80     	; 0x690 <neo_start>
+ 6e0:	3b 83       	std	Y+3, r19	; 0x03
+ 6e2:	2e 83       	std	Y+6, r18	; 0x06
+ 6e4:	89 83       	std	Y+1, r24	; 0x01
+ 6e6:	9a 83       	std	Y+2, r25	; 0x02
+      [count] "+w" (i)
+    : [ptr]    "e" (ptr),
+      [hi]     "r" (hi),
+      [lo]     "r" (lo));
+
+}
+ 6e8:	26 96       	adiw	r28, 0x06	; 6
+ 6ea:	cd bf       	out	0x3d, r28	; 61
+ 6ec:	de bf       	out	0x3e, r29	; 62
+ 6ee:	df 91       	pop	r29
+ 6f0:	cf 91       	pop	r28
+ 6f2:	08 95       	ret
+
+000006f4 <_exit>:
+ 6f4:	f8 94       	cli
+
+000006f6 <__stop_program>:
+ 6f6:	ff cf       	rjmp	.-2      	; 0x6f6 <__stop_program>

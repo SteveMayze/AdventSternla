@@ -269,11 +269,7 @@ F 3 "" H 1900 4150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3800 4300 4300 4300
-Wire Wire Line
-	4300 4300 4600 4300
-Wire Wire Line
-	4600 4300 4800 4300
+	3800 4300 4800 4300
 Wire Wire Line
 	4600 4300 4600 4200
 Wire Wire Line
@@ -310,11 +306,7 @@ Wire Wire Line
 Wire Wire Line
 	6450 4750 7000 4750
 Wire Wire Line
-	1300 3850 1900 3850
-Wire Wire Line
-	1900 3850 2000 3850
-Wire Wire Line
-	2000 3850 2500 3850
+	1300 3850 2500 3850
 Wire Wire Line
 	4100 4650 4800 4650
 Wire Wire Line
@@ -375,11 +367,7 @@ Connection ~ 1900 3850
 Wire Wire Line
 	1900 4300 1900 4700
 Wire Wire Line
-	1500 4700 1900 4700
-Wire Wire Line
-	1900 4700 2550 4700
-Wire Wire Line
-	2550 4700 3250 4700
+	1500 4700 3250 4700
 Wire Wire Line
 	2550 4700 2550 4900
 Connection ~ 1900 4700
@@ -436,13 +424,7 @@ F 6 "Value" H 2650 3850 60  0001 C CNN "Label"
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	2800 3850 3250 3850
-Wire Wire Line
-	3250 3850 4300 3850
-Wire Wire Line
-	4300 3850 4600 3850
-Wire Wire Line
-	4600 3850 4800 3850
+	2800 3850 4800 3850
 Connection ~ 3250 3850
 Wire Wire Line
 	4600 3900 4600 3850

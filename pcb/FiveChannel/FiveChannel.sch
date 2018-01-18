@@ -35,7 +35,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 1
+Sheet 1 2
 Title "Advent Sternal - NeoPixel Driver"
 Date "2017-10-25"
 Rev "2L_1"
@@ -46,10 +46,10 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L ATTINY1614 U101
+L ATTINY1614 U102
 U 1 1 59EF6A42
 P 5600 4400
-F 0 "U101" H 6150 3600 60  0000 C CNN
+F 0 "U102" H 6150 3600 60  0000 C CNN
 F 1 "ATTINY1614" H 5650 4350 60  0000 C CNN
 F 2 "SMD_Packages:SOIC-14_N" H 5450 4450 60  0001 C CNN
 F 3 "" H 5450 4450 60  0001 C CNN
@@ -57,10 +57,10 @@ F 3 "" H 5450 4450 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R102
+L R R101
 U 1 1 59EF6A7A
 P 4600 4050
-F 0 "R102" V 4680 4050 50  0000 C CNN
+F 0 "R101" V 4680 4050 50  0000 C CNN
 F 1 "47kΩ" V 4600 4050 50  0000 C CNN
 F 2 "Resistors_SMD:R_0805_HandSoldering" V 4530 4050 50  0001 C CNN
 F 3 "" H 4600 4050 50  0001 C CNN
@@ -125,32 +125,32 @@ NoConn ~ 1500 1550
 NoConn ~ 2000 1450
 Text Label 7750 3850 0    60   ~ 0
 CLK_PIN
-Text Label 7750 4150 0    60   ~ 0
+Text Label 8150 4150 0    60   ~ 0
 LATCH_PIN
-Text Label 7750 4250 0    60   ~ 0
+Text Label 7150 4300 2    60   ~ 0
 ~ENABLE
-Text Label 7100 4500 0    60   ~ 0
+Text Label 7150 4450 2    60   ~ 0
 PA5
-Text Label 7100 4600 0    60   ~ 0
+Text Label 7150 4600 2    60   ~ 0
 PA6
-Text Label 7100 4700 0    60   ~ 0
+Text Label 7150 4750 2    60   ~ 0
 PA7
 $Comp
-L Conn_01x03_Male J105
+L Conn_01x03_Male J104
 U 1 1 59EF8E2B
-P 8050 5450
-F 0 "J105" H 8000 5650 50  0000 C CNN
-F 1 "GPIO_A" H 8200 5300 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x03_Pitch2.54mm" H 8050 5450 50  0001 C CNN
-F 3 "" H 8050 5450 50  0001 C CNN
-	1    8050 5450
+P 8400 5450
+F 0 "J104" H 8350 5650 50  0000 C CNN
+F 1 "GPIO_A" H 8550 5300 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x03_Pitch2.54mm" H 8400 5450 50  0001 C CNN
+F 3 "" H 8400 5450 50  0001 C CNN
+	1    8400 5450
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Conn_01x04_Male J107
+L Conn_01x04_Male J103
 U 1 1 59EF90A2
 P 3600 4750
-F 0 "J107" H 3600 4950 50  0000 C CNN
+F 0 "J103" H 3600 4950 50  0000 C CNN
 F 1 "GPIO_C" H 3600 4450 50  0000 C CNN
 F 2 "Pin_Headers:Pin_Header_Straight_1x04_Pitch2.54mm" H 3600 4750 50  0001 C CNN
 F 3 "" H 3600 4750 50  0001 C CNN
@@ -166,10 +166,10 @@ PB2
 Text Label 4250 4950 0    60   ~ 0
 PB3
 $Comp
-L C C103
+L C C102
 U 1 1 59EF980D
 P 3250 4200
-F 0 "C103" H 3275 4300 50  0000 L CNN
+F 0 "C102" H 3275 4300 50  0000 L CNN
 F 1 "1μF 16V" H 3100 4100 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0805_HandSoldering" H 3288 4050 50  0001 C CNN
 F 3 "" H 3250 4200 50  0001 C CNN
@@ -182,69 +182,10 @@ In System Programming Header - UPDI
 Text Label 2100 3850 0    60   ~ 0
 5V
 $Comp
-L GND #PWR04
-U 1 1 59EFA048
-P 6450 1650
-F 0 "#PWR04" H 6450 1400 50  0001 C CNN
-F 1 "GND" H 6450 1500 50  0000 C CNN
-F 2 "" H 6450 1650 50  0001 C CNN
-F 3 "" H 6450 1650 50  0001 C CNN
-	1    6450 1650
-	1    0    0    -1  
-$EndComp
-$Comp
-L R R101
-U 1 1 59EFA380
-P 6100 1500
-F 0 "R101" V 6180 1500 50  0000 C CNN
-F 1 "470Ω" V 6100 1500 50  0000 C CNN
-F 2 "Resistors_SMD:R_0805_HandSoldering" V 6030 1500 50  0001 C CNN
-F 3 "" H 6100 1500 50  0001 C CNN
-	1    6100 1500
-	0    -1   -1   0   
-$EndComp
-Text Notes 5850 1250 0    60   ~ 0
-The NoePixel has JST \nSM type connnectors
-$Comp
-L Conn_01x02_Male J102
-U 1 1 59F0DA81
-P 6850 1500
-F 0 "J102" H 6850 1600 50  0000 C CNN
-F 1 "NeoPixel Data" H 6500 1450 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x02_Pitch2.54mm" H 6850 1500 50  0001 C CNN
-F 3 "" H 6850 1500 50  0001 C CNN
-	1    6850 1500
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Conn_01x02_Male J103
-U 1 1 59F0DC96
-P 6850 2100
-F 0 "J103" H 6900 2200 50  0000 C CNN
-F 1 "Power Out" H 7050 1900 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x02_Pitch2.54mm" H 6850 2100 50  0001 C CNN
-F 3 "" H 6850 2100 50  0001 C CNN
-	1    6850 2100
-	-1   0    0    -1  
-$EndComp
-Text Label 6300 1500 0    60   ~ 0
-NP_DATA
-$Comp
-L GND #PWR05
-U 1 1 59F0F6AA
-P 6350 2600
-F 0 "#PWR05" H 6350 2350 50  0001 C CNN
-F 1 "GND" H 6350 2450 50  0000 C CNN
-F 2 "" H 6350 2600 50  0001 C CNN
-F 3 "" H 6350 2600 50  0001 C CNN
-	1    6350 2600
-	1    0    0    -1  
-$EndComp
-$Comp
-L CP C102
+L CP C101
 U 1 1 59F0F869
 P 1900 4150
-F 0 "C102" H 1925 4250 50  0000 L CNN
+F 0 "C101" H 1925 4250 50  0000 L CNN
 F 1 "1000μF 25V" H 1925 4050 50  0000 L CNN
 F 2 "advent_sternla:CP_Radial_L21.0mm_D13.0mm_P5.00mm_Horizontal" H 1938 4000 50  0001 C CNN
 F 3 "" H 1900 4150 50  0001 C CNN
@@ -252,9 +193,7 @@ F 3 "" H 1900 4150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3800 4300 4600 4300
-Wire Wire Line
-	4600 4300 4800 4300
+	3800 4300 4800 4300
 Wire Wire Line
 	4600 4300 4600 4200
 Wire Wire Line
@@ -269,17 +208,13 @@ Wire Wire Line
 Wire Wire Line
 	2000 1350 2450 1350
 Wire Wire Line
-	6450 4450 7000 4450
+	6450 4450 7150 4450
 Wire Wire Line
-	6450 4600 7300 4600
+	6450 4600 7150 4600
 Wire Wire Line
-	6450 4750 7000 4750
+	6450 4750 7150 4750
 Wire Wire Line
-	1300 3850 1900 3850
-Wire Wire Line
-	1900 3850 2000 3850
-Wire Wire Line
-	2000 3850 2500 3850
+	1300 3850 2500 3850
 Wire Wire Line
 	4100 4650 4800 4650
 Wire Wire Line
@@ -297,10 +232,6 @@ Wire Notes Line
 Wire Notes Line
 	700  2100 700  900 
 Wire Wire Line
-	7000 4450 7000 4500
-Wire Wire Line
-	7000 4500 7300 4500
-Wire Wire Line
 	4150 4800 4800 4800
 Wire Wire Line
 	4150 4800 4150 4850
@@ -317,39 +248,21 @@ Wire Wire Line
 Wire Wire Line
 	4050 4650 3800 4650
 Wire Wire Line
-	5400 1500 5950 1500
-Wire Wire Line
-	6250 1500 6650 1500
-Wire Wire Line
-	6650 1600 6450 1600
-Wire Wire Line
-	6450 1600 6450 1650
-Wire Wire Line
-	5950 2100 6650 2100
-Wire Wire Line
-	6650 2200 6350 2200
-Wire Wire Line
-	6350 2200 6350 2600
-Wire Wire Line
 	1900 3850 1900 4000
 Connection ~ 1900 3850
 Wire Wire Line
 	1900 4300 1900 4700
 Wire Wire Line
-	1500 4700 1900 4700
-Wire Wire Line
-	1900 4700 2550 4700
-Wire Wire Line
-	2550 4700 3250 4700
+	1500 4700 3250 4700
 Wire Wire Line
 	2550 4700 2550 4900
 Connection ~ 1900 4700
 Connection ~ 2550 4700
 $Comp
-L Jack-DC J104
+L Jack-DC J102
 U 1 1 59F100E4
 P 1000 3950
-F 0 "J104" H 1000 4160 50  0000 C CNN
+F 0 "J102" H 1000 4160 50  0000 C CNN
 F 1 "5V In" H 1000 3775 50  0000 C CNN
 F 2 "advent_sternla:CONN_PWR_JACK_1_3X3_5MM_SOLDER" H 1050 3910 50  0001 C CNN
 F 3 "http://www.cui.com/product/resource/pj-031dh.pdf" H 1050 3910 50  0001 C CNN
@@ -370,10 +283,6 @@ Wire Wire Line
 Connection ~ 2000 3850
 Text Label 2250 3500 2    60   ~ 0
 5V_OUT
-Text Label 5950 2100 0    60   ~ 0
-5V_OUT
-Wire Notes Line
-	7600 850  7600 2950
 Text Notes 5450 800  0    100  ~ 0
 NeoPixel
 $Comp
@@ -391,28 +300,20 @@ F 6 "Value" H 2650 3850 60  0001 C CNN "Label"
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	2800 3850 3250 3850
-Wire Wire Line
-	3250 3850 4600 3850
-Wire Wire Line
-	4600 3850 4800 3850
+	2800 3850 4800 3850
 Connection ~ 3250 3850
 Wire Wire Line
 	4600 3900 4600 3850
 Connection ~ 4600 3850
 Text Notes 1550 6150 0    60   ~ 0
 TODO \nVerify, once more, the Diode i.e. the current rating\nDouble check the connection for the UPDI - is there a need for a \nzero Ohm resistor to deal with any issues?
-Wire Wire Line
-	7000 4750 7000 4700
-Wire Wire Line
-	7000 4700 7300 4700
 $Comp
-L 74LS596 U?
+L 74LS596 U101
 U 1 1 5A60F031
 P 9300 4100
-F 0 "U?" H 9450 4700 70  0000 C CNN
+F 0 "U101" H 9450 4700 70  0000 C CNN
 F 1 "74LS596" H 9300 3500 70  0000 C CNN
-F 2 "" H 9300 4100 60  0000 C CNN
+F 2 "" H 9300 4100 60  0001 C CNN
 F 3 "" H 9300 4100 60  0000 C CNN
 	1    9300 4100
 	1    0    0    -1  
@@ -436,10 +337,10 @@ NoConn ~ 10000 4250
 NoConn ~ 10000 4350
 NoConn ~ 10000 4550
 $Comp
-L GND #PWR?
+L GND #PWR04
 U 1 1 5A60F656
 P 9000 5100
-F 0 "#PWR?" H 9000 4850 50  0001 C CNN
+F 0 "#PWR04" H 9000 4850 50  0001 C CNN
 F 1 "GND" H 9000 4950 50  0000 C CNN
 F 2 "" H 9000 5100 50  0001 C CNN
 F 3 "" H 9000 5100 50  0001 C CNN
@@ -449,11 +350,11 @@ $EndComp
 Wire Wire Line
 	9000 4950 9000 5100
 Wire Wire Line
-	7850 6000 7500 6000
+	8200 6000 7500 6000
 Wire Wire Line
-	7850 6100 7500 6100
+	8200 6100 7500 6100
 Wire Wire Line
-	7850 6200 7500 6200
+	8200 6200 7500 6200
 Text Label 7500 6000 0    60   ~ 0
 PA5
 Text Label 7500 6100 0    60   ~ 0
@@ -477,11 +378,7 @@ Wire Wire Line
 Wire Wire Line
 	6450 4150 8600 4150
 Wire Wire Line
-	6450 4300 6700 4300
-Wire Wire Line
-	6700 4300 6700 4250
-Wire Wire Line
-	6700 4250 8600 4250
+	6450 4300 7150 4300
 Text Label 10600 3650 2    60   ~ 0
 CHANNEL_0
 Text Label 10600 3750 2    60   ~ 0
@@ -492,39 +389,105 @@ Text Label 10600 3950 2    60   ~ 0
 CHANNEL_3
 Text Label 10600 4050 2    60   ~ 0
 CHANNEL_4
-Text Label 7500 5900 0    60   ~ 0
-PA4
 Wire Wire Line
-	7850 5900 7500 5900
+	8200 5900 7500 5900
 $Comp
-L Conn_01x04_Male J106
+L Conn_01x04_Male J105
 U 1 1 59EF8DC0
-P 8050 6000
-F 0 "J106" H 8050 6200 50  0000 C CNN
-F 1 "GPIO_B" H 8150 5750 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x04_Pitch2.54mm" H 8050 6000 50  0001 C CNN
-F 3 "" H 8050 6000 50  0001 C CNN
-	1    8050 6000
+P 8400 6000
+F 0 "J105" H 8400 6200 50  0000 C CNN
+F 1 "GPIO_B" H 8500 5750 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x04_Pitch2.54mm" H 8400 6000 50  0001 C CNN
+F 3 "" H 8400 6000 50  0001 C CNN
+	1    8400 6000
 	-1   0    0    -1  
 $EndComp
-Text Label 7500 5550 0    60   ~ 0
-PA3
-Text Label 7500 5450 0    60   ~ 0
-PA2
-Text Label 7500 5350 0    60   ~ 0
-PA1
 Wire Wire Line
-	7850 5550 7500 5550
+	8200 5550 7500 5550
 Wire Wire Line
-	7850 5450 7500 5450
+	8200 5450 7500 5450
 Wire Wire Line
-	7850 5350 7500 5350
+	8200 5350 7500 5350
 Wire Wire Line
 	9300 3250 9300 3050
 Wire Wire Line
 	9300 3050 8850 3050
 Text Label 8850 3050 0    60   ~ 0
 VDD
-Text Label 5400 1500 0    60   ~ 0
+Text Label 7500 5350 0    60   ~ 0
+DATA_PIN
+Text Label 7500 5450 0    60   ~ 0
+CLK_PIN
+Text Label 7500 5550 0    60   ~ 0
+LATCH_PIN
+Text Label 7500 5900 0    60   ~ 0
+~ENABLE
+$Sheet
+S 5250 1100 1100 1750
+U 5A6111EA
+F0 "Channels" 60
+F1 "Channels.sch" 60
+F2 "CHANNEL_0" I L 5250 1450 60 
+F3 "5V_OUT" I L 5250 2750 60 
+F4 "CHANNEL_1" I L 5250 1700 60 
+F5 "CHANNEL_2" I L 5250 1950 60 
+F6 "CHANNEL_3" I L 5250 2250 60 
+F7 "CHANNEL_4" I L 5250 2500 60 
+$EndSheet
+Wire Wire Line
+	5250 1450 4650 1450
+Wire Wire Line
+	5250 1700 4650 1700
+Wire Wire Line
+	5250 1950 4650 1950
+Wire Wire Line
+	5250 2250 4650 2250
+Wire Wire Line
+	5250 2500 4650 2500
+Text Label 4650 2750 0    60   ~ 0
+VDD
+Text Label 4650 2500 0    60   ~ 0
+CHANNEL_4
+Text Label 4650 2250 0    60   ~ 0
+CHANNEL_3
+Text Label 4650 1450 0    60   ~ 0
 CHANNEL_0
+Text Label 4650 1700 0    60   ~ 0
+CHANNEL_1
+Text Label 4650 1950 0    60   ~ 0
+CHANNEL_2
+Wire Wire Line
+	5250 2750 4650 2750
+Wire Wire Line
+	8600 4250 8150 4250
+Text Label 8150 4250 0    60   ~ 0
+~ENABLE
+Wire Wire Line
+	7950 4150 7950 4450
+Connection ~ 7950 4150
+$Comp
+L C C103
+U 1 1 5A613301
+P 7950 4600
+F 0 "C103" H 7975 4700 50  0000 L CNN
+F 1 "0.1μF 16V" H 7700 4500 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0805_HandSoldering" H 7988 4450 50  0001 C CNN
+F 3 "" H 7950 4600 50  0001 C CNN
+F 4 "Value" H 7950 4600 60  0001 C CNN "Link"
+	1    7950 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR05
+U 1 1 5A61342B
+P 7950 4900
+F 0 "#PWR05" H 7950 4650 50  0001 C CNN
+F 1 "GND" H 7950 4750 50  0000 C CNN
+F 2 "" H 7950 4900 50  0001 C CNN
+F 3 "" H 7950 4900 50  0001 C CNN
+	1    7950 4900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7950 4900 7950 4750
 $EndSCHEMATC

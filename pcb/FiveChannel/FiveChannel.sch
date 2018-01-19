@@ -129,42 +129,6 @@ Text Label 8150 4150 0    60   ~ 0
 LATCH_PIN
 Text Label 7150 4300 2    60   ~ 0
 ~ENABLE
-Text Label 7150 4450 2    60   ~ 0
-PA5
-Text Label 7150 4600 2    60   ~ 0
-PA6
-Text Label 7150 4750 2    60   ~ 0
-PA7
-$Comp
-L Conn_01x03_Male J104
-U 1 1 59EF8E2B
-P 8400 5450
-F 0 "J104" H 8350 5650 50  0000 C CNN
-F 1 "GPIO_A" H 8550 5300 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x03_Pitch2.54mm" H 8400 5450 50  0001 C CNN
-F 3 "" H 8400 5450 50  0001 C CNN
-	1    8400 5450
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Conn_01x04_Male J103
-U 1 1 59EF90A2
-P 3600 4750
-F 0 "J103" H 3600 4950 50  0000 C CNN
-F 1 "GPIO_C" H 3600 4450 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x04_Pitch2.54mm" H 3600 4750 50  0001 C CNN
-F 3 "" H 3600 4750 50  0001 C CNN
-	1    3600 4750
-	1    0    0    -1  
-$EndComp
-Text Label 4250 4500 0    60   ~ 0
-PB0
-Text Label 4250 4650 0    60   ~ 0
-PB1
-Text Label 4250 4800 0    60   ~ 0
-PB2
-Text Label 4250 4950 0    60   ~ 0
-PB3
 $Comp
 L C C102
 U 1 1 59EF980D
@@ -181,17 +145,6 @@ Text Notes 750  850  0    100  ~ 0
 In System Programming Header - UPDI
 Text Label 2100 3850 0    60   ~ 0
 5V
-$Comp
-L CP C101
-U 1 1 59F0F869
-P 1900 4150
-F 0 "C101" H 1925 4250 50  0000 L CNN
-F 1 "1000μF 25V" H 1925 4050 50  0000 L CNN
-F 2 "advent_sternla:CP_Radial_L21.0mm_D13.0mm_P5.00mm_Horizontal" H 1938 4000 50  0001 C CNN
-F 3 "" H 1900 4150 50  0001 C CNN
-	1    1900 4150
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	3800 4300 4800 4300
 Wire Wire Line
@@ -208,17 +161,7 @@ Wire Wire Line
 Wire Wire Line
 	2000 1350 2450 1350
 Wire Wire Line
-	6450 4450 7150 4450
-Wire Wire Line
-	6450 4600 7150 4600
-Wire Wire Line
-	6450 4750 7150 4750
-Wire Wire Line
 	1300 3850 2500 3850
-Wire Wire Line
-	4100 4650 4800 4650
-Wire Wire Line
-	4800 4950 3800 4950
 Wire Wire Line
 	3250 3850 3250 4050
 Wire Wire Line
@@ -232,31 +175,9 @@ Wire Notes Line
 Wire Notes Line
 	700  2100 700  900 
 Wire Wire Line
-	4150 4800 4800 4800
-Wire Wire Line
-	4150 4800 4150 4850
-Wire Wire Line
-	4150 4850 3800 4850
-Wire Wire Line
-	4100 4650 4100 4750
-Wire Wire Line
-	4100 4750 3800 4750
-Wire Wire Line
-	4800 4500 4050 4500
-Wire Wire Line
-	4050 4500 4050 4650
-Wire Wire Line
-	4050 4650 3800 4650
-Wire Wire Line
-	1900 3850 1900 4000
-Connection ~ 1900 3850
-Wire Wire Line
-	1900 4300 1900 4700
-Wire Wire Line
 	1500 4700 3250 4700
 Wire Wire Line
 	2550 4700 2550 4900
-Connection ~ 1900 4700
 Connection ~ 2550 4700
 $Comp
 L Jack-DC J102
@@ -313,8 +234,11 @@ U 1 1 5A60F031
 P 9300 4100
 F 0 "U101" H 9450 4700 70  0000 C CNN
 F 1 "74LS596" H 9300 3500 70  0000 C CNN
-F 2 "" H 9300 4100 60  0001 C CNN
+F 2 "Housings_SOIC:SOIC-16_3.9x9.9mm_Pitch1.27mm" H 9300 4100 60  0001 C CNN
 F 3 "" H 9300 4100 60  0000 C CNN
+F 4 "Value" H 9300 4100 60  0001 C CNN "MPN"
+F 5 "Value" H 9300 4100 60  0001 C CNN "ConradPN"
+F 6 "Value" H 9300 4100 60  0000 C CNN "Label"
 	1    9300 4100
 	1    0    0    -1  
 $EndComp
@@ -349,18 +273,6 @@ F 3 "" H 9000 5100 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	9000 4950 9000 5100
-Wire Wire Line
-	8200 6000 7500 6000
-Wire Wire Line
-	8200 6100 7500 6100
-Wire Wire Line
-	8200 6200 7500 6200
-Text Label 7500 6000 0    60   ~ 0
-PA5
-Text Label 7500 6100 0    60   ~ 0
-PA6
-Text Label 7500 6200 0    60   ~ 0
-PA7
 Text Label 7750 3650 0    60   ~ 0
 DATA_PIN
 Wire Wire Line
@@ -390,38 +302,11 @@ CHANNEL_3
 Text Label 10600 4050 2    60   ~ 0
 CHANNEL_4
 Wire Wire Line
-	8200 5900 7500 5900
-$Comp
-L Conn_01x04_Male J105
-U 1 1 59EF8DC0
-P 8400 6000
-F 0 "J105" H 8400 6200 50  0000 C CNN
-F 1 "GPIO_B" H 8500 5750 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x04_Pitch2.54mm" H 8400 6000 50  0001 C CNN
-F 3 "" H 8400 6000 50  0001 C CNN
-	1    8400 6000
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	8200 5550 7500 5550
-Wire Wire Line
-	8200 5450 7500 5450
-Wire Wire Line
-	8200 5350 7500 5350
-Wire Wire Line
 	9300 3250 9300 3050
 Wire Wire Line
 	9300 3050 8850 3050
 Text Label 8850 3050 0    60   ~ 0
 VDD
-Text Label 7500 5350 0    60   ~ 0
-DATA_PIN
-Text Label 7500 5450 0    60   ~ 0
-CLK_PIN
-Text Label 7500 5550 0    60   ~ 0
-LATCH_PIN
-Text Label 7500 5900 0    60   ~ 0
-~ENABLE
 $Sheet
 S 5250 1100 1100 1750
 U 5A6111EA
@@ -490,4 +375,11 @@ F 3 "" H 7950 4900 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	7950 4900 7950 4750
+NoConn ~ 4800 4500
+NoConn ~ 4800 4650
+NoConn ~ 4800 4800
+NoConn ~ 4800 4950
+NoConn ~ 6450 4450
+NoConn ~ 6450 4600
+NoConn ~ 6450 4750
 $EndSCHEMATC

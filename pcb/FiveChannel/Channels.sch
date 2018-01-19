@@ -75,7 +75,7 @@ U 1 1 5A6109D3
 P 3700 1750
 F 0 "J202" H 3700 1850 50  0000 C CNN
 F 1 "NeoPixel Data" H 3350 1700 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x02_Pitch2.54mm" H 3700 1750 50  0001 C CNN
+F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 3700 1750 50  0001 C CNN
 F 3 "" H 3700 1750 50  0001 C CNN
 	1    3700 1750
 	-1   0    0    -1  
@@ -86,7 +86,7 @@ U 1 1 5A6109DA
 P 5150 1700
 F 0 "J201" H 5200 1800 50  0000 C CNN
 F 1 "Power Out" H 5350 1500 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x02_Pitch2.54mm" H 5150 1700 50  0001 C CNN
+F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 5150 1700 50  0001 C CNN
 F 3 "" H 5150 1700 50  0001 C CNN
 	1    5150 1700
 	-1   0    0    -1  
@@ -177,7 +177,7 @@ U 1 1 5A610C01
 P 3700 2850
 F 0 "J204" H 3700 2950 50  0000 C CNN
 F 1 "NeoPixel Data" H 3350 2800 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x02_Pitch2.54mm" H 3700 2850 50  0001 C CNN
+F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 3700 2850 50  0001 C CNN
 F 3 "" H 3700 2850 50  0001 C CNN
 	1    3700 2850
 	-1   0    0    -1  
@@ -188,7 +188,7 @@ U 1 1 5A610C07
 P 5150 2800
 F 0 "J203" H 5200 2900 50  0000 C CNN
 F 1 "Power Out" H 5350 2600 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x02_Pitch2.54mm" H 5150 2800 50  0001 C CNN
+F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 5150 2800 50  0001 C CNN
 F 3 "" H 5150 2800 50  0001 C CNN
 	1    5150 2800
 	-1   0    0    -1  
@@ -279,7 +279,7 @@ U 1 1 5A610CF5
 P 3700 3900
 F 0 "J206" H 3700 4000 50  0000 C CNN
 F 1 "NeoPixel Data" H 3350 3850 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x02_Pitch2.54mm" H 3700 3900 50  0001 C CNN
+F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 3700 3900 50  0001 C CNN
 F 3 "" H 3700 3900 50  0001 C CNN
 	1    3700 3900
 	-1   0    0    -1  
@@ -290,7 +290,7 @@ U 1 1 5A610CFB
 P 5150 3850
 F 0 "J205" H 5200 3950 50  0000 C CNN
 F 1 "Power Out" H 5350 3650 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x02_Pitch2.54mm" H 5150 3850 50  0001 C CNN
+F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 5150 3850 50  0001 C CNN
 F 3 "" H 5150 3850 50  0001 C CNN
 	1    5150 3850
 	-1   0    0    -1  
@@ -381,7 +381,7 @@ U 1 1 5A610DCD
 P 3700 4950
 F 0 "J208" H 3700 5050 50  0000 C CNN
 F 1 "NeoPixel Data" H 3350 4900 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x02_Pitch2.54mm" H 3700 4950 50  0001 C CNN
+F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 3700 4950 50  0001 C CNN
 F 3 "" H 3700 4950 50  0001 C CNN
 	1    3700 4950
 	-1   0    0    -1  
@@ -392,7 +392,7 @@ U 1 1 5A610DD3
 P 5150 4900
 F 0 "J207" H 5200 5000 50  0000 C CNN
 F 1 "Power Out" H 5350 4700 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x02_Pitch2.54mm" H 5150 4900 50  0001 C CNN
+F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 5150 4900 50  0001 C CNN
 F 3 "" H 5150 4900 50  0001 C CNN
 	1    5150 4900
 	-1   0    0    -1  
@@ -483,7 +483,7 @@ U 1 1 5A611033
 P 3700 6050
 F 0 "J210" H 3700 6150 50  0000 C CNN
 F 1 "NeoPixel Data" H 3350 6000 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x02_Pitch2.54mm" H 3700 6050 50  0001 C CNN
+F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 3700 6050 50  0001 C CNN
 F 3 "" H 3700 6050 50  0001 C CNN
 	1    3700 6050
 	-1   0    0    -1  
@@ -494,7 +494,7 @@ U 1 1 5A611039
 P 5150 6000
 F 0 "J209" H 5200 6100 50  0000 C CNN
 F 1 "Power Out" H 5350 5800 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x02_Pitch2.54mm" H 5150 6000 50  0001 C CNN
+F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 5150 6000 50  0001 C CNN
 F 3 "" H 5150 6000 50  0001 C CNN
 	1    5150 6000
 	-1   0    0    -1  

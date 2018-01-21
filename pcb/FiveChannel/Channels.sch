@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:FiveChannel-rescue
 LIBS:advent_sternla_attiny1614_symbols
 LIBS:SensorBoard
 LIBS:power
@@ -46,17 +47,6 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L GND #PWR06
-U 1 1 5A6109C5
-P 3150 1900
-F 0 "#PWR06" H 3150 1650 50  0001 C CNN
-F 1 "GND" H 3150 1750 50  0000 C CNN
-F 2 "" H 3150 1900 50  0001 C CNN
-F 3 "" H 3150 1900 50  0001 C CNN
-	1    3150 1900
-	1    0    0    -1  
-$EndComp
-$Comp
 L R R201
 U 1 1 5A6109CB
 P 2800 1750
@@ -69,55 +59,8 @@ F 3 "" H 2800 1750 50  0001 C CNN
 $EndComp
 Text Notes 2750 1350 0    60   ~ 0
 The NoePixel has JST \nSM type connnectors
-$Comp
-L Conn_01x02_Male J202
-U 1 1 5A6109D3
-P 3700 1750
-F 0 "J202" H 3700 1850 50  0000 C CNN
-F 1 "NeoPixel Data" H 3350 1700 50  0000 C CNN
-F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 3700 1750 50  0001 C CNN
-F 3 "" H 3700 1750 50  0001 C CNN
-	1    3700 1750
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Conn_01x02_Male J201
-U 1 1 5A6109DA
-P 5150 1700
-F 0 "J201" H 5200 1800 50  0000 C CNN
-F 1 "Power Out" H 5350 1500 50  0000 C CNN
-F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 5150 1700 50  0001 C CNN
-F 3 "" H 5150 1700 50  0001 C CNN
-	1    5150 1700
-	-1   0    0    -1  
-$EndComp
-Text Label 3000 1750 0    60   ~ 0
+Text Label 4200 1700 0    60   ~ 0
 NP_DATA_0
-$Comp
-L GND #PWR07
-U 1 1 5A6109E2
-P 4650 2200
-F 0 "#PWR07" H 4650 1950 50  0001 C CNN
-F 1 "GND" H 4650 2050 50  0000 C CNN
-F 2 "" H 4650 2200 50  0001 C CNN
-F 3 "" H 4650 2200 50  0001 C CNN
-	1    4650 2200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2100 1750 2650 1750
-Wire Wire Line
-	2950 1750 3500 1750
-Wire Wire Line
-	3500 1850 3150 1850
-Wire Wire Line
-	3150 1850 3150 1900
-Wire Wire Line
-	4650 1700 4950 1700
-Wire Wire Line
-	4950 1800 4650 1800
-Wire Wire Line
-	4650 1800 4650 2200
 $Comp
 L R R202
 U 1 1 5A6109F1
@@ -129,16 +72,11 @@ F 3 "" H 2250 2050 50  0001 C CNN
 	1    2250 2050
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	2250 1750 2250 1900
-Connection ~ 2250 1750
-Wire Wire Line
-	2250 2200 2250 2450
 $Comp
-L GND #PWR08
+L GND #PWR201
 U 1 1 5A6109FB
 P 2250 2450
-F 0 "#PWR08" H 2250 2200 50  0001 C CNN
+F 0 "#PWR201" H 2250 2200 50  0001 C CNN
 F 1 "GND" H 2250 2300 50  0000 C CNN
 F 2 "" H 2250 2450 50  0001 C CNN
 F 3 "" H 2250 2450 50  0001 C CNN
@@ -147,19 +85,8 @@ F 3 "" H 2250 2450 50  0001 C CNN
 $EndComp
 Text HLabel 2100 1750 0    60   Input ~ 0
 CHANNEL_0
-Text HLabel 4650 1700 0    60   Input ~ 0
+Text HLabel 4400 1900 0    60   Input ~ 0
 5V_OUT
-$Comp
-L GND #PWR09
-U 1 1 5A610BF5
-P 3150 3000
-F 0 "#PWR09" H 3150 2750 50  0001 C CNN
-F 1 "GND" H 3150 2850 50  0000 C CNN
-F 2 "" H 3150 3000 50  0001 C CNN
-F 3 "" H 3150 3000 50  0001 C CNN
-	1    3150 3000
-	1    0    0    -1  
-$EndComp
 $Comp
 L R R203
 U 1 1 5A610BFB
@@ -171,55 +98,8 @@ F 3 "" H 2800 2850 50  0001 C CNN
 	1    2800 2850
 	0    -1   -1   0   
 $EndComp
-$Comp
-L Conn_01x02_Male J204
-U 1 1 5A610C01
-P 3700 2850
-F 0 "J204" H 3700 2950 50  0000 C CNN
-F 1 "NeoPixel Data" H 3350 2800 50  0000 C CNN
-F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 3700 2850 50  0001 C CNN
-F 3 "" H 3700 2850 50  0001 C CNN
-	1    3700 2850
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Conn_01x02_Male J203
-U 1 1 5A610C07
-P 5150 2800
-F 0 "J203" H 5200 2900 50  0000 C CNN
-F 1 "Power Out" H 5350 2600 50  0000 C CNN
-F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 5150 2800 50  0001 C CNN
-F 3 "" H 5150 2800 50  0001 C CNN
-	1    5150 2800
-	-1   0    0    -1  
-$EndComp
 Text Label 3000 2850 0    60   ~ 0
 NP_DATA_1
-$Comp
-L GND #PWR010
-U 1 1 5A610C0E
-P 4650 3300
-F 0 "#PWR010" H 4650 3050 50  0001 C CNN
-F 1 "GND" H 4650 3150 50  0000 C CNN
-F 2 "" H 4650 3300 50  0001 C CNN
-F 3 "" H 4650 3300 50  0001 C CNN
-	1    4650 3300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2100 2850 2650 2850
-Wire Wire Line
-	2950 2850 3500 2850
-Wire Wire Line
-	3500 2950 3150 2950
-Wire Wire Line
-	3150 2950 3150 3000
-Wire Wire Line
-	4650 2800 4950 2800
-Wire Wire Line
-	4950 2900 4650 2900
-Wire Wire Line
-	4650 2900 4650 3300
 $Comp
 L R R204
 U 1 1 5A610C1C
@@ -231,16 +111,11 @@ F 3 "" H 2250 3150 50  0001 C CNN
 	1    2250 3150
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	2250 2850 2250 3000
-Connection ~ 2250 2850
-Wire Wire Line
-	2250 3300 2250 3550
 $Comp
-L GND #PWR011
+L GND #PWR202
 U 1 1 5A610C25
 P 2250 3550
-F 0 "#PWR011" H 2250 3300 50  0001 C CNN
+F 0 "#PWR202" H 2250 3300 50  0001 C CNN
 F 1 "GND" H 2250 3400 50  0000 C CNN
 F 2 "" H 2250 3550 50  0001 C CNN
 F 3 "" H 2250 3550 50  0001 C CNN
@@ -249,19 +124,6 @@ F 3 "" H 2250 3550 50  0001 C CNN
 $EndComp
 Text HLabel 2100 2850 0    60   Input ~ 0
 CHANNEL_1
-Text HLabel 4650 2800 0    60   Input ~ 0
-5V_OUT
-$Comp
-L GND #PWR012
-U 1 1 5A610CE9
-P 3150 4050
-F 0 "#PWR012" H 3150 3800 50  0001 C CNN
-F 1 "GND" H 3150 3900 50  0000 C CNN
-F 2 "" H 3150 4050 50  0001 C CNN
-F 3 "" H 3150 4050 50  0001 C CNN
-	1    3150 4050
-	1    0    0    -1  
-$EndComp
 $Comp
 L R R205
 U 1 1 5A610CEF
@@ -273,55 +135,8 @@ F 3 "" H 2800 3900 50  0001 C CNN
 	1    2800 3900
 	0    -1   -1   0   
 $EndComp
-$Comp
-L Conn_01x02_Male J206
-U 1 1 5A610CF5
-P 3700 3900
-F 0 "J206" H 3700 4000 50  0000 C CNN
-F 1 "NeoPixel Data" H 3350 3850 50  0000 C CNN
-F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 3700 3900 50  0001 C CNN
-F 3 "" H 3700 3900 50  0001 C CNN
-	1    3700 3900
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Conn_01x02_Male J205
-U 1 1 5A610CFB
-P 5150 3850
-F 0 "J205" H 5200 3950 50  0000 C CNN
-F 1 "Power Out" H 5350 3650 50  0000 C CNN
-F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 5150 3850 50  0001 C CNN
-F 3 "" H 5150 3850 50  0001 C CNN
-	1    5150 3850
-	-1   0    0    -1  
-$EndComp
 Text Label 3000 3900 0    60   ~ 0
 NP_DATA_2
-$Comp
-L GND #PWR013
-U 1 1 5A610D02
-P 4650 4350
-F 0 "#PWR013" H 4650 4100 50  0001 C CNN
-F 1 "GND" H 4650 4200 50  0000 C CNN
-F 2 "" H 4650 4350 50  0001 C CNN
-F 3 "" H 4650 4350 50  0001 C CNN
-	1    4650 4350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2100 3900 2650 3900
-Wire Wire Line
-	2950 3900 3500 3900
-Wire Wire Line
-	3500 4000 3150 4000
-Wire Wire Line
-	3150 4000 3150 4050
-Wire Wire Line
-	4650 3850 4950 3850
-Wire Wire Line
-	4950 3950 4650 3950
-Wire Wire Line
-	4650 3950 4650 4350
 $Comp
 L R R206
 U 1 1 5A610D10
@@ -333,16 +148,11 @@ F 3 "" H 2250 4200 50  0001 C CNN
 	1    2250 4200
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	2250 3900 2250 4050
-Connection ~ 2250 3900
-Wire Wire Line
-	2250 4350 2250 4600
 $Comp
-L GND #PWR014
+L GND #PWR203
 U 1 1 5A610D19
 P 2250 4600
-F 0 "#PWR014" H 2250 4350 50  0001 C CNN
+F 0 "#PWR203" H 2250 4350 50  0001 C CNN
 F 1 "GND" H 2250 4450 50  0000 C CNN
 F 2 "" H 2250 4600 50  0001 C CNN
 F 3 "" H 2250 4600 50  0001 C CNN
@@ -351,19 +161,6 @@ F 3 "" H 2250 4600 50  0001 C CNN
 $EndComp
 Text HLabel 2100 3900 0    60   Input ~ 0
 CHANNEL_2
-Text HLabel 4650 3850 0    60   Input ~ 0
-5V_OUT
-$Comp
-L GND #PWR015
-U 1 1 5A610DC1
-P 3150 5100
-F 0 "#PWR015" H 3150 4850 50  0001 C CNN
-F 1 "GND" H 3150 4950 50  0000 C CNN
-F 2 "" H 3150 5100 50  0001 C CNN
-F 3 "" H 3150 5100 50  0001 C CNN
-	1    3150 5100
-	1    0    0    -1  
-$EndComp
 $Comp
 L R R207
 U 1 1 5A610DC7
@@ -375,55 +172,8 @@ F 3 "" H 2800 4950 50  0001 C CNN
 	1    2800 4950
 	0    -1   -1   0   
 $EndComp
-$Comp
-L Conn_01x02_Male J208
-U 1 1 5A610DCD
-P 3700 4950
-F 0 "J208" H 3700 5050 50  0000 C CNN
-F 1 "NeoPixel Data" H 3350 4900 50  0000 C CNN
-F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 3700 4950 50  0001 C CNN
-F 3 "" H 3700 4950 50  0001 C CNN
-	1    3700 4950
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Conn_01x02_Male J207
-U 1 1 5A610DD3
-P 5150 4900
-F 0 "J207" H 5200 5000 50  0000 C CNN
-F 1 "Power Out" H 5350 4700 50  0000 C CNN
-F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 5150 4900 50  0001 C CNN
-F 3 "" H 5150 4900 50  0001 C CNN
-	1    5150 4900
-	-1   0    0    -1  
-$EndComp
 Text Label 3000 4950 0    60   ~ 0
 NP_DATA_3
-$Comp
-L GND #PWR016
-U 1 1 5A610DDA
-P 4650 5400
-F 0 "#PWR016" H 4650 5150 50  0001 C CNN
-F 1 "GND" H 4650 5250 50  0000 C CNN
-F 2 "" H 4650 5400 50  0001 C CNN
-F 3 "" H 4650 5400 50  0001 C CNN
-	1    4650 5400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2100 4950 2650 4950
-Wire Wire Line
-	2950 4950 3500 4950
-Wire Wire Line
-	3500 5050 3150 5050
-Wire Wire Line
-	3150 5050 3150 5100
-Wire Wire Line
-	4650 4900 4950 4900
-Wire Wire Line
-	4950 5000 4650 5000
-Wire Wire Line
-	4650 5000 4650 5400
 $Comp
 L R R208
 U 1 1 5A610DE8
@@ -435,16 +185,11 @@ F 3 "" H 2250 5250 50  0001 C CNN
 	1    2250 5250
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	2250 4950 2250 5100
-Connection ~ 2250 4950
-Wire Wire Line
-	2250 5400 2250 5650
 $Comp
-L GND #PWR017
+L GND #PWR204
 U 1 1 5A610DF1
 P 2250 5650
-F 0 "#PWR017" H 2250 5400 50  0001 C CNN
+F 0 "#PWR204" H 2250 5400 50  0001 C CNN
 F 1 "GND" H 2250 5500 50  0000 C CNN
 F 2 "" H 2250 5650 50  0001 C CNN
 F 3 "" H 2250 5650 50  0001 C CNN
@@ -453,19 +198,6 @@ F 3 "" H 2250 5650 50  0001 C CNN
 $EndComp
 Text HLabel 2100 4950 0    60   Input ~ 0
 CHANNEL_3
-Text HLabel 4650 4900 0    60   Input ~ 0
-5V_OUT
-$Comp
-L GND #PWR018
-U 1 1 5A611027
-P 3150 6200
-F 0 "#PWR018" H 3150 5950 50  0001 C CNN
-F 1 "GND" H 3150 6050 50  0000 C CNN
-F 2 "" H 3150 6200 50  0001 C CNN
-F 3 "" H 3150 6200 50  0001 C CNN
-	1    3150 6200
-	1    0    0    -1  
-$EndComp
 $Comp
 L R R209
 U 1 1 5A61102D
@@ -477,55 +209,8 @@ F 3 "" H 2800 6050 50  0001 C CNN
 	1    2800 6050
 	0    -1   -1   0   
 $EndComp
-$Comp
-L Conn_01x02_Male J210
-U 1 1 5A611033
-P 3700 6050
-F 0 "J210" H 3700 6150 50  0000 C CNN
-F 1 "NeoPixel Data" H 3350 6000 50  0000 C CNN
-F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 3700 6050 50  0001 C CNN
-F 3 "" H 3700 6050 50  0001 C CNN
-	1    3700 6050
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Conn_01x02_Male J209
-U 1 1 5A611039
-P 5150 6000
-F 0 "J209" H 5200 6100 50  0000 C CNN
-F 1 "Power Out" H 5350 5800 50  0000 C CNN
-F 2 "Wire_Connections_Bridges:WireConnection_0.80mmDrill" H 5150 6000 50  0001 C CNN
-F 3 "" H 5150 6000 50  0001 C CNN
-	1    5150 6000
-	-1   0    0    -1  
-$EndComp
 Text Label 3000 6050 0    60   ~ 0
 NP_DATA_4
-$Comp
-L GND #PWR019
-U 1 1 5A611040
-P 4650 6500
-F 0 "#PWR019" H 4650 6250 50  0001 C CNN
-F 1 "GND" H 4650 6350 50  0000 C CNN
-F 2 "" H 4650 6500 50  0001 C CNN
-F 3 "" H 4650 6500 50  0001 C CNN
-	1    4650 6500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2100 6050 2650 6050
-Wire Wire Line
-	2950 6050 3500 6050
-Wire Wire Line
-	3500 6150 3150 6150
-Wire Wire Line
-	3150 6150 3150 6200
-Wire Wire Line
-	4650 6000 4950 6000
-Wire Wire Line
-	4950 6100 4650 6100
-Wire Wire Line
-	4650 6100 4650 6500
 $Comp
 L R R210
 U 1 1 5A61104E
@@ -537,16 +222,11 @@ F 3 "" H 2250 6350 50  0001 C CNN
 	1    2250 6350
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	2250 6050 2250 6200
-Connection ~ 2250 6050
-Wire Wire Line
-	2250 6500 2250 6750
 $Comp
-L GND #PWR020
+L GND #PWR205
 U 1 1 5A611057
 P 2250 6750
-F 0 "#PWR020" H 2250 6500 50  0001 C CNN
+F 0 "#PWR205" H 2250 6500 50  0001 C CNN
 F 1 "GND" H 2250 6600 50  0000 C CNN
 F 2 "" H 2250 6750 50  0001 C CNN
 F 3 "" H 2250 6750 50  0001 C CNN
@@ -555,6 +235,138 @@ F 3 "" H 2250 6750 50  0001 C CNN
 $EndComp
 Text HLabel 2100 6050 0    60   Input ~ 0
 CHANNEL_4
-Text HLabel 4650 6000 0    60   Input ~ 0
+Text Label 4400 1800 0    60   ~ 0
+GND
+Text Label 4400 2000 0    60   ~ 0
+GND
+Text Label 4400 2200 0    60   ~ 0
+GND
+Text Label 4400 2600 0    60   ~ 0
+GND
+Text Label 4400 3000 0    60   ~ 0
+GND
+Text Label 4400 3400 0    60   ~ 0
+GND
+Text HLabel 4400 2300 0    60   Input ~ 0
+5V_OUT
+Text Label 4400 2400 0    60   ~ 0
+GND
+Text Label 4400 2800 0    60   ~ 0
+GND
+Text Label 4400 3200 0    60   ~ 0
+GND
+Text Label 4400 3600 0    60   ~ 0
+GND
+$Comp
+L Conn_01x20_Male J201
+U 1 1 5A64B1D0
+P 5200 2600
+F 0 "J201" H 5200 3600 50  0000 C CNN
+F 1 "Conn_01x20_Male" H 5200 1500 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Angled_2x10_Pitch2.54mm" H 5200 2600 50  0001 C CNN
+F 3 "" H 5200 2600 50  0001 C CNN
+	1    5200 2600
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	2100 1750 2650 1750
+Wire Wire Line
+	4200 1700 5000 1700
+Wire Wire Line
+	2250 1750 2250 1900
+Connection ~ 2250 1750
+Wire Wire Line
+	2250 2200 2250 2450
+Wire Wire Line
+	2100 2850 2650 2850
+Wire Wire Line
+	2950 2850 3500 2850
+Wire Wire Line
+	2250 2850 2250 3000
+Connection ~ 2250 2850
+Wire Wire Line
+	2250 3300 2250 3550
+Wire Wire Line
+	2100 3900 2650 3900
+Wire Wire Line
+	2950 3900 3500 3900
+Wire Wire Line
+	2250 3900 2250 4050
+Connection ~ 2250 3900
+Wire Wire Line
+	2250 4350 2250 4600
+Wire Wire Line
+	2100 4950 2650 4950
+Wire Wire Line
+	2950 4950 3500 4950
+Wire Wire Line
+	2250 4950 2250 5100
+Connection ~ 2250 4950
+Wire Wire Line
+	2250 5400 2250 5650
+Wire Wire Line
+	2100 6050 2650 6050
+Wire Wire Line
+	2950 6050 3500 6050
+Wire Wire Line
+	2250 6050 2250 6200
+Connection ~ 2250 6050
+Wire Wire Line
+	2250 6500 2250 6750
+Wire Wire Line
+	4400 1900 5000 1900
+Wire Wire Line
+	5000 2000 4400 2000
+Wire Wire Line
+	5000 1800 4400 1800
+Wire Wire Line
+	2950 1750 3550 1750
+Text Label 3550 1750 2    60   ~ 0
+NP_DATA_0
+Wire Wire Line
+	5000 2100 4400 2100
+Wire Wire Line
+	5000 2200 4400 2200
+Wire Wire Line
+	5000 2300 4400 2300
+Wire Wire Line
+	5000 2400 4400 2400
+Wire Wire Line
+	5000 2500 4400 2500
+Wire Wire Line
+	5000 2600 4400 2600
+Wire Wire Line
+	5000 2700 4400 2700
+Wire Wire Line
+	5000 2800 4400 2800
+Wire Wire Line
+	5000 2900 4400 2900
+Wire Wire Line
+	5000 3000 4400 3000
+Wire Wire Line
+	5000 3100 4400 3100
+Wire Wire Line
+	5000 3200 4400 3200
+Wire Wire Line
+	5000 3300 4400 3300
+Wire Wire Line
+	5000 3400 4400 3400
+Wire Wire Line
+	5000 3500 4400 3500
+Wire Wire Line
+	5000 3600 4400 3600
+Text Label 4400 2100 0    60   ~ 0
+NP_DATA_1
+Text Label 4400 2500 0    60   ~ 0
+NP_DATA_2
+Text Label 4400 2900 0    60   ~ 0
+NP_DATA_3
+Text Label 4400 3300 0    60   ~ 0
+NP_DATA_4
+Text HLabel 4400 2700 0    60   Input ~ 0
+5V_OUT
+Text HLabel 4400 3100 0    60   Input ~ 0
+5V_OUT
+Text HLabel 4400 3500 0    60   Input ~ 0
 5V_OUT
 $EndSCHEMATC

@@ -2,8 +2,39 @@
 #ifndef INCLUDE_NEOPIXEL_H
 #define INCLUDE_NEOPIXEL_H
 
+/*! The port pin PA1 */
+#define NEOPIXEL_PA1 1
+/*! The port pin PA2 */
+#define NEOPIXEL_PA2 2
+/*! The port pin PA3 */
+#define NEOPIXEL_PA3 3
+/*! The port pin PA4 */
+#define NEOPIXEL_PA4 4
+/*! The port pin PA5 */
+#define NEOPIXEL_PA5 5
+/*! The port pin PA6 */
+#define NEOPIXEL_PA6 6
+/*! The port pin PA7 */
+#define NEOPIXEL_PA7 7
+
+/*! The data pin for the shift register */
+#define NEOPIXEL_SR_PIN NEOPIXEL_PA1
+
+/*! The clock pin for the shift register */
+#define NEOPIXEL_CLK_PIN NEOPIXEL_PA2
+
+/*! The latch pin for the shift register */
+#define NEOPIXEL_LATCH_PIN NEOPIXEL_PA3
+
+/*! Then enable pin for the shift register */
+#define NEOPIXEL_ENABLE NEOPIXEL_PA4
+
+/*! The port for the neopixel and shift register */
+#define NEOPIXEL_PORT VPORTA_OUT
+
 /*! The output port pin for driving the NeoPixel strip */
-#define NeoPin (1 << 1)
+#define NEOPIXEL_NEOPIN NEOPIXEL_ENABLE
+
 /*! The number of NeoPixels */
 #define neopixel_pixels 60
 
@@ -46,6 +77,12 @@ void neopixel_fill(uint8_t red, uint8_t green, uint8_t blue);
  * \brief Pushes the buffer out to the pixel strip.
  */
 void neopixel_show();
+
+/*!
+ * \brief Sets the channel for the stip to use. The bits in the 
+ * binary integer will each represent a channel.
+ */
+ void neopixel_setchannel( uint8_t channel );
 
 #endif 
 

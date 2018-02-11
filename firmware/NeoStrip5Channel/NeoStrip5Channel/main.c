@@ -17,7 +17,7 @@
 #include "neopixel.h"
 
 /*! The Animation sequence implementation chosen for the build */
-#define _MAIN_ANIMATION_9
+#define _MAIN_ANIMATION_5
 
 
 /*! The setting for the CLKCTRL.MCLKCTRLB register */
@@ -221,11 +221,32 @@ void init_random(uint8_t hue){
 	uint8_t green_color = 0;
 	uint8_t blue_color = 0;
 
+	uint8_t colour_bias = 0; 
+
 	for (int i = 0; i < neopixel_pixels; i++)
 	{
+
 	   red_color = rand() % hue;
 	   blue_color = rand() % hue;
 	   green_color = rand() % hue;
+
+	   colour_bias = rand() % 3;
+	   switch(colour_bias){
+	   case 1:
+			red_color = 0;
+			break;
+	   case 2:
+			green_color = 0;
+			break;
+	   case 3:
+			blue_color = 0;
+			break;
+	   default:
+			red_color = 0;
+			green_color = 0;
+			blue_color = 0;
+			break;
+	   }
 	   neopixel_setPixel(i, red_color, green_color, blue_color);
 	}
 }
@@ -358,7 +379,7 @@ int main(void)
 	CPU_CCP = CCP_IOREG_gc;
 	CLKCTRL.MCLKCTRLB = _MAIN_CLOCK;
 
-	PORTA.DIR |= 1 << 1;
+	PORTA.DIR |= (1 << NEOPIXEL_NEOPIN) | (1 << NEOPIXEL_DATA_PIN) | (1 << NEOPIXEL_CLK_PIN) | (1 << NEOPIXEL_LATCH_PIN);
 
 	// int delay, positions;
 	// positions = 60;
@@ -374,7 +395,7 @@ int main(void)
 }
 
 
-#ifdef _MAIN_ANIMATION_8
+#ifdef _MAIN_ANIMATION_10
 
 
 int main(void)
@@ -388,7 +409,22 @@ int main(void)
 	CPU_CCP = CCP_IOREG_gc;
 	CLKCTRL.MCLKCTRLB = _MAIN_CLOCK;
 
-	PORTA.DIR |= 1 << 1;
+	PORTA.DIR |= (1 << NEOPIXEL_NEOPIN) | (1 << NEOPIXEL_SR_PIN) | (1 << NEOPIXEL_CLK_PIN) | (1 << NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT  |= (1<<NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_CLK_PIN));
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_SR_PIN));
+
+	uint8_t red = 0;
+	uint8_t green = 0;
+	uint8_t blue = 0;
+
+	neopixel_fill(red, green, blue);
+	neopixel_setchannel( 0x00 );
+	neopixel_show();
+
+	neopixel_setchannel( 0x1F );
+	neopixel_show();
+
 
 	int delay;
 	delay = 50;
@@ -400,7 +436,6 @@ int main(void)
 
 	uint8_t mode = 0;
 
-	uint8_t red, blue, green;
 	red = 0x00;
 	blue = 0x00;
 	green = 0x00;
@@ -437,7 +472,21 @@ int main(void)
 	CPU_CCP = CCP_IOREG_gc;
 	CLKCTRL.MCLKCTRLB = _MAIN_CLOCK;
 
-	PORTA.DIR |= 1 << 1;
+	PORTA.DIR |= (1 << NEOPIXEL_NEOPIN) | (1 << NEOPIXEL_SR_PIN) | (1 << NEOPIXEL_CLK_PIN) | (1 << NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT  |= (1<<NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_CLK_PIN));
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_SR_PIN));
+
+	uint8_t red = 0;
+	uint8_t green = 0;
+	uint8_t blue = 0;
+
+	neopixel_fill(red, green, blue);
+	neopixel_setchannel( 0x00 );
+	neopixel_show();
+
+	neopixel_setchannel( 0x1F );
+	neopixel_show();
 
 	int delay = 20;
 	#define GOING_GREEN 0
@@ -446,7 +495,7 @@ int main(void)
 	#define HUE 0x80
 
 	uint8_t mode = 0;
-	uint8_t red, blue, green;
+
 	red = 0x00;
 	blue = 0x00;
 	green = 0x00;
@@ -458,14 +507,11 @@ int main(void)
 	while(true){
 
 		// GRB
-		for(int i = 0; i < 100; i++){
-		init_random(HUE/2);
-		neopixel_show();
-		_delay_ms(delay);
+		for(int i = 0; i < 200; i++){
+			init_random(HUE/2);
+			neopixel_show();
+			_delay_ms(delay);
 		}
-
-
-
 
 		// GRB
         red = 0x00;
@@ -682,7 +728,21 @@ int main(void)
 	CPU_CCP = CCP_IOREG_gc;
 	CLKCTRL.MCLKCTRLB = _MAIN_CLOCK;
 
-	PORTA.DIR |= 1 << 1;
+	PORTA.DIR |= (1 << NEOPIXEL_NEOPIN) | (1 << NEOPIXEL_SR_PIN) | (1 << NEOPIXEL_CLK_PIN) | (1 << NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT  |= (1<<NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_CLK_PIN));
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_SR_PIN));
+
+	uint8_t red = 0;
+	uint8_t green = 0;
+	uint8_t blue = 0;
+
+	neopixel_fill(red, green, blue);
+	neopixel_setchannel( 0x00 );
+	neopixel_show();
+
+	neopixel_setchannel( 0x1F );
+	neopixel_show();
 
 	int delay, positions;
 	positions = neopixel_pixels * 4;
@@ -876,14 +936,32 @@ int main(void)
 	CPU_CCP = CCP_IOREG_gc;
 	CLKCTRL.MCLKCTRLB = _MAIN_CLOCK;
 
-	PORTA.DIR |= 1 << 1;
+	PORTA.DIR |= (1 << NEOPIXEL_NEOPIN) | (1 << NEOPIXEL_SR_PIN) | (1 << NEOPIXEL_CLK_PIN) | (1 << NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT  |= (1<<NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_CLK_PIN));
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_SR_PIN));
 
-    int delay, positions;
-    positions = 240;
+	uint8_t red_color = 0;
+	uint8_t green_color = 0;
+	uint8_t blue_color = 0;
+
+	neopixel_fill(red_color, green_color, blue_color);
+	neopixel_setchannel( 0x00 );
+	neopixel_show();
+
+	neopixel_setchannel( 0x1F );
+	neopixel_show();
+
+    int delay;
+	// int positions = 240;
     delay = 50;
-    init_rainbow();
-
+    init_rainbow((uint8_t) 0x03 );
+	uint8_t channel = 1;
 	while(true){
+
+		neopixel_setchannel( channel );
+		channel++;
+		if(channel > 7) channel = 1;
 
 		pixel_chaser(true, 60, delay);
 
@@ -909,11 +987,18 @@ int main(void)
 	CPU_CCP = CCP_IOREG_gc;
 	CLKCTRL.MCLKCTRLB = _MAIN_CLOCK;
 
-	PORTA.DIR |= 1 << 1;
+	PORTA.DIR |= (1 << NEOPIXEL_NEOPIN) | (1 << NEOPIXEL_SR_PIN) | (1 << NEOPIXEL_CLK_PIN) | (1 << NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT  |= (1<<NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_CLK_PIN));
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_SR_PIN));
 
 	uint8_t red_color = 0;
 	uint8_t green_color = 0;
 	uint8_t blue_color = 0;
+
+    neopixel_fill(red_color, green_color, blue_color);
+    neopixel_setchannel( 0x00 );
+    neopixel_show();
 
 	for (int i = 0; i < neopixel_pixels; i++)
 	{
@@ -932,13 +1017,21 @@ int main(void)
 			green_color = NEO_ALL_OFF;
 			blue_color = 0x1f;
 		}
-		neopixel_setPixel(i, red_color, green_color, blue_color);
+	 	neopixel_setPixel(i, red_color, green_color, blue_color);
+
 	}
+
+	neopixel_setchannel( 0xFF );
 	while(true)
 	{
-		neopixel_shift();
-		neopixel_show();
-		_delay_ms(25);
+ 		// for(uint8_t channel = 0; channel<0x0F; channel++){
+			// neopixel_shift(true);
+			// NEOPIXEL_PORT &= (~(1<<NEOPIXEL_LATCH_PIN));
+			// neopixel_setchannel( channel );
+			// NEOPIXEL_PORT |= (1<<NEOPIXEL_LATCH_PIN);
+			neopixel_show();
+			_delay_ms(500);
+		// }
 	}
 	
 	return 0;
@@ -961,11 +1054,22 @@ int main(void)
 	CPU_CCP = CCP_IOREG_gc;
 	CLKCTRL.MCLKCTRLB = _MAIN_CLOCK;
 
-	PORTA.DIR |= 1 << 1;
+
+
+	PORTA.DIR |= (1 << NEOPIXEL_NEOPIN) | (1 << NEOPIXEL_SR_PIN) | (1 << NEOPIXEL_CLK_PIN) | (1 << NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT  |= (1<<NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_CLK_PIN));
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_SR_PIN));
 
 	uint8_t red_color = 0;
 	uint8_t green_color = 0;
 	uint8_t blue_color = 0;
+
+	neopixel_fill(red_color, green_color, blue_color);
+	neopixel_setchannel( 0x00 );
+	neopixel_show();
+
+	neopixel_setchannel( (uint8_t)0x0F );
 
 	while(true)
 	{
@@ -1003,7 +1107,15 @@ int main(void)
 	CPU_CCP = CCP_IOREG_gc;
 	CLKCTRL.MCLKCTRLB = _MAIN_CLOCK;
 
-	PORTA.DIR |= 1 << 1;
+
+
+	PORTA.DIR |= (1 << NEOPIXEL_NEOPIN) | (1 << NEOPIXEL_SR_PIN) | (1 << NEOPIXEL_CLK_PIN) | (1 << NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT  |= (1<<NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_CLK_PIN));
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_SR_PIN));
+
+	neopixel_setchannel( (uint8_t)0x0F );
+
 
 	while(1)
 	{
@@ -1057,7 +1169,14 @@ int main(void)
     CPU_CCP = CCP_IOREG_gc;
     CLKCTRL.MCLKCTRLB = _MAIN_CLOCK;
 
-    PORTA.DIR |= 1 << 1;
+
+	PORTA.DIR |= (1 << NEOPIXEL_NEOPIN) | (1 << NEOPIXEL_SR_PIN) | (1 << NEOPIXEL_CLK_PIN) | (1 << NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT  |= (1<<NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_CLK_PIN));
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_SR_PIN));
+
+
+
     for (int i = 0; i < neopixel_pixels; i++)
     {
 	    neopixel_setPixel(i, NEO_ALL_OFF, NEO_ALL_OFF, NEO_ALL_OFF);
@@ -1065,6 +1184,10 @@ int main(void)
 
 	while(1)
 	{
+		NEOPIXEL_PORT &= (~(1<<NEOPIXEL_LATCH_PIN));
+		neopixel_setchannel( 0x1F );
+		NEOPIXEL_PORT |= (1<<NEOPIXEL_LATCH_PIN);
+
 		neopixel_show();
 	}
 
@@ -1087,15 +1210,23 @@ int main(void)
     CPU_CCP = CCP_IOREG_gc;
     CLKCTRL.MCLKCTRLB = _MAIN_CLOCK;
 
-    PORTA.DIR |= 1 << 1;
+	PORTA.DIR |= (1 << NEOPIXEL_NEOPIN) | (1 << NEOPIXEL_SR_PIN) | (1 << NEOPIXEL_CLK_PIN) | (1 << NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT  |= (1<<NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_CLK_PIN));
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_SR_PIN));
+
+
+	neopixel_setchannel( (uint8_t)0x0F );
+
     for (int i = 0; i < neopixel_pixels; i++)
     {
 	    neopixel_setPixel(i, NEO_ALL_ON, NEO_ALL_ON, NEO_ALL_ON);
     }
+   neopixel_show();
 
 	while(1)
 	{
-		neopixel_show();
+	   _delay_ms(5000);
 	}
 
 	return 0;

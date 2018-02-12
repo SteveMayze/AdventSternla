@@ -17,7 +17,7 @@
 #include "neopixel.h"
 
 /*! The Animation sequence implementation chosen for the build */
-#define _MAIN_ANIMATION_5
+#define _MAIN_ANIMATION_10
 
 
 /*! The setting for the CLKCTRL.MCLKCTRLB register */
@@ -286,6 +286,9 @@ void rainbow_wipe(uint8_t hue, bool direction, int delay){
 
 	uint8_t pixel = ( direction )? neopixel_pixels - 1: 0;
 	uint8_t red, green, blue;
+	red = 0;
+	green = 0;
+	blue = 0;
 	for(int i = 0; i < neopixel_pixels; i++){
 		if( direction ) {
 			if ( i <= 9) {
@@ -393,6 +396,9 @@ int main(void)
 	
 	return 0;
 }
+#endif
+
+
 
 
 #ifdef _MAIN_ANIMATION_10
@@ -425,36 +431,28 @@ int main(void)
 	neopixel_setchannel( 0x1F );
 	neopixel_show();
 
-
-	int delay;
-	delay = 50;
-
-	#define GOING_GREEN 0
-	#define GOING_RED 1
-	#define  GOING_BLUE 2
-	#define UPPER_LIMIT 0x80
-
-	uint8_t mode = 0;
-
-	red = 0x00;
-	blue = 0x00;
-	green = 0x00;
-	neopixel_fill(red, green, blue);
-	neopixel_show();
-
-	mode = GOING_GREEN;
+	int delay = 250;
+	#define HUE 0x10
+	int channel = 1;
+	int hue = HUE;
 	while(true){
 
-		_delay_ms(delay);
+	   hue = rand() % HUE;
+
+		init_random(hue);
+		neopixel_setchannel(channel);
+		neopixel_show();
+		channel++;
+		if (channel > 0b00000100){
+		   channel = 1;
+		}
+		//_delay_ms(delay);
 
 	}
 
 	
 	return 0;
 }
-#endif
-
-
 #endif
 
 
@@ -576,7 +574,21 @@ int main(void)
 	CPU_CCP = CCP_IOREG_gc;
 	CLKCTRL.MCLKCTRLB = _MAIN_CLOCK;
 
-	PORTA.DIR |= 1 << 1;
+	PORTA.DIR |= (1 << NEOPIXEL_NEOPIN) | (1 << NEOPIXEL_SR_PIN) | (1 << NEOPIXEL_CLK_PIN) | (1 << NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT  |= (1<<NEOPIXEL_LATCH_PIN);
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_CLK_PIN));
+	NEOPIXEL_PORT &= (~(1<<NEOPIXEL_SR_PIN));
+
+	uint8_t red = 0;
+	uint8_t green = 0;
+	uint8_t blue = 0;
+
+	neopixel_fill(red, green, blue);
+	neopixel_setchannel( 0x00 );
+	neopixel_show();
+
+	neopixel_setchannel( 0x1F );
+	neopixel_show();
 
 	int delay = 250;
 	#define HUE 0x10

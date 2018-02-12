@@ -186,7 +186,7 @@ void neopixel_latch(){
     NEOPIXEL_PORT &= (~(1<<NEOPIXEL_CLK_PIN));
 	NEOPIXAL_CHANNEL_LO();
     for( uint8_t i=0; i<8; i++){
-		if( channel & 0b1000000 ) {
+		if( channel & 0b10000000 ) {
 			NEOPIXEL_CHANNEL_HI();
 		} else {
 			NEOPIXAL_CHANNEL_LO();

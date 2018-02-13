@@ -2,6 +2,10 @@
 #ifndef INCLUDE_NEOPIXEL_H
 #define INCLUDE_NEOPIXEL_H
 
+#include <avr/io.h>
+#include <stdbool.h>
+#include "attiny1614_sr595.h"
+
 /*! The port pin PA1 */
 #define NEOPIXEL_PA1 1
 /*! The port pin PA2 */
@@ -17,23 +21,12 @@
 /*! The port pin PA7 */
 #define NEOPIXEL_PA7 7
 
-/*! The data pin for the shift register */
-#define NEOPIXEL_SR_PIN NEOPIXEL_PA1
-
-/*! The clock pin for the shift register */
-#define NEOPIXEL_CLK_PIN NEOPIXEL_PA2
-
-/*! The latch pin for the shift register */
-#define NEOPIXEL_LATCH_PIN NEOPIXEL_PA3
-
-/*! Then enable pin for the shift register */
-#define NEOPIXEL_ENABLE NEOPIXEL_PA4
 
 /*! The port for the neopixel and shift register */
 #define NEOPIXEL_PORT VPORTA_OUT
 
 /*! The output port pin for driving the NeoPixel strip */
-#define NEOPIXEL_NEOPIN NEOPIXEL_ENABLE
+#define NEOPIXEL_NEOPIN SR595_ENABLE
 
 /*! The number of NeoPixels */
 #define neopixel_pixels 60
@@ -58,6 +51,11 @@
 /*! The lowest intensity for a pixel colour i.e OFF */
 #define NEO_ALL_OFF 0x00
 
+
+void delay_ms(int ms);
+
+void neopixel_init();
+
 /*!
  * \brief	Sets a pixel with the RGB code
  */
@@ -78,11 +76,7 @@ void neopixel_fill(uint8_t red, uint8_t green, uint8_t blue);
  */
 void neopixel_show();
 
-/*!
- * \brief Sets the channel for the stip to use. The bits in the 
- * binary integer will each represent a channel.
- */
- void neopixel_setchannel( uint8_t channel );
+void neopixel_setchannel( uint8_t channel );
 
 #endif 
 

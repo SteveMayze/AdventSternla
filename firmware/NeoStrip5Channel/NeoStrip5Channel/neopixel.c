@@ -13,11 +13,35 @@
 #include <util/delay.h>
 
 #include "neopixel.h"
+#include "attiny1614_sr595.h"
 
 /*! The buffer that contains all pixel and colour data */
 uint8_t buffer[neopixel_buffer_size];
 /*! The pin mask for the output port pin that drives the NeoPixels */
 uint8_t pinMask = 0x10; // PA4 NEOPIXEL_ENABLE
+
+
+
+
+/*!
+ * \brief a wrapper over the _delay_ms function
+ *
+ *	This wrapper enables the ms count to be passed in as variable
+ *	and not as a integer constant as dictated by the _delay_ms 
+ *	function.
+ */
+void delay_ms(int ms){
+	for(int i =0; i < ms; i++){
+		_delay_ms(1);
+	}
+}
+
+
+void neopixel_init(){
+	PORTA.DIR |= (1 << NEOPIXEL_NEOPIN);
+	sr595_init();
+
+}
 
 
 /*!
@@ -161,39 +185,7 @@ void neopixel_show()
 
 }
 
-#define NEOPIXEL_CHANNEL_HI() ( NEOPIXEL_PORT |= (1 << NEOPIXEL_SR_PIN ))
-#define NEOPIXAL_CHANNEL_LO() (NEOPIXEL_PORT &= (~(1 << NEOPIXEL_SR_PIN )))
-
-/*!
- * \brief sends a clock pulse to the shift register
- */
-void neopixel_pulse(){
-   NEOPIXEL_PORT |= ( 1 <<NEOPIXEL_CLK_PIN );
-   _delay_us(10);
-   NEOPIXEL_PORT &= (~(1<<NEOPIXEL_CLK_PIN));
-   _delay_us(10);
-}
-
-void neopixel_latch(){
-   NEOPIXEL_PORT |= (1<<NEOPIXEL_LATCH_PIN);
-   _delay_us(10);
-   NEOPIXEL_PORT &= (~(1<<NEOPIXEL_LATCH_PIN));
-   _delay_us(10);
-   
-}
-
  void neopixel_setchannel( uint8_t channel ) {
-    NEOPIXEL_PORT &= (~(1<<NEOPIXEL_CLK_PIN));
-	NEOPIXAL_CHANNEL_LO();
-    for( uint8_t i=0; i<8; i++){
-		if( channel & 0b10000000 ) {
-			NEOPIXEL_CHANNEL_HI();
-		} else {
-			NEOPIXAL_CHANNEL_LO();
-		}
-		neopixel_pulse();
-		channel = channel << 1;
-	}
-   NEOPIXEL_PORT &= (~(1<<NEOPIXEL_CLK_PIN));
-   neopixel_latch();
+	sr595_shiftout( channel );
  }
+

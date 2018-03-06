@@ -278,21 +278,12 @@ void neopixel_anim_init_random(uint8_t strip[], uint8_t hue){
  */
 void neopixel_anim_wipe(uint8_t strip[], uint8_t red, uint8_t green, uint8_t blue, bool direction, int delay){
 
-	uint8_t pixel = ( direction )? NEOPIXELS_SIZE - 1: 0;
-	// uint8_t pixel = neopixel_pixels - 1;
+	uint8_t pixel = ( direction )? 0: NEOPIXELS_SIZE-1;
 	for(uint8_t i = 0; i < NEOPIXELS_SIZE; i++){
-		if( direction ) {
-			neopixel_setPixel(strip, pixel, red, green, blue);
-			neopixel_show(strip);
-			neopixel_shift(strip, direction);
-			} else {
-			neopixel_setPixel(strip, 0, red, green, blue);
-			neopixel_setPixel(strip, NEOPIXELS_SIZE - 1, red, green, blue);
-			neopixel_show(strip);
-			neopixel_shift(strip, direction);
-		}
+		neopixel_setPixel(strip, pixel , red, green, blue);
+		neopixel_show(strip);
+		neopixel_shift(strip, direction);
 		delay_ms(delay);
-
 	}
 }
 

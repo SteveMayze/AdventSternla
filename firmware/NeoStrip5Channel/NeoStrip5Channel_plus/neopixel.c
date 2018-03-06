@@ -31,7 +31,7 @@ uint8_t pinMask = 0x10; // PA4 NEOPIXEL_ENABLE
  *	function.
  */
 void delay_ms(int ms){
-	for(uint8_t i =0; i < ms; i++){
+	for(int i =0; i < ms; i++){
 		_delay_ms(1);
 	}
 }
@@ -49,7 +49,7 @@ void neopixel_init(){
  */
 void neopixel_setPixel(uint8_t strip[], uint8_t pixel, uint8_t red, uint8_t green, uint8_t blue)
 {
-    uint8_t location = pixel * 3;
+    volatile uint8_t location = pixel * 3;
 	strip[ location + NEO_RED ] = red;
 	strip[ location + NEO_GREEN ] = green;
 	strip[ location + NEO_BLUE ] = blue;
@@ -70,8 +70,30 @@ void neopixel_fill(uint8_t strip[], uint8_t red, uint8_t green, uint8_t blue){
  */
 void neopixel_shift(uint8_t strip[], bool direction){
 
+	uint8_t tmp_red, tmp_green, tmp_blue;
+
    if( direction ) {
-		for (int i = 0; i < ( NEOPIXELS_SIZE - 1); i++){
+		tmp_red = strip[ LAST_PIXEL + NEO_RED];
+		tmp_green =  strip[ LAST_PIXEL + NEO_GREEN];
+		tmp_blue =  strip[ LAST_PIXEL + NEO_BLUE];
+
+   	    for (int i = NEOPIXELS_SIZE-1; i > 0; i--){
+	   	    uint8_t  baseLocation= i * 3;
+	   	    uint8_t newBaseLocation = ( i - 1) * 3;
+
+	   	    strip[ baseLocation + NEO_RED ] = strip[ newBaseLocation + NEO_RED ];
+	   	    strip[ baseLocation + NEO_GREEN ] = strip[newBaseLocation + NEO_GREEN];
+	   	    strip[ baseLocation + NEO_BLUE ] = strip[newBaseLocation + NEO_BLUE];
+   	    }
+		strip[NEO_RED] = tmp_red;
+		strip[NEO_GREEN] = tmp_green;
+		strip[NEO_BLUE] = tmp_blue;
+	} else {
+
+		tmp_red = strip[  NEO_RED ];
+		tmp_green =  strip[  NEO_GREEN ];
+		tmp_blue =  strip[  NEO_BLUE ];
+		for (int i = 0; i < ( NEOPIXELS_SIZE-1 ); i++){
 			uint8_t baseLocation = i * 3;
 			uint8_t newBaseLocation = (i + 1) * 3;
 
@@ -79,26 +101,9 @@ void neopixel_shift(uint8_t strip[], bool direction){
 			strip[ baseLocation + NEO_GREEN ] = strip[newBaseLocation + NEO_GREEN];
 			strip[ baseLocation +NEO_BLUE ] = strip[newBaseLocation + NEO_BLUE];
 		}
-		uint8_t lastLocation = (NEOPIXELS_SIZE -1) *3;
-		strip[lastLocation + NEO_RED] = strip[NEO_RED];
-		strip[lastLocation + NEO_GREEN] = strip[NEO_GREEN];
-		strip[lastLocation + NEO_BLUE] = strip[NEO_BLUE];
-	} else {
-
-
-	    uint8_t firstPixel = 0;
-	    strip[firstPixel + NEO_RED] =  strip[ LAST_PIXEL + NEO_RED];
-	    strip[firstPixel + NEO_GREEN] = strip[ LAST_PIXEL + NEO_GREEN];
-	    strip[firstPixel + NEO_BLUE] = strip[ LAST_PIXEL + NEO_BLUE];
-
-		for (int i = NEOPIXELS_SIZE -1; i > 0; i--){
-			uint8_t  baseLocation= i * 3;
-			uint8_t newBaseLocation = ( i - 1) * 3;
-
-			strip[ baseLocation + NEO_RED ] = strip[ newBaseLocation + NEO_RED ];
-			strip[ baseLocation + NEO_GREEN ] = strip[newBaseLocation + NEO_GREEN];
-			strip[ baseLocation +NEO_BLUE ] = strip[newBaseLocation + NEO_BLUE];
-		}
+		strip[LAST_PIXEL + NEO_RED] = tmp_red;
+		strip[LAST_PIXEL + NEO_GREEN] = tmp_green;
+		strip[LAST_PIXEL + NEO_BLUE] = tmp_blue;
 	}
 }
 

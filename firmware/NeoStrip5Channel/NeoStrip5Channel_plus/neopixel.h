@@ -37,6 +37,7 @@
 #define FIRST_PIXEL 0
 /*! The location of the last pixel */
 #define LAST_PIXEL ((NEOPIXELS_SIZE-1) *3)
+// #define LAST_PIXEL ((NEOPIXELS_SIZE *3) -1 )
 
 /*! The relative location of the RED colour data */
 #define NEO_RED 1
@@ -47,9 +48,9 @@
 
 
 /*! The highest intensity for a pixel colour i.e. ON*/
-#define NEO_ALL_ON 0xFF
+#define NEO_ALL_ON ((uint8_t) 0xFF)
 /*! The lowest intensity for a pixel colour i.e OFF */
-#define NEO_ALL_OFF 0x00
+#define NEO_ALL_OFF ((uint8_t) 0x00)
 
 
 void delay_ms(int ms);

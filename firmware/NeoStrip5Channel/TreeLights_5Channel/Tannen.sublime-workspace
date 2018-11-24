@@ -1,0 +1,235 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"project",
+				"project_name"
+			],
+			[
+				"gerber",
+				"gerbersDir"
+			],
+			[
+				"Get",
+				"GetOutputDirectory"
+			],
+			[
+				"gerb",
+				"gerbersDir"
+			],
+			[
+				"ger",
+				"gerbersDir"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 170.0,
+		"last_filter": "text",
+		"selected_items":
+		[
+			[
+				"text",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"json",
+				"Set Syntax: JSON"
+			]
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/pcbs/AdventSternla/firmware/NeoStrip5Channel/NeoStrip5Channel_tannen"
+	],
+	"file_history":
+	[
+		"/D/pcbs/ttm/lib/ttm.pretty/c3po_FCu_SolderMask_text.kicad_mod",
+		"/D/Dropbox/CE/eeschema.hotkeys",
+		"/D/Dropbox/CE/pcbnew.hotkeys",
+		"/D/pcbs/ttm/lib/ttm.pretty/c3po_FSilk.kicad_mod",
+		"/D/pcbs/ttm/lib/ttm.pretty/c3po_FSolderMask.kicad_mod",
+		"/D/pcbs/ttm/lib/ttm.pretty/c3po_FCuSolderMaks.kicad_mod",
+		"/D/python/python-tdd-book/functional_tests.py",
+		"/D/python/python-tdd-book/.gitignore",
+		"/D/pcbs/ttm/lib/ttm.pretty/c3po_FCu.kicad_mod",
+		"/D/pcbs/ttm/lib/ttm.pretty/c3po_EdgeCut.kicad_mod",
+		"/D/python/python-tdd-book/virtualenv/Scripts/activate.bat",
+		"/C/Users/Steven/AppData/Local/Temp/rename_project-2.py",
+		"/C/Users/Steven/AppData/Local/Temp/rename_project-1.py",
+		"/D/pcbs/CE_Header/SensorBoard01/SensorBoard.pro",
+		"/D/Dropbox/EA/Leawood/Doc/CE_Update_180704",
+		"/D/pcbs/AACell/kicad/lib/AACell-Footprint.pretty/AACell-Both.kicad_mod",
+		"/D/pcbs/BlinkyBear/kicad/lib/blinky-bear.pretty/BlinkyBear_outline.kicad_mod",
+		"/D/Dropbox/python/dash/dash-sentiment-tutorial-5.py",
+		"/D/Dropbox/python/dash/dash-tutorial.py",
+		"/D/python/dash/dash-tutorial.py",
+		"/D/pcbs/BlinkyBear/kicad/lib/blinky-bear.pretty/BlinkyBear_Heart_FCu.kicad_mod",
+		"/D/pcbs/BlinkyBear/kicad/BlinkyBear.kicad_pcb",
+		"/D/pcbs/BlinkyBear/kicad/lib/blinky-bear.pretty/BlinkyBear_ZoneFill.kicad_mod",
+		"/D/pcbs/AdventSternla/firmware/NeoStrip_02/NeoStrip/main.c",
+		"/D/pcbs/AdventSternla/firmware/NeoStrip_02/NeoStrip/neopixel.c",
+		"/D/pcbs/AdventSternla/firmware/NeoStrip5Channel/NeoStrip5Channel_plus/main.c",
+		"/D/pcbs/AdventSternla/firmware/NeoStrip5Channel/NeoStrip5Channel/main.c",
+		"/C/Users/Steven/AppData/Local/Temp/Temp1_FCMVT2CG8QJDUFI.zip/attiny13_595_Instructable.c",
+		"/D/pcbs/AdventSternla/pcb/FiveChannel/FiveChannel.pro",
+		"/D/pcbs/AdventSternla/pcb/FiveChannel/FiveChannel.kicad_pcb",
+		"/D/pcbs/AdventSternla/pcb/FiveChannel/FiveChannel.sch",
+		"/D/pcbs/Leawood/FieldDevice/kicad/lib/fieldDevice_symbols.lib",
+		"/D/Dropbox/CE/DOGS/DOGS104_SSD1803A_SPI/DOGS104_SSD1803A_SPI/SSD1803A/src/lcd_spi.c",
+		"/D/ElectronicAssembly/ApplicationNotes/DOGS104_SSD1803A_SPI/DOGS104_SSD1803A_SPI/SSD1803A/src/main.c",
+		"/D/ElectronicAssembly/ApplicationNotes/DOGS104_SSD1803A_SPI/DOGS104_SSD1803A_SPI/SSD1803A/src/lcd_spi.c",
+		"/D/Dropbox/CE/DOGS/DOGS104_SSD1803A_SPI/DOGS104_SSD1803A_SPI/SSD1803A/src/main.c",
+		"/D/pcbs/DisplayAdapter_DOGS104/firmware/arduino/DisplayTest/lcd_spi",
+		"/D/Dropbox/CE/DOGS/DOGS104_SSD1803A_SPI/DOGS104_SSD1803A_SPI/SSD1803A/src/lcd_spi.h",
+		"/D/pcbs/DisplayAdapter_DOGS104/firmware/arduino/DisplayTest/lcd_spi.cpp"
+	],
+	"find":
+	{
+		"height": 40.0
+	},
+	"find_in_files":
+	{
+		"height": 104.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "Tannen.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 395.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

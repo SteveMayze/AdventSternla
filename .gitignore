@@ -25,3 +25,6 @@ _autosave-*
 **/Debug
 
 **/.DS_Store
+
+**/Release
+**/.vs

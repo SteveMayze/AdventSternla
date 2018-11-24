@@ -61,11 +61,14 @@ void neopixel_setPixel(uint8_t strip[], uint8_t pixel, uint8_t red, uint8_t gree
  */
 void neopixel_incPixelHue(uint8_t strip[], pixel_type pixel){
 	volatile uint8_t location = pixel.pix * 3;
-	strip[ location + NEO_RED ] <= (0xFF - pixel.red)? strip[ location + NEO_RED ] += pixel.red: strip[ location + NEO_RED ];
-
-	strip[ location + NEO_GREEN ] <= (0xFF - pixel.green)? strip[ location + NEO_GREEN ] += pixel.green: strip[ location + NEO_GREEN ];
-
-	strip[ location + NEO_BLUE ] <= (0xFF - pixel.blue)? strip[ location + NEO_BLUE ] += pixel.blue: strip[ location + NEO_BLUE ];
+	// Don't increase if either or any have reached their ceiling.
+	if ( strip[ location + NEO_RED ] <= (0xFF - pixel.red) && 
+	     strip[ location + NEO_GREEN ] <= (0xFF - pixel.green) && 
+		 strip[ location + NEO_BLUE ] <= (0xFF - pixel.blue)) {
+		strip[ location + NEO_RED ] <= (0xFF - pixel.red)? strip[ location + NEO_RED ] += pixel.red: strip[ location + NEO_RED ];
+		strip[ location + NEO_GREEN ] <= (0xFF - pixel.green)? strip[ location + NEO_GREEN ] += pixel.green: strip[ location + NEO_GREEN ];
+		strip[ location + NEO_BLUE ] <= (0xFF - pixel.blue)? strip[ location + NEO_BLUE ] += pixel.blue: strip[ location + NEO_BLUE ];
+	}
 }
 
 /*!

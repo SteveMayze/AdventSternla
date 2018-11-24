@@ -309,9 +309,9 @@ void worm2(void){
 	delay_ms(1000);
 }
 
-
-
-
+/*!
+ * \brief	Creates an effect of a droplet getting heavy and then falling.
+ */
 void rain(void){
 
 	neopixel_fill(buffer[0], NEO_ALL_OFF, NEO_ALL_OFF, NEO_ALL_OFF);
@@ -359,6 +359,11 @@ void rain(void){
 
 pixel_type star_buffer[MAX_BUFFERS][MAX_STARS]; 
 
+/*!
+ * \brief	Lights up a random number of "stars" MAX_STARS and increases their
+ * brightness until FF for the given colour is reached and then reduces the
+ * intensity.
+ */
 void stars() {
 	// Fill the buffers with each of their star allotments.
 
@@ -416,50 +421,6 @@ void stars() {
 	// }
 }
 
-void stars1() {
-	int star_count = rand() % MAX_STARS;
-	// Fill the buffers with each of their star allotments.
-	for (int buff = 0; buff < MAX_BUFFERS; buff++){
-		neopixel_fill(buffer[buff], NEO_ALL_OFF, NEO_ALL_OFF, NEO_ALL_OFF);
-		for (int star = 0; star < star_count; star++){
-			uint8_t pix = rand() % NEOPIXELS_SIZE;
-			uint8_t red = rand() % 0x08;
-			uint8_t green = rand() % 0x08;
-			uint8_t blue = rand() % 0x08;
-			neopixel_setPixel(buffer[buff], pix, red,green,blue);
-		}
-	}
-
-	for (int i=0; i<150; i++) {
-
-		for(int buff = 0; buff < MAX_BUFFERS; buff++){
-			for(int pix = 0; pix<NEOPIXELS_SIZE; pix++){
-				neopixel_incPixelHue1(buffer[buff], pix, 1);
-			}
-			uint8_t channel = 0b00000001 << buff;
-			neopixel_setchannel(channel);
-			neopixel_show(buffer[buff]);
-			delay_ms(10);
-		}
-	}
-	delay_ms(250);
-
-	for (int i=0; i<150; i++) {
-
-		for(int buff = 0; buff < MAX_BUFFERS; buff++){
-			for(int pix = 0; pix<NEOPIXELS_SIZE; pix++){
-				neopixel_decPixelHue1(buffer[buff], pix, 1);
-			}
-			uint8_t channel = 0b00000001 << buff;
-			neopixel_setchannel(channel);
-			neopixel_show(buffer[buff]);
-			delay_ms(10);
-		}
-	}
-	delay_ms(250);
-}
-
-
 /************************************************************************/
 /* The main control loop                                                */
 /************************************************************************/
@@ -501,10 +462,10 @@ int main(void)
 // 
 // 		delay_ms(2000);
 // 	
-		for ( int i = 0; i < 5;  i++) {
-			rain();
-			delay_ms(1000);
-		}
+// 		for ( int i = 0; i < 5;  i++) {
+// 			rain();
+// 			delay_ms(1000);
+// 		}
 		for ( int i = 0; i < 5;  i++) {
 			stars();
 			delay_ms(1000);

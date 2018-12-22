@@ -12,6 +12,7 @@ typedef struct {
 } pixel_type;
 
 
+#define NEOPIXEL_NEOPIN 1
 
 /*! The output port pin for driving the NeoPixel strip */
 #define NeoPin (1 << 1)
@@ -40,35 +41,37 @@ typedef struct {
 
 void delay_ms(int ms);
 
+void neopixel_init();
+
 /*!
  * \brief	Sets a pixel with the RGB code
  */
-void neopixel_setPixel(uint8_t pixel, uint8_t red, uint8_t green, uint8_t blue);
+void neopixel_setPixel(uint8_t strip[], uint8_t pixel, uint8_t red, uint8_t green, uint8_t blue);
 
 /*!
  * \brief	Shifts the pixels one pixel in the indicated direction
  */
-void neopixel_shift( bool direction );
+void neopixel_shift(uint8_t strip[],  bool direction );
 
 /*!
  * \brief	Initialises the buffer with the given colour 
  */
-void neopixel_fill(uint8_t red, uint8_t green, uint8_t blue);
+void neopixel_fill(uint8_t strip[], uint8_t red, uint8_t green, uint8_t blue);
 
 /*!
  * \brief	Increases the pixel hue to a maximum of 0xFF based on the values contained in the pixel struct.
  */
-void neopixel_incPixelHue(pixel_type pixel);
+void neopixel_incPixelHue(uint8_t strip[], pixel_type pixel);
 
 /*!
  * \brief	Decreases the pixel hue to zero based on the values contained in the pixel struct.
  */
-void neopixel_decrPixelHue( pixel_type pixel);
+void neopixel_decrPixelHue(uint8_t strip[], pixel_type pixel);
 
 /*!
  * \brief Pushes the buffer out to the pixel strip.
  */
-void neopixel_show();
+void neopixel_show(uint8_t strip[]);
 
 #endif 
 

@@ -355,8 +355,6 @@ void rain(void){
 
 
 #define MAX_STARS 10
-// uint8_t star_buffer[MAX_BUFFERS][MAX_STARS * 4];
-
 pixel_type star_buffer[MAX_BUFFERS][MAX_STARS]; 
 
 /*!
@@ -390,7 +388,8 @@ void stars() {
 		}
 		neopixel_setchannel(0b00011111);
 		neopixel_show(buffer[0]);
-
+		uint8_t gradient = rand() % 150;
+		gradient = gradient < 25? 25: gradient;
 		for (int i = 0; i < 50; i++ ) {
 			for (int buff =0; buff < MAX_BUFFERS; buff++) {
 				uint8_t channel = 0b00000001 << buff;
@@ -402,21 +401,21 @@ void stars() {
 					}
 				}
 			}
-			delay_ms(50);
+			delay_ms(gradient);
 		}
-		delay_ms(150);
+		delay_ms(gradient);
 		for( int i = 0; i < 51; i++ ) {
 			for (int buff =0; buff< MAX_BUFFERS; buff++) {
 				uint8_t channel = 0b00000001 << buff;
 				neopixel_setchannel(channel);
 				for( int star_idx = 0; star_idx < MAX_STARS; star_idx++){
-					if( star_buffer[buff]->pix < 0xFF){					
+					if( star_buffer[buff][star_idx].pix < 0xFF){					
 						neopixel_decrPixelHue(buffer[buff], star_buffer[buff][star_idx]);
 						neopixel_show(buffer[buff]);
 					}
 				}
 			}
-			delay_ms(50);
+			delay_ms(gradient);
 		}
 	// }
 }
@@ -439,37 +438,22 @@ int main(void)
 
 	neopixel_init();
  	srand(time(NULL));
-
+	volatile uint8_t pattern;
+	uint8_t delay;
 	while(true){
-
-// 		barber_pole(true);
-// 		delay_ms(1000);
-// 		barber_pole(false);
-// 		delay_ms(2000);
-// 
-// 		colour_shuffle();
-// 		delay_ms(2000);
-// 
-// 		worm();
-// 		delay_ms(2000);
-// 
-// 		chevron(true);
-// 		delay_ms(1000);
-// 		chevron(false);
-// 		delay_ms(2000);
-// 
-// 		worm2();
-// 
-// 		delay_ms(2000);
-// 	
-// 		for ( int i = 0; i < 5;  i++) {
-// 			rain();
-// 			delay_ms(1000);
-// 		}
-		for ( int i = 0; i < 5;  i++) {
-			stars();
-			delay_ms(1000);
+		pattern = rand() % 2;
+		switch(pattern){
+			case 0:
+				stars();
+				break;
+			case 1:
+				rain();
+				break;
 		}
+		delay = rand() % 10;
+		delay = delay < 1? 1: delay;
+		delay_ms(delay * 1000);
+
 	}
 	return 0;
 }

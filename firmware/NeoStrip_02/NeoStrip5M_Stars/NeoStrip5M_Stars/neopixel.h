@@ -49,8 +49,6 @@ typedef struct {
 #define NEO_HUE_MAX_LIMIT 0xFF - NEO_HUE_ADJ
 #define NEO_HUE_MIN_LIMIT NEO_HUE_ADJ
 
-
-
 void delay_ms(int ms);
 
 void neopixel_init();

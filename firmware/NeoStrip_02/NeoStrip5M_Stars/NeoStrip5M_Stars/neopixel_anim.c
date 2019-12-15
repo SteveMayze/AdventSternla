@@ -9,12 +9,6 @@
 #include "neopixel.h"
 #include "neopixel_anim.h"
  
-#define _NEOPIXEL_ANIM_NEW
-
-#define MAX_STARS 50
-#define NEO_ANIM_CYCLES NEO_HUE_ADJ * 100
-#define NEO_ANIM_MAX_GRADIENT 10
-// #define NEO_ANIM_CYCLES 1
 
  #ifdef _NEOPIXEL_ANIM_NEW
 
@@ -30,17 +24,17 @@
 
  neopixel_anim_star_t star_buffer[MAX_STARS];
 
- void neo_anim_clear(uint8_t strip[]) {
+ void neo_anim_clear(void) {
 	for ( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
 		star_buffer[star_idx].active = false;
 		star_buffer[star_idx].pixel.red = 0x00;
 		star_buffer[star_idx].pixel.green = 0x00;
 		star_buffer[star_idx].pixel.blue = 0x00;
-		neopixel_setPixel(strip, star_buffer[star_idx].pixel.pix, 0x00, 0x00, 0x00);
+		neopixel_setPixel(buffer, star_buffer[star_idx].pixel.pix, 0x00, 0x00, 0x00);
 	}
  }
 
- bool neo_anim_any_active() {
+ bool neo_anim_any_active(void) {
 	for( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
 		if ( star_buffer[star_idx].active ) {
 			return true;
@@ -68,7 +62,7 @@
 	 return next_pix;
  }
 
-uint8_t neo_count_actives() {
+uint8_t neo_count_actives(void) {
 	uint8_t actives = 0;
 	for ( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
 		if ( star_buffer[star_idx].active) {
@@ -83,15 +77,14 @@ uint8_t neo_count_actives() {
  * brightness until FF for the given colour is reached and then reduces the
  * intensity.
  */
- void neo_anim_stars(uint8_t strip[]) {
+ void neo_anim_stars(void) {
 	// Clear the buffer
-	neo_anim_clear( strip );
+	neo_anim_clear();
 	uint16_t cycle = 0;
 	bool finish_up = false;
 	bool all_active = true;
 	while ( all_active ) {
 	// Iterate through each star definition
-		// uint8_t actives = cycle > 0 ? MAX_STARS: cycle ;
 		if ( !finish_up ) {
 			for ( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
 				if (star_buffer[star_idx].active != true) {
@@ -104,25 +97,25 @@ uint8_t neo_count_actives() {
 					star_buffer[star_idx].pixel.blue = rand() % NEO_HUE_ADJ;
 				}
 			}
-			neopixel_show(strip);
+			neopixel_show(buffer);
 		} 
 		bool limit_reached = false;
 		for( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++){
 			if ( star_buffer[star_idx].active ) {
 				if( star_buffer[star_idx].ramp_up ) {
-					limit_reached = neopixel_incPixelHue_with_limit(strip, star_buffer[star_idx].pixel );
+					limit_reached = neopixel_incPixelHue_with_limit(buffer, star_buffer[star_idx].pixel );
 					star_buffer[star_idx].ramp_up ^= limit_reached;
 				} else {
-					limit_reached = neopixel_decrPixelHue_with_limit(strip, star_buffer[star_idx].pixel );
+					limit_reached = neopixel_decrPixelHue_with_limit(buffer, star_buffer[star_idx].pixel );
 					if ( limit_reached ){
 						star_buffer[star_idx].active = false;
 						star_buffer[star_idx].pixel.red = 0x00;
 						star_buffer[star_idx].pixel.green = 0x00;
 						star_buffer[star_idx].pixel.blue = 0x00;
-						neopixel_setPixel(strip, star_buffer[star_idx].pixel.pix, 0x00, 0x00, 0x00);
+						neopixel_setPixel(buffer, star_buffer[star_idx].pixel.pix, 0x00, 0x00, 0x00);
 					}
 				}
-				neopixel_show(strip);
+				neopixel_show(buffer);
 			}
 		}
 		uint8_t gradient = rand() % NEO_ANIM_MAX_GRADIENT;
@@ -152,7 +145,6 @@ uint8_t neo_count_actives() {
 
 	 neopixel_fill(strip, NEO_ALL_OFF, NEO_ALL_OFF, NEO_ALL_OFF);
 
-	 // int buf_count = rand() % MAX_BUFFERS;
 	 uint8_t star_count = rand() % MAX_STARS;
 	 for(uint8_t star_idx =0; star_idx < MAX_STARS; star_idx++){
 		 if ( star_idx < star_count+1){

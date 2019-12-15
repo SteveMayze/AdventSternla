@@ -20,7 +20,6 @@
 
 // The buffer is the actual physical buffer memory that will be written out
 // to the NEO Pixel strip. This could be viewed like a video buffer.
-uint8_t buffer[neopixel_buffer_size];
 
 
 
@@ -49,7 +48,7 @@ int main(void)
 	neopixel_fill(buffer, NEO_ALL_OFF, NEO_ALL_OFF, NEO_ALL_OFF);
 	neopixel_show(buffer);
 	while(true) {
-		neo_anim_stars(buffer);
+		neo_anim_stars();
 // 		delay_time = rand() % MAX_DELAY;
 // 		if( delay_time < 1000 ) {
 // 			delay_time = 1000;

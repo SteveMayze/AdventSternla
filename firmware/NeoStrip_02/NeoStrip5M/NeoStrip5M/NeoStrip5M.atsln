@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "NeoStrip5M", "NeoStrip5M.cproj", "{DCE6C7E3-EE26-4D79-826B-08594B9AD897}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "NeoStrip5M_Stars", "..\..\NeoStrip5M_Stars\NeoStrip5M_Stars\NeoStrip5M_Stars.cproj", "{16B5969B-46B8-4AA5-84DF-2D13486901FD}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "TreeLights_5Channel", "..\..\..\NeoStrip5Channel\TreeLights_5Channel\TreeLights_5Channel.cproj", "{21E62ACE-72C8-43B7-B910-FC106551D372}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -15,6 +19,14 @@ Global
 		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Debug|AVR.Build.0 = Debug|AVR
 		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|AVR.ActiveCfg = Release|AVR
 		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|AVR.Build.0 = Release|AVR
+		{16B5969B-46B8-4AA5-84DF-2D13486901FD}.Debug|AVR.ActiveCfg = Debug|AVR
+		{16B5969B-46B8-4AA5-84DF-2D13486901FD}.Debug|AVR.Build.0 = Debug|AVR
+		{16B5969B-46B8-4AA5-84DF-2D13486901FD}.Release|AVR.ActiveCfg = Release|AVR
+		{16B5969B-46B8-4AA5-84DF-2D13486901FD}.Release|AVR.Build.0 = Release|AVR
+		{21E62ACE-72C8-43B7-B910-FC106551D372}.Debug|AVR.ActiveCfg = Debug|AVR
+		{21E62ACE-72C8-43B7-B910-FC106551D372}.Debug|AVR.Build.0 = Debug|AVR
+		{21E62ACE-72C8-43B7-B910-FC106551D372}.Release|AVR.ActiveCfg = Release|AVR
+		{21E62ACE-72C8-43B7-B910-FC106551D372}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

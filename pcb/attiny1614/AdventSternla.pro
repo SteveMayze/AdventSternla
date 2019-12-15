@@ -1,4 +1,4 @@
-update=24/10/2017 19:56:48
+update=08/12/2019 18:04:45
 version=1
 last_client=kicad
 [pcbnew]
@@ -27,38 +27,4 @@ NetIExt=net
 version=1
 [eeschema]
 version=1
-LibDir=../modules
-[eeschema/libraries]
-LibName1=advent_sternla_attiny1614_symbols
-LibName2=power
-LibName3=device
-LibName4=switches
-LibName5=relays
-LibName6=motors
-LibName7=transistors
-LibName8=conn
-LibName9=linear
-LibName10=regul
-LibName11=74xx
-LibName12=cmos4000
-LibName13=adc-dac
-LibName14=memory
-LibName15=xilinx
-LibName16=microcontrollers
-LibName17=dsp
-LibName18=microchip
-LibName19=analog_switches
-LibName20=motorola
-LibName21=texas
-LibName22=intel
-LibName23=audio
-LibName24=interface
-LibName25=digital-audio
-LibName26=philips
-LibName27=display
-LibName28=cypress
-LibName29=siliconi
-LibName30=opto
-LibName31=atmel
-LibName32=contrib
-LibName33=valves
+LibDir=

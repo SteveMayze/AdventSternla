@@ -1,6 +1,39 @@
-EESchema Schematic File Version 4
+EESchema Schematic File Version 2
+LIBS:advent_sternla_attiny1614_symbols
+LIBS:power
+LIBS:device
+LIBS:switches
+LIBS:relays
+LIBS:motors
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
 LIBS:AdventSternla-cache
-EELAYER 29 0
+EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -15,7 +48,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L advent_sternla_attiny1614_symbols:ATTINY1614 U101
+L ATTINY1614 U101
 U 1 1 59EF6A42
 P 5600 4400
 F 0 "U101" H 6150 3600 60  0000 C CNN
@@ -26,7 +59,7 @@ F 3 "" H 5450 4450 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R102
+L R R102
 U 1 1 59EF6A7A
 P 4600 4050
 F 0 "R102" V 4680 4050 50  0000 C CNN
@@ -40,7 +73,7 @@ $EndComp
 Text Label 4000 3850 0    60   ~ 0
 VDD
 $Comp
-L power:GND #PWR01
+L GND #PWR01
 U 1 1 59EF6C0B
 P 5600 5550
 F 0 "#PWR01" H 5600 5300 50  0001 C CNN
@@ -55,7 +88,7 @@ PDI_DATA
 Text Label 4750 2650 0    60   ~ 0
 PDI_DATA
 $Comp
-L power:GND #PWR02
+L GND #PWR02
 U 1 1 59EF6D08
 P 5950 3050
 F 0 "#PWR02" H 5950 2800 50  0001 C CNN
@@ -68,7 +101,7 @@ $EndComp
 Text Label 6150 2650 2    60   ~ 0
 VDD
 $Comp
-L power:GND #PWR03
+L GND #PWR03
 U 1 1 59EF8502
 P 2550 4900
 F 0 "#PWR03" H 2550 4650 50  0001 C CNN
@@ -79,7 +112,7 @@ F 3 "" H 2550 4900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L conn:Conn_02x03_Odd_Even J101
+L Conn_02x03_Odd_Even J101
 U 1 1 59EF854F
 P 5400 2750
 F 0 "J101" H 5450 2950 50  0000 C CNN
@@ -107,7 +140,7 @@ PA6
 Text Label 7100 4700 0    60   ~ 0
 PA7
 $Comp
-L conn:Conn_01x04_Male J106
+L Conn_01x04_Male J106
 U 1 1 59EF8DC0
 P 7500 4500
 F 0 "J106" H 7500 4700 50  0000 C CNN
@@ -118,7 +151,7 @@ F 3 "" H 7500 4500 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L conn:Conn_01x03_Male J105
+L Conn_01x03_Male J105
 U 1 1 59EF8E2B
 P 7500 3950
 F 0 "J105" H 7450 4150 50  0000 C CNN
@@ -129,7 +162,7 @@ F 3 "" H 7500 3950 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L conn:Conn_01x04_Male J107
+L Conn_01x04_Male J107
 U 1 1 59EF90A2
 P 3600 4750
 F 0 "J107" H 3600 4950 50  0000 C CNN
@@ -148,7 +181,7 @@ PB2
 Text Label 4250 4950 0    60   ~ 0
 PB3
 $Comp
-L Device:C C103
+L C C103
 U 1 1 59EF980D
 P 3250 4200
 F 0 "C103" H 3275 4300 50  0000 L CNN
@@ -166,7 +199,7 @@ Text Label 2100 3850 0    60   ~ 0
 Text Label 8550 2750 0    60   ~ 0
 PA1
 $Comp
-L power:GND #PWR04
+L GND #PWR04
 U 1 1 59EFA048
 P 9400 2900
 F 0 "#PWR04" H 9400 2650 50  0001 C CNN
@@ -177,7 +210,7 @@ F 3 "" H 9400 2900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R101
+L R R101
 U 1 1 59EFA380
 P 9050 2750
 F 0 "R101" V 9130 2750 50  0000 C CNN
@@ -190,7 +223,7 @@ $EndComp
 Text Notes 8800 2500 0    60   ~ 0
 The NoePixel has JST \nSM type connnectors
 $Comp
-L conn:Conn_01x02_Male J102
+L Conn_01x02_Male J102
 U 1 1 59F0DA81
 P 9800 2750
 F 0 "J102" H 9800 2850 50  0000 C CNN
@@ -201,7 +234,7 @@ F 3 "" H 9800 2750 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L conn:Conn_01x02_Male J103
+L Conn_01x02_Male J103
 U 1 1 59F0DC96
 P 9800 3350
 F 0 "J103" H 9850 3450 50  0000 C CNN
@@ -214,7 +247,7 @@ $EndComp
 Text Label 9250 2750 0    60   ~ 0
 NP_DATA
 $Comp
-L power:GND #PWR05
+L GND #PWR05
 U 1 1 59F0F6AA
 P 9300 3850
 F 0 "#PWR05" H 9300 3600 50  0001 C CNN
@@ -225,7 +258,7 @@ F 3 "" H 9300 3850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:CP C102
+L CP C102
 U 1 1 59F0F869
 P 1900 4150
 F 0 "C102" H 1925 4250 50  0000 L CNN
@@ -236,7 +269,7 @@ F 3 "" H 1900 4150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3800 4300 4600 4300
+	3800 4300 4800 4300
 Wire Wire Line
 	4600 4300 4600 4200
 Wire Wire Line
@@ -273,7 +306,7 @@ Wire Wire Line
 Wire Wire Line
 	6450 4750 7000 4750
 Wire Wire Line
-	1300 3850 1900 3850
+	1300 3850 2500 3850
 Wire Wire Line
 	4100 4650 4800 4650
 Wire Wire Line
@@ -334,13 +367,13 @@ Connection ~ 1900 3850
 Wire Wire Line
 	1900 4300 1900 4700
 Wire Wire Line
-	1500 4700 1900 4700
+	1500 4700 3250 4700
 Wire Wire Line
 	2550 4700 2550 4900
 Connection ~ 1900 4700
 Connection ~ 2550 4700
 $Comp
-L conn:Jack-DC J104
+L Jack-DC J104
 U 1 1 59F100E4
 P 1000 3950
 F 0 "J104" H 1000 4160 50  0000 C CNN
@@ -377,7 +410,7 @@ Wire Notes Line
 Text Notes 8400 2050 0    100  ~ 0
 NeoPixel
 $Comp
-L Device:D D101
+L D D101
 U 1 1 59F5F260
 P 2650 3850
 F 0 "D101" H 2650 3950 50  0000 C CNN
@@ -391,7 +424,7 @@ F 6 "Value" H 2650 3850 60  0001 C CNN "Label"
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	2800 3850 3250 3850
+	2800 3850 4800 3850
 Connection ~ 3250 3850
 Wire Wire Line
 	4600 3900 4600 3850
@@ -402,18 +435,4 @@ Wire Wire Line
 	7000 4750 7000 4700
 Wire Wire Line
 	7000 4700 7300 4700
-Wire Wire Line
-	4600 4300 4800 4300
-Wire Wire Line
-	1900 3850 2000 3850
-Wire Wire Line
-	1900 4700 2550 4700
-Wire Wire Line
-	2550 4700 3250 4700
-Wire Wire Line
-	2000 3850 2500 3850
-Wire Wire Line
-	3250 3850 4600 3850
-Wire Wire Line
-	4600 3850 4800 3850
 $EndSCHEMATC

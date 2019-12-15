@@ -14,13 +14,21 @@
 /*! The setting for the CLKCTRL.MCLKCTRLB register */
 #define _MAIN_CLOCK 0x00
 
+
+#define _NEO_RAIN
+#define _NEOPIXEL_ANIM_CHANNEL
+
 #define BASE_HUE ((uint8_t) 0x03)
 #define MED_HUE  ((uint8_t) 0x06)
 #define HI_HUE   ((uint8_t) 0x0C)
 #define MAX_BUFFERS 5
+#define MAX_STARS 3
+#define NEO_ANIM_CYCLES 100 // NEO_HUE_ADJ * 5
+#define NEO_ANIM_MAX_GRADIENT 100
 
 uint8_t buffer[MAX_BUFFERS][neopixel_buffer_size];
 
+#ifdef _NEO_BASIC_ANIMS
 void barber_pole(bool direction){
 
 	uint8_t c1[] = { 0x04, 0x00, 0x00 };
@@ -309,6 +317,10 @@ void worm2(void){
 	delay_ms(1000);
 }
 
+#endif
+
+
+#ifdef _NEO_RAIN
 /*!
  * \brief	Creates an effect of a droplet getting heavy and then falling.
  */
@@ -352,8 +364,253 @@ void rain(void){
 		}
 	}
 }
+#endif
+
+ #ifdef _NEOPIXEL_ANIM_CHANNEL
+
+ /*!
+  * The neopixel_anim_start_t structure defines the life and behavior of a "star". 
+  */
+ typedef struct {
+	/*! The pixel being referenced. This contains the actual LED reference and the colour information. */
+	pixel_type pixel;
+	bool active;
+	bool ramp_up;
+ } neopixel_anim_star_t;
+
+ neopixel_anim_star_t star_buffer[MAX_BUFFERS][MAX_STARS];
+
+  void neo_anim_clear(uint8_t buff) {
+	  for ( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
+		  star_buffer[buff][star_idx].active = false;
+		  star_buffer[buff][star_idx].pixel.red = 0x00;
+		  star_buffer[buff][star_idx].pixel.green = 0x00;
+		  star_buffer[buff][star_idx].pixel.blue = 0x00;
+		  neopixel_setPixel(buffer[buff], star_buffer[buff][star_idx].pixel.pix, 0x00, 0x00, 0x00);
+	  }
+  }
+
+ bool neo_anim_any_active(uint8_t buff_idx) {
+	for( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
+		if ( star_buffer[buff_idx][star_idx].active ) {
+			return true;
+		}
+	}
+	return false;
+ }
+
+ bool star_buffer_contians( uint8_t buff, uint8_t pix ){
+	for( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
+		if( star_buffer[buff][star_idx].active && star_buffer[buff][star_idx].pixel.pix == pix ){
+			return true;
+		}
+	}
+	return false;
+ }
+
+ uint8_t get_next_pixel_from_star_buffer(uint8_t buff) {
+	 uint8_t next_pix = rand() % NEOPIXELS_SIZE;
+	 while ( star_buffer_contians( buff, next_pix )) {
+		 next_pix = rand() % NEOPIXELS_SIZE;
+	 }
+	 return next_pix;
+ }
+
+ /*!
+ * \brief	Lights up a random number of "stars" MAX_STARS and increases their
+ * brightness until FF for the given colour is reached and then reduces the
+ * intensity.
+ */
+ void neo_anim_stars(uint8_t strip[], uint8_t buff_idx) {
+	uint8_t channel = 0b00000001 << buff_idx;
+
+	for ( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
+		if (star_buffer[buff_idx][star_idx].active != true) {
+			star_buffer[buff_idx][star_idx].pixel.pix = get_next_pixel_from_star_buffer(buff_idx);
+			star_buffer[buff_idx][star_idx].active = true;
+			star_buffer[buff_idx][star_idx].ramp_up = true;
+			star_buffer[buff_idx][star_idx].pixel.red = rand() % NEO_HUE_ADJ;
+			star_buffer[buff_idx][star_idx].pixel.green = rand() % NEO_HUE_ADJ;
+			star_buffer[buff_idx][star_idx].pixel.blue = rand() % NEO_HUE_ADJ;
+		}
+	}
+	neopixel_setchannel(channel);
+	neopixel_show(strip);
+	bool limit_reached = false;
+	for( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++){
+		if ( star_buffer[buff_idx][star_idx].active ) {
+			if( star_buffer[buff_idx][star_idx].ramp_up ) {
+				limit_reached = neopixel_incPixelHue_with_limit(strip, star_buffer[buff_idx][star_idx].pixel );
+				star_buffer[buff_idx][star_idx].ramp_up ^= limit_reached;
+			} else {
+				limit_reached = neopixel_decrPixelHue_with_limit(strip, star_buffer[buff_idx][star_idx].pixel );
+				if ( limit_reached ){
+					star_buffer[buff_idx][star_idx].active = false;
+					star_buffer[buff_idx][star_idx].pixel.red = 0x00;
+					star_buffer[buff_idx][star_idx].pixel.green = 0x00;
+					star_buffer[buff_idx][star_idx].pixel.blue = 0x00;
+					neopixel_setPixel(strip, star_buffer[buff_idx][star_idx].pixel.pix, 0x00, 0x00, 0x00);
+				}
+			}
+			neopixel_setchannel(channel);
+			neopixel_show(strip);
+		}
+	}
+ }
+
+ 
+ void neo_pixel_rampdown(uint8_t strip[], uint8_t buff_idx) {
+ 	uint8_t channel = 0b00000001 << buff_idx;
+	for ( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
+		bool limit_reached = neopixel_decrPixelHue_with_limit(strip, star_buffer[buff_idx][star_idx].pixel );
+		if ( limit_reached ){
+			star_buffer[buff_idx][star_idx].active = false;
+			star_buffer[buff_idx][star_idx].pixel.red = 0x00;
+			star_buffer[buff_idx][star_idx].pixel.green = 0x00;
+			star_buffer[buff_idx][star_idx].pixel.blue = 0x00;
+			neopixel_setPixel(strip, star_buffer[buff_idx][star_idx].pixel.pix, 0x00, 0x00, 0x00);
+		}
+		neopixel_setchannel(channel);
+		neopixel_show(strip);
+	}
+ }
+
+#endif
 
 
+
+
+ #ifdef _NEOPIXEL_ANIM_NEW
+
+ /*!
+  * The neopixel_anim_start_t structure defines the life and behavior of a "star". 
+  */
+ typedef struct {
+	/*! The pixel being referenced. This contains the actual LED reference and the colour information. */
+	pixel_type pixel;
+	bool active;
+	bool ramp_up;
+ } neopixel_anim_star_t;
+
+ neopixel_anim_star_t star_buffer[MAX_BUFFERS][MAX_STARS];
+
+  void neo_anim_clear(uint8_t buff) {
+	  for ( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
+		  star_buffer[buff][star_idx].active = false;
+		  star_buffer[buff][star_idx].pixel.red = 0x00;
+		  star_buffer[buff][star_idx].pixel.green = 0x00;
+		  star_buffer[buff][star_idx].pixel.blue = 0x00;
+		  neopixel_setPixel(buffer[buff], star_buffer[buff][star_idx].pixel.pix, 0x00, 0x00, 0x00);
+	  }
+  }
+
+ bool neo_anim_any_active() {
+	for (uint8_t buff; buff<MAX_BUFFERS; buff++){
+		for( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
+			if ( star_buffer[buff][star_idx].active ) {
+				return true;
+			}
+		}
+	}
+	return false;
+ }
+
+ bool star_buffer_contians( uint8_t buff, uint8_t pix ){
+	for( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
+		if( star_buffer[buff][star_idx].active && star_buffer[buff][star_idx].pixel.pix == pix ){
+			return true;
+		}
+	}
+	return false;
+ }
+
+ uint8_t get_next_pixel_from_star_buffer(uint8_t buff) {
+	 uint8_t next_pix = rand() % NEOPIXELS_SIZE;
+	 while ( star_buffer_contians( buff, next_pix )) {
+		 next_pix = rand() % NEOPIXELS_SIZE;
+	 }
+	 return next_pix;
+ }
+
+ /*!
+ * \brief	Lights up a random number of "stars" MAX_STARS and increases their
+ * brightness until FF for the given colour is reached and then reduces the
+ * intensity.
+ */
+ void neo_anim_stars() {
+	// Clear the buffer
+	neo_anim_clear( 0 );
+	neo_anim_clear( 1 );
+	neo_anim_clear( 2 );
+	neo_anim_clear( 3 );
+	neo_anim_clear( 4 );
+
+	uint8_t cycle = 0;
+	bool finish_up = false;
+	bool all_active = true;
+	while ( all_active ) {
+		for (int buffer_idx = 0; buffer_idx < MAX_BUFFERS; buffer_idx++) {
+
+			bool limit_reached = false;
+			uint8_t channel = 0b00000001 << buffer_idx;
+
+			// uint8_t actives = cycle > 0 ? MAX_STARS: rand() % MAX_STARS ;
+			uint8_t actives = cycle = MAX_STARS ;
+
+			if ( !finish_up ) {
+				for ( uint8_t star_idx = 0; star_idx < actives; star_idx++) {
+					if (star_buffer[buffer_idx][star_idx].active != true) {
+						star_buffer[buffer_idx][star_idx].pixel.pix = get_next_pixel_from_star_buffer(buffer_idx);
+						star_buffer[buffer_idx][star_idx].active = true;
+						star_buffer[buffer_idx][star_idx].ramp_up = true;
+						star_buffer[buffer_idx][star_idx].pixel.red = rand() % NEO_HUE_ADJ;
+						star_buffer[buffer_idx][star_idx].pixel.green = rand() % NEO_HUE_ADJ;
+						star_buffer[buffer_idx][star_idx].pixel.blue = rand() % NEO_HUE_ADJ;
+					}
+				}
+				neopixel_setchannel(channel);
+				neopixel_show(buffer[buffer_idx]);
+			} 
+
+			for( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
+				if ( star_buffer[buffer_idx][star_idx].active ) {
+					if( star_buffer[buffer_idx][star_idx].ramp_up ) {
+						limit_reached = neopixel_incPixelHue_with_limit(buffer[buffer_idx], star_buffer[buffer_idx][star_idx].pixel );
+						star_buffer[buffer_idx][star_idx].ramp_up ^= limit_reached;
+					} else {
+						limit_reached = neopixel_decrPixelHue_with_limit(buffer[buffer_idx], star_buffer[buffer_idx][star_idx].pixel );
+						if ( limit_reached ){
+							star_buffer[buffer_idx][star_idx].active = false;
+							star_buffer[buffer_idx][star_idx].pixel.red = 0x00;
+							star_buffer[buffer_idx][star_idx].pixel.green = 0x00;
+							star_buffer[buffer_idx][star_idx].pixel.blue = 0x00;
+							neopixel_setPixel(buffer[buffer_idx], star_buffer[buffer_idx][star_idx].pixel.pix, 0x00, 0x00, 0x00);
+						}
+					}
+					neopixel_setchannel(channel);
+					neopixel_show(buffer[buffer_idx]);
+				}
+// 				uint8_t gradient = rand() % NEO_ANIM_MAX_GRADIENT;
+// 				gradient = gradient < 2? 2: gradient;
+// 				delay_ms(gradient);
+			}
+
+		}
+
+		cycle++;
+		if( cycle > NEO_ANIM_CYCLES ) {
+			finish_up = true;
+			cycle = 0;
+		}
+		all_active = neo_anim_any_active();
+	}
+ }
+
+#endif
+
+
+
+#ifdef NEO_ANIM_BASIC_STARS
 #define MAX_STARS 10
 // uint8_t star_buffer[MAX_BUFFERS][MAX_STARS * 4];
 
@@ -420,6 +677,7 @@ void stars() {
 		}
 	// }
 }
+#endif
 
 /************************************************************************/
 /* The main control loop                                                */
@@ -439,7 +697,8 @@ int main(void)
 
 	neopixel_init();
  	srand(time(NULL));
-
+	uint16_t cycle = 0;
+	uint16_t cycle_limit = rand() % 1000;
 	while(true){
 
 // 		barber_pole(true);
@@ -466,10 +725,28 @@ int main(void)
 // 			rain();
 // 			delay_ms(1000);
 // 		}
-		for ( int i = 0; i < 5;  i++) {
-			stars();
-			delay_ms(1000);
+		if ( cycle > cycle_limit ) {
+			for( uint8_t buff_idx = 0; buff_idx < MAX_BUFFERS; buff_idx++){ 
+				// neo_anim_clear( buff_idx );	
+				neo_pixel_rampdown(buffer[buff_idx], buff_idx)
+			}
+			neo_anim_clear( buff_idx );
+			cycle = 0;	
+			cycle_limit = rand() % 1000;
+			cycle_limit = ( cycle_limit < 100? 100: cycle_limit);
+
+			rain();
 		}
+
+		for ( int buff_idx = 0; buff_idx < MAX_BUFFERS;  buff_idx++) {
+			neo_anim_stars(buffer[buff_idx], buff_idx);
+		}
+		//delay_ms(1000);
+		uint8_t gradient = rand() % NEO_ANIM_MAX_GRADIENT;
+		gradient = gradient < 2? 2: gradient;
+		delay_ms(gradient);
+		cycle++;
+
 	}
 	return 0;
 }

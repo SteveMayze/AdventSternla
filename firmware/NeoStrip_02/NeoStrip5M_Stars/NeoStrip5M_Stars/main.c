@@ -29,6 +29,7 @@
 #define MAX_DELAY 10000
 #define ANIMATION_COUNT 2
 
+
 int main(void)
 {
 
@@ -49,11 +50,6 @@ int main(void)
 	neopixel_show(buffer);
 	while(true) {
 		neo_anim_stars();
-// 		delay_time = rand() % MAX_DELAY;
-// 		if( delay_time < 1000 ) {
-// 			delay_time = 1000;
-// 		}
-//  		delay_ms(delay_time);
 	}
 	return 0;
 }

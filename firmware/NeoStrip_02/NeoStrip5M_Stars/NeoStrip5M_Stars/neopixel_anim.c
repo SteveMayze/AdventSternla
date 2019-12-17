@@ -8,25 +8,16 @@
 #include "time.h"
 #include "neopixel.h"
 #include "neopixel_anim.h"
- 
 
  #ifdef _NEOPIXEL_ANIM_NEW
 
  /*!
-  * The neopixel_anim_start_t structure defines the life and behavior of a "star". 
+  * \brief Clears the star_buffer. This does not affect the actual pixel location,
+  *       just the state and the colour
   */
- typedef struct {
-	/*! The pixel being referenced. This contains the actual LED reference and the colour information. */
-	pixel_type pixel;
-	bool active;
-	bool ramp_up;
- } neopixel_anim_star_t;
-
- neopixel_anim_star_t star_buffer[MAX_STARS];
-
  void neo_anim_clear(void) {
 	for ( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
-		star_buffer[star_idx].active = false;
+		star_buffer[star_idx].state.status_bits.active = false;
 		star_buffer[star_idx].pixel.red = 0x00;
 		star_buffer[star_idx].pixel.green = 0x00;
 		star_buffer[star_idx].pixel.blue = 0x00;
@@ -34,19 +25,26 @@
 	}
  }
 
+ /*!
+  * \brief Returns true if any of the stars in the star_buffer are active.
+  */
  bool neo_anim_any_active(void) {
 	for( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
-		if ( star_buffer[star_idx].active ) {
+		if ( star_buffer[star_idx].state.status_bits.active ) {
 			return true;
 		}
 	}
 	return false;
  }
 
+ /*!
+  * \brief Checks the star_buffer for the existence of the pixel and if it is currently active.
+  * an inactive pixel will be deemed as available to be used.
+  */
  bool buffer_contians( uint8_t pix ){
 	bool result = false;
 	for( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
-		if( star_buffer[star_idx].active && star_buffer[star_idx].pixel.pix == pix ){
+		if( star_buffer[star_idx].state.status_bits.active && star_buffer[star_idx].pixel.pix == pix ){
 			result = true;
 			break;
 		}
@@ -54,6 +52,9 @@
 	return result;
  }
 
+ /*!
+  * Returns the next available pixel number based on the rand() function
+  */
  uint8_t get_next_pixel_from_star_buffer() {
 	 uint8_t next_pix = rand() % NEOPIXELS_SIZE;
 	 while ( buffer_contians( next_pix )) {
@@ -62,10 +63,13 @@
 	 return next_pix;
  }
 
+/*!
+ * \brief Returns the count of active pixels in the star_buffer
+ */
 uint8_t neo_count_actives(void) {
 	uint8_t actives = 0;
 	for ( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
-		if ( star_buffer[star_idx].active) {
+		if ( star_buffer[star_idx].state.status_bits.active) {
 			actives++;
 		}
 	}
@@ -80,18 +84,18 @@ uint8_t neo_count_actives(void) {
  void neo_anim_stars(void) {
 	// Clear the buffer
 	neo_anim_clear();
-	uint16_t cycle = 0;
+	// uint16_t cycle = 0;
 	bool finish_up = false;
 	bool all_active = true;
 	while ( all_active ) {
 	// Iterate through each star definition
 		if ( !finish_up ) {
 			for ( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
-				if (star_buffer[star_idx].active != true) {
+				if (star_buffer[star_idx].state.status_bits.active != true) {
 					// We have decided to activate this. Enable this and set a base colour.
 					star_buffer[star_idx].pixel.pix = get_next_pixel_from_star_buffer();
-					star_buffer[star_idx].active = true;
-					star_buffer[star_idx].ramp_up = true;
+					star_buffer[star_idx].state.status_bits.active = true;
+					star_buffer[star_idx].state.status_bits.ramp_up = true;
 					star_buffer[star_idx].pixel.red = rand() % NEO_HUE_ADJ;
 					star_buffer[star_idx].pixel.green = rand() % NEO_HUE_ADJ;
 					star_buffer[star_idx].pixel.blue = rand() % NEO_HUE_ADJ;
@@ -101,14 +105,14 @@ uint8_t neo_count_actives(void) {
 		} 
 		bool limit_reached = false;
 		for( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++){
-			if ( star_buffer[star_idx].active ) {
-				if( star_buffer[star_idx].ramp_up ) {
+			if ( star_buffer[star_idx].state.status_bits.active ) {
+				if( star_buffer[star_idx].state.status_bits.ramp_up ) {
 					limit_reached = neopixel_incPixelHue_with_limit(buffer, star_buffer[star_idx].pixel );
-					star_buffer[star_idx].ramp_up ^= limit_reached;
+					star_buffer[star_idx].state.status_bits.ramp_up ^= limit_reached;
 				} else {
 					limit_reached = neopixel_decrPixelHue_with_limit(buffer, star_buffer[star_idx].pixel );
 					if ( limit_reached ){
-						star_buffer[star_idx].active = false;
+						star_buffer[star_idx].state.status_bits.active = false;
 						star_buffer[star_idx].pixel.red = 0x00;
 						star_buffer[star_idx].pixel.green = 0x00;
 						star_buffer[star_idx].pixel.blue = 0x00;
@@ -119,14 +123,14 @@ uint8_t neo_count_actives(void) {
 			}
 		}
 		uint8_t gradient = rand() % NEO_ANIM_MAX_GRADIENT;
-		gradient = gradient < 2? 2: gradient;
+		gradient = gradient < NEO_ANIM_MIN_GRADIENT? NEO_ANIM_MIN_GRADIENT: gradient;
 		delay_ms(gradient);
-		cycle++;
-		if( cycle > NEO_ANIM_CYCLES ) {
-			finish_up = true;
-			cycle = 0;
-		}
-		all_active = neo_anim_any_active();
+// 		cycle++;
+// 		if( cycle > NEO_ANIM_CYCLES ) {
+// 			finish_up = true;
+// 			cycle = 0;
+// 		}
+// 		all_active = neo_anim_any_active();
 	}
  }
 

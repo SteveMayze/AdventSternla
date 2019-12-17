@@ -3,6 +3,7 @@
 #define INCLUDE_NEOPIXEL_H
 #include <stdbool.h>
 
+ #define NEO_LENGTH_LONG
 
 typedef struct {
 	/*! The pixel number along the strip. This identifies the individual LED */
@@ -21,9 +22,15 @@ typedef struct {
 /*! The output port pin for driving the NeoPixel strip */
 #define NeoPin (1 << 1)
 /*! The number of NeoPixels */
-// #define NEOPIXELS_SIZE 150
-#define NEOPIXELS_SIZE 150
 
+
+#ifdef NEO_LENGTH_LONG
+#define NEOPIXELS_SIZE 150
+#endif
+
+#ifdef NEO_LENGTH_SHORT
+#define NEOPIXELS_SIZE 60
+#endif
 
 /*! The NeoPixel buffer size */
 #define neopixel_buffer_size NEOPIXELS_SIZE * 3
@@ -56,42 +63,42 @@ void neopixel_init();
 /*!
  * \brief	Sets a pixel with the RGB code
  */
-void neopixel_setPixel(uint8_t strip[], uint8_t pixel, uint8_t red, uint8_t green, uint8_t blue);
+void neopixel_setPixel(volatile uint8_t strip[], uint8_t pixel, uint8_t red, uint8_t green, uint8_t blue);
 
 /*!
  * \brief	Shifts the pixels one pixel in the indicated direction
  */
-void neopixel_shift(uint8_t strip[],  bool direction );
+void neopixel_shift(volatile uint8_t strip[],  bool direction );
 
 /*!
  * \brief	Initialises the buffer with the given colour 
  */
-void neopixel_fill(uint8_t strip[], uint8_t red, uint8_t green, uint8_t blue);
+void neopixel_fill(volatile uint8_t strip[], uint8_t red, uint8_t green, uint8_t blue);
 
 /*!
  * \brief	Increases the pixel hue to a maximum of 0xFF based on the values contained in the pixel struct.
  */
-void neopixel_incPixelHue(uint8_t strip[], pixel_type pixel);
+void neopixel_incPixelHue(volatile uint8_t strip[], pixel_type pixel);
 
 /*!
  * \brief	Increases the pixel hue to a maximum of 0xFF based on the values contained in the pixel struct.
  */
-bool neopixel_incPixelHue_with_limit(uint8_t strip[], pixel_type pixel);
+bool neopixel_incPixelHue_with_limit(volatile uint8_t strip[], pixel_type pixel);
 
 /*!
  * \brief	Decreases the pixel hue to zero based on the values contained in the pixel struct.
  */
-void neopixel_decrPixelHue(uint8_t strip[], pixel_type pixel);
+void neopixel_decrPixelHue(volatile uint8_t strip[], pixel_type pixel);
 
 /*!
  * \brief	Decreases the pixel hue to zero based on the values contained in the pixel struct.
  */
-bool neopixel_decrPixelHue_with_limit(uint8_t strip[], pixel_type pixel);
+bool neopixel_decrPixelHue_with_limit(volatile uint8_t strip[], pixel_type pixel);
 
 /*!
  * \brief Pushes the buffer out to the pixel strip.
  */
-void neopixel_show(uint8_t strip[]);
+void neopixel_show(volatile uint8_t strip[]);
 
 #endif 
 

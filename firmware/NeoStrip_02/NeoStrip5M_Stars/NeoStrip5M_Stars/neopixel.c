@@ -42,7 +42,7 @@ void delay_ms(int ms){
 /*!
  * \brief	Sets a pixel with the RGB code
  */
-void neopixel_setPixel(uint8_t strip[], uint8_t pixel, uint8_t red, uint8_t green, uint8_t blue)
+void neopixel_setPixel(volatile uint8_t strip[], uint8_t pixel, uint8_t red, uint8_t green, uint8_t blue)
 {
     uint16_t location = pixel * 3;
 	strip[ location + NEO_RED ] = red;
@@ -53,7 +53,7 @@ void neopixel_setPixel(uint8_t strip[], uint8_t pixel, uint8_t red, uint8_t gree
 /*!
  * \brief	Initialises the buffer with the given colour 
  */
-void neopixel_fill(uint8_t strip[], uint8_t red, uint8_t green, uint8_t blue){
+void neopixel_fill(volatile uint8_t strip[], uint8_t red, uint8_t green, uint8_t blue){
    for(int i = 0; i < NEOPIXELS_SIZE; i++)
    {
       neopixel_setPixel(strip, i, red, green, blue);
@@ -63,7 +63,7 @@ void neopixel_fill(uint8_t strip[], uint8_t red, uint8_t green, uint8_t blue){
 /*!
  * \brief	Shifts the pixels one pixel in the indicated direction
  */
-void neopixel_shift(uint8_t strip[], bool direction){
+void neopixel_shift(volatile uint8_t strip[], bool direction){
 
    if( direction ) {
 		for (int i = 0; i < ( NEOPIXELS_SIZE - 1); i++){
@@ -100,28 +100,28 @@ void neopixel_shift(uint8_t strip[], bool direction){
 /*!
  * \brief	Increases the pixel hue to a maximum of 0xFF based on the values contained in the pixel struct.
  */
-void neopixel_incPixelHue(uint8_t strip[], pixel_type pixel){
+void neopixel_incPixelHue(volatile uint8_t strip[], pixel_type pixel){
 	volatile uint16_t location = pixel.pix * 3;
 	// Don't increase if either or any have reached their ceiling.
 	if ( strip[ location + NEO_RED ] <= (NEO_HUE_MAX_LIMIT - pixel.red) &&
 	strip[ location + NEO_GREEN ] <= (NEO_HUE_MAX_LIMIT - pixel.green) &&
 	strip[ location + NEO_BLUE ] <= (NEO_HUE_MAX_LIMIT - pixel.blue)) {
-		strip[ location + NEO_RED ] <= (NEO_HUE_MAX_LIMIT - pixel.red)? strip[ location + NEO_RED ] += pixel.red: strip[ location + NEO_RED ];
-		strip[ location + NEO_GREEN ] <= (NEO_HUE_MAX_LIMIT - pixel.green)? strip[ location + NEO_GREEN ] += pixel.green: strip[ location + NEO_GREEN ];
-		strip[ location + NEO_BLUE ] <= (NEO_HUE_MAX_LIMIT - pixel.blue)? strip[ location + NEO_BLUE ] += pixel.blue: strip[ location + NEO_BLUE ];
+		strip[ location + NEO_RED ] <= (NEO_HUE_MAX_LIMIT - pixel.red)? strip[ location + NEO_RED ] + pixel.red: strip[ location + NEO_RED ];
+		strip[ location + NEO_GREEN ] <= (NEO_HUE_MAX_LIMIT - pixel.green)? strip[ location + NEO_GREEN ] + pixel.green: strip[ location + NEO_GREEN ];
+		strip[ location + NEO_BLUE ] <= (NEO_HUE_MAX_LIMIT - pixel.blue)? strip[ location + NEO_BLUE ] + pixel.blue: strip[ location + NEO_BLUE ];
 	}
 }
 
-bool neopixel_incPixelHue_with_limit(uint8_t strip[], pixel_type pixel){
+bool neopixel_incPixelHue_with_limit(volatile uint8_t strip[], pixel_type pixel){
 	bool limit_reached = false;
 	volatile uint16_t location = pixel.pix * 3;
 	// Don't increase if either or any have reached their ceiling.
 	if ( strip[ location + NEO_RED ] <= (NEO_HUE_MAX_LIMIT - pixel.red) &&
 	strip[ location + NEO_GREEN ] <= (NEO_HUE_MAX_LIMIT - pixel.green) &&
 	strip[ location + NEO_BLUE ] <= (NEO_HUE_MAX_LIMIT - pixel.blue)) {
-		strip[ location + NEO_RED ] = (NEO_HUE_MAX_LIMIT - pixel.red)? (strip[ location + NEO_RED ] += pixel.red): strip[ location + NEO_RED ];
-		strip[ location + NEO_GREEN ] = (NEO_HUE_MAX_LIMIT - pixel.green)? (strip[ location + NEO_GREEN ] += pixel.green): strip[ location + NEO_GREEN ];
-		strip[ location + NEO_BLUE ] = (NEO_HUE_MAX_LIMIT - pixel.blue)? (strip[ location + NEO_BLUE ] += pixel.blue): strip[ location + NEO_BLUE ];
+		strip[ location + NEO_RED ] = (NEO_HUE_MAX_LIMIT - pixel.red)? (strip[ location + NEO_RED ] + pixel.red): strip[ location + NEO_RED ];
+		strip[ location + NEO_GREEN ] = (NEO_HUE_MAX_LIMIT - pixel.green)? (strip[ location + NEO_GREEN ] + pixel.green): strip[ location + NEO_GREEN ];
+		strip[ location + NEO_BLUE ] = (NEO_HUE_MAX_LIMIT - pixel.blue)? (strip[ location + NEO_BLUE ] + pixel.blue): strip[ location + NEO_BLUE ];
 	} else {
 		limit_reached = true;
 	}
@@ -131,41 +131,43 @@ bool neopixel_incPixelHue_with_limit(uint8_t strip[], pixel_type pixel){
 /*!
  * \brief	Decreases the pixel hue to zero based on the values contained in the pixel struct.
  */
-void neopixel_decrPixelHue(uint8_t strip[], pixel_type pixel){
+void neopixel_decrPixelHue(volatile uint8_t strip[], pixel_type pixel){
 	volatile uint16_t location = pixel.pix * 3;
 	if( strip[ location + NEO_RED ] > 0 ) {
-		strip[ location + NEO_RED ] = (strip[ location + NEO_RED ] > NEO_HUE_ADJ)? strip[ location + NEO_RED ] -= pixel.red: strip[ location + NEO_RED ];
+		strip[ location + NEO_RED ] = (strip[ location + NEO_RED ] > NEO_HUE_ADJ)? strip[ location + NEO_RED ] - pixel.red: strip[ location + NEO_RED ];
 	}
 
 	if( strip[ location + NEO_GREEN ] > 0 ) {
-		strip[ location + NEO_GREEN ] = (strip[ location + NEO_GREEN ] > NEO_HUE_ADJ)? strip[ location + NEO_GREEN ] -= pixel.green: strip[ location + NEO_GREEN ];
+		strip[ location + NEO_GREEN ] = (strip[ location + NEO_GREEN ] > NEO_HUE_ADJ)? strip[ location + NEO_GREEN ] - pixel.green: strip[ location + NEO_GREEN ];
 	}
 
 	if( strip[ location + NEO_BLUE ] > 0 ) {
-		strip[ location + NEO_BLUE ] = (strip[ location + NEO_BLUE ] > NEO_HUE_ADJ)? strip[ location + NEO_BLUE ] -= pixel.blue: strip[ location + NEO_BLUE ];
+		strip[ location + NEO_BLUE ] = (strip[ location + NEO_BLUE ] > NEO_HUE_ADJ)? strip[ location + NEO_BLUE ] - pixel.blue: strip[ location + NEO_BLUE ];
 	}
 }
 
 /*!
  * \brief	Decreases the pixel hue to zero based on the values contained in the pixel struct.
  */
-bool neopixel_decrPixelHue_with_limit(uint8_t strip[], pixel_type pixel) {
+bool neopixel_decrPixelHue_with_limit(volatile uint8_t strip[], pixel_type pixel) {
 	bool limit_reached = false;
 	volatile uint16_t location = pixel.pix * 3;
 	if( strip[ location + NEO_RED ] > NEO_HUE_MIN_LIMIT ) {
-		strip[ location + NEO_RED ] = ( strip[ location + NEO_RED ] > NEO_HUE_MIN_LIMIT) ? (strip[ location + NEO_RED ] -= pixel.red): 0x00;
+		strip[ location + NEO_RED ] = ( strip[ location + NEO_RED ] > NEO_HUE_MIN_LIMIT) ? (strip[ location + NEO_RED ] - pixel.red): 0x00;
 	} 
 
 	if( strip[ location + NEO_GREEN ] > NEO_HUE_MIN_LIMIT ) {
-		strip[ location + NEO_GREEN ] = (strip[ location + NEO_GREEN ] > NEO_HUE_MIN_LIMIT) ? (strip[ location + NEO_GREEN ] -= pixel.green): 0x00;
+		strip[ location + NEO_GREEN ] = (strip[ location + NEO_GREEN ] > NEO_HUE_MIN_LIMIT) ? (strip[ location + NEO_GREEN ] - pixel.green): 0x00;
 	}
 
 	if( strip[ location + NEO_BLUE ] > NEO_HUE_MIN_LIMIT ) {
-		strip[ location + NEO_BLUE ] = ( strip[ location + NEO_BLUE ] > NEO_HUE_MIN_LIMIT) ? (strip[ location + NEO_BLUE ] -= pixel.blue): 0x00;
+		strip[ location + NEO_BLUE ] = ( strip[ location + NEO_BLUE ] > NEO_HUE_MIN_LIMIT) ? (strip[ location + NEO_BLUE ] - pixel.blue): 0x00;
 	}
 
 
-	if ( strip[ location + NEO_RED ] <= NEO_HUE_MIN_LIMIT && strip[ location + NEO_GREEN ] <=  NEO_HUE_MIN_LIMIT && strip[ location + NEO_BLUE ] <= NEO_HUE_MIN_LIMIT){
+	if ( strip[ location + NEO_RED ] <= NEO_HUE_MIN_LIMIT+pixel.red && 
+	     strip[ location + NEO_GREEN ] <=  NEO_HUE_MIN_LIMIT+pixel.green && 
+		 strip[ location + NEO_BLUE ] <= NEO_HUE_MIN_LIMIT+pixel.blue){
 		limit_reached = true;
 	}
 
@@ -176,7 +178,7 @@ bool neopixel_decrPixelHue_with_limit(uint8_t strip[], pixel_type pixel) {
 /*!
  * \brief Pushes the buffer out to the pixel strip.
  */
-void neopixel_show(uint8_t strip[])
+void neopixel_show(volatile uint8_t strip[])
 {
 	volatile uint16_t  i = neopixel_buffer_size; // Loop counter
 

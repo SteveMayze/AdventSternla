@@ -25,7 +25,7 @@
 #define MED_HUE  ((uint8_t) 0x06)
 #define HI_HUE   ((uint8_t) 0x0C)
 #define MAX_BUFFERS 5
-#define MAX_STARS 3
+#define MAX_STARS 5
 #define NEO_ANIM_CYCLES 100 // NEO_HUE_ADJ * 5
 #define NEO_ANIM_MAX_GRADIENT 100
 
@@ -371,21 +371,36 @@ void rain(void){
 
  #ifdef _NEOPIXEL_ANIM_CHANNEL
 
+/*!
+ * \brief Pixel/Star status bits
+ */
+typedef union {
+	struct {
+		unsigned char active:1;
+		unsigned char ramp_up:1;
+		unsigned char not_used:6;
+	} status_bits;
+	unsigned char status;
+} state_t;
+
  /*!
-  * The neopixel_anim_start_t structure defines the life and behavior of a "star". 
+  * \brief The neopixel_anim_start_t structure defines the life and behavior of a "star". 
+  * The pixel information maps the actual pixel and its colour information. The stars 
+  * holds the status bits for whether the star is active and if it is in ramp_up mode 
+  * i.e. increasing in intensity.
   */
  typedef struct {
 	/*! The pixel being referenced. This contains the actual LED reference and the colour information. */
 	pixel_type pixel;
-	bool active;
-	bool ramp_up;
+	state_t state;
  } neopixel_anim_star_t;
+
 
  neopixel_anim_star_t star_buffer[MAX_BUFFERS][MAX_STARS];
 
   void neo_anim_clear(uint8_t buff) {
 	  for ( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
-		  star_buffer[buff][star_idx].active = false;
+		  star_buffer[buff][star_idx].state.status_bits.active = false;
 		  star_buffer[buff][star_idx].pixel.red = 0x00;
 		  star_buffer[buff][star_idx].pixel.green = 0x00;
 		  star_buffer[buff][star_idx].pixel.blue = 0x00;
@@ -395,7 +410,7 @@ void rain(void){
 
  bool neo_anim_any_active(uint8_t buff_idx) {
 	for( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
-		if ( star_buffer[buff_idx][star_idx].active ) {
+		if ( star_buffer[buff_idx][star_idx].state.status_bits.active ) {
 			return true;
 		}
 	}
@@ -404,7 +419,7 @@ void rain(void){
 
  bool star_buffer_contians( uint8_t buff, uint8_t pix ){
 	for( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
-		if( star_buffer[buff][star_idx].active && star_buffer[buff][star_idx].pixel.pix == pix ){
+		if( star_buffer[buff][star_idx].state.status_bits.active && star_buffer[buff][star_idx].pixel.pix == pix ){
 			return true;
 		}
 	}
@@ -428,10 +443,10 @@ void rain(void){
 	uint8_t channel = 0b00000001 << buff_idx;
 
 	for ( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
-		if (star_buffer[buff_idx][star_idx].active != true) {
+		if (star_buffer[buff_idx][star_idx].state.status_bits.active != true) {
 			star_buffer[buff_idx][star_idx].pixel.pix = get_next_pixel_from_star_buffer(buff_idx);
-			star_buffer[buff_idx][star_idx].active = true;
-			star_buffer[buff_idx][star_idx].ramp_up = true;
+			star_buffer[buff_idx][star_idx].state.status_bits.active = true;
+			star_buffer[buff_idx][star_idx].state.status_bits.ramp_up = true;
 			star_buffer[buff_idx][star_idx].pixel.red = rand() % NEO_HUE_ADJ;
 			star_buffer[buff_idx][star_idx].pixel.green = rand() % NEO_HUE_ADJ;
 			star_buffer[buff_idx][star_idx].pixel.blue = rand() % NEO_HUE_ADJ;
@@ -441,14 +456,14 @@ void rain(void){
 	neopixel_show(strip);
 	bool limit_reached = false;
 	for( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++){
-		if ( star_buffer[buff_idx][star_idx].active ) {
-			if( star_buffer[buff_idx][star_idx].ramp_up ) {
+		if ( star_buffer[buff_idx][star_idx].state.status_bits.active ) {
+			if( star_buffer[buff_idx][star_idx].state.status_bits.ramp_up ) {
 				limit_reached = neopixel_incPixelHue_with_limit(strip, star_buffer[buff_idx][star_idx].pixel );
-				star_buffer[buff_idx][star_idx].ramp_up ^= limit_reached;
+				star_buffer[buff_idx][star_idx].state.status_bits.ramp_up ^= limit_reached;
 			} else {
 				limit_reached = neopixel_decrPixelHue_with_limit(strip, star_buffer[buff_idx][star_idx].pixel );
 				if ( limit_reached ){
-					star_buffer[buff_idx][star_idx].active = false;
+					star_buffer[buff_idx][star_idx].state.status_bits.active = false;
 					star_buffer[buff_idx][star_idx].pixel.red = 0x00;
 					star_buffer[buff_idx][star_idx].pixel.green = 0x00;
 					star_buffer[buff_idx][star_idx].pixel.blue = 0x00;
@@ -467,7 +482,7 @@ void rain(void){
 	for ( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
 		bool limit_reached = neopixel_decrPixelHue_with_limit(strip, star_buffer[buff_idx][star_idx].pixel );
 		if ( limit_reached ){
-			star_buffer[buff_idx][star_idx].active = false;
+			star_buffer[buff_idx][star_idx].state.status_bits.active = false;
 			star_buffer[buff_idx][star_idx].pixel.red = 0x00;
 			star_buffer[buff_idx][star_idx].pixel.green = 0x00;
 			star_buffer[buff_idx][star_idx].pixel.blue = 0x00;

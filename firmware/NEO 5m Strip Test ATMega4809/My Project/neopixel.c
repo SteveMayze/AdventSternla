@@ -120,14 +120,15 @@ bool neopixel_incPixelHue_with_limit(volatile uint8_t strip[], pixel_type pixel)
 	if ( strip[ location + NEO_RED ] <= (NEO_HUE_MAX_LIMIT - pixel.red) &&
 	strip[ location + NEO_GREEN ] <= (NEO_HUE_MAX_LIMIT - pixel.green) &&
 	strip[ location + NEO_BLUE ] <= (NEO_HUE_MAX_LIMIT - pixel.blue)) {
-		strip[ location + NEO_RED ] = ( strip[ location + NEO_RED ] <= NEO_HUE_MAX_LIMIT - pixel.red)? (strip[ location + NEO_RED ] + pixel.red): strip[ location + NEO_RED ];
-		strip[ location + NEO_GREEN ] = ( strip[ location + NEO_GREEN ] <= NEO_HUE_MAX_LIMIT - pixel.green)? (strip[ location + NEO_GREEN ] + pixel.green): strip[ location + NEO_GREEN ];
-		strip[ location + NEO_BLUE ] =  ( strip[ location + NEO_BLUE ] <= NEO_HUE_MAX_LIMIT - pixel.blue)? (strip[ location + NEO_BLUE ] + pixel.blue): strip[ location + NEO_BLUE ];
-	} else {
+		strip[ location + NEO_RED ] = (NEO_HUE_MAX_LIMIT - pixel.red)? (strip[ location + NEO_RED ] + pixel.red): strip[ location + NEO_RED ];
+		strip[ location + NEO_GREEN ] = (NEO_HUE_MAX_LIMIT - pixel.green)? (strip[ location + NEO_GREEN ] + pixel.green): strip[ location + NEO_GREEN ];
+		strip[ location + NEO_BLUE ] = (NEO_HUE_MAX_LIMIT - pixel.blue)? (strip[ location + NEO_BLUE ] + pixel.blue): strip[ location + NEO_BLUE ];
+		} else {
 		limit_reached = true;
 	}
 	return limit_reached;
 }
+
 
 /*!
  * \brief	Decreases the pixel hue to zero based on the values contained in the pixel struct.
@@ -155,7 +156,7 @@ bool neopixel_decrPixelHue_with_limit(volatile uint8_t strip[], pixel_type pixel
 	volatile uint16_t location = pixel.pix * 3;
 	if( strip[ location + NEO_RED ] > NEO_HUE_MIN_LIMIT ) {
 		strip[ location + NEO_RED ] = ( strip[ location + NEO_RED ] > NEO_HUE_MIN_LIMIT) ? (strip[ location + NEO_RED ] - pixel.red): 0x00;
-	} 
+	}
 
 	if( strip[ location + NEO_GREEN ] > NEO_HUE_MIN_LIMIT ) {
 		strip[ location + NEO_GREEN ] = (strip[ location + NEO_GREEN ] > NEO_HUE_MIN_LIMIT) ? (strip[ location + NEO_GREEN ] - pixel.green): 0x00;
@@ -166,14 +167,15 @@ bool neopixel_decrPixelHue_with_limit(volatile uint8_t strip[], pixel_type pixel
 	}
 
 
-	if ( strip[ location + NEO_RED ] <= NEO_HUE_MIN_LIMIT+pixel.red && 
-	     strip[ location + NEO_GREEN ] <=  NEO_HUE_MIN_LIMIT+pixel.green && 
-		 strip[ location + NEO_BLUE ] <= NEO_HUE_MIN_LIMIT+pixel.blue){
+	if ( strip[ location + NEO_RED ] <= NEO_HUE_MIN_LIMIT+pixel.red &&
+	strip[ location + NEO_GREEN ] <=  NEO_HUE_MIN_LIMIT+pixel.green &&
+	strip[ location + NEO_BLUE ] <= NEO_HUE_MIN_LIMIT+pixel.blue){
 		limit_reached = true;
 	}
 
 	return limit_reached;
 }
+
 
 void neopixel_show(volatile uint8_t strip[])
 {

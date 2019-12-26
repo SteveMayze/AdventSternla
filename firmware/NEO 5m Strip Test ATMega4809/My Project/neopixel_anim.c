@@ -77,6 +77,31 @@ uint8_t neo_count_actives(void) {
 	return actives;
 }
 
+
+void dump_buffer() {
+	printf("St Pix  R   G   B   St   pR     pG     pB    \n");
+	uint16_t lumin;
+	uint16_t location;
+	for( uint8_t x=0; x<MAX_STARS; x++){
+		location = star_buffer[x].pixel.pix * 3;
+		lumin = buffer[ location + NEO_RED ] + buffer[ location + NEO_GREEN ] + buffer[ location + NEO_BLUE ];
+		printf("%02d %04X %3d %3d %3d %1s %2s %6d %6d %6d %1s\n",
+		x, star_buffer[x].pixel.pix,
+		star_buffer[x].pixel.red,
+		star_buffer[x].pixel.green,
+		star_buffer[x].pixel.blue,
+		(star_buffer[x].state.status_bits.active? "A": "I"),
+		(star_buffer[x].state.status_bits.ramp_up? "R+": "R- "),
+		buffer[ location + NEO_RED ],
+		buffer[ location + NEO_GREEN ],
+		buffer[ location + NEO_BLUE ],
+		(lumin > 510? "*": (lumin > 255? "+": "."))
+		);
+	}
+	printf("\n");
+
+}
+
  /*!
  * \brief	Lights up a random number of "stars" MAX_STARS and increases their
  * brightness until FF for the given colour is reached and then reduces the
@@ -90,6 +115,8 @@ uint8_t neo_count_actives(void) {
 	bool all_active = true;
 	while ( all_active ) {
 	// Iterate through each star definition
+		printf("BEFORE - finish_up=%5s ==========================================================\n", (finish_up? "true": "false"));
+		dump_buffer();
 		if ( !finish_up ) {
 			for ( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
 				if (star_buffer[star_idx].state.status_bits.active != true) {
@@ -104,6 +131,8 @@ uint8_t neo_count_actives(void) {
 			}
 			neopixel_show(buffer);
 		} 
+// 		printf("MIDDLE  - finish_up=%5s ---------------------------------------------------------\n", (finish_up? "true": "false"));
+// 		dump_buffer();
 		bool limit_reached = false;
 		for( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++){
 			if ( star_buffer[star_idx].state.status_bits.active ) {
@@ -130,26 +159,9 @@ uint8_t neo_count_actives(void) {
 
 		// Print out the Star Buffer
 
-		printf("================================================================================\n");
-		printf("St Pix  R   G   B   St   pR     pG     pB    \n");
-		uint16_t lumin;
-		for( uint8_t x=0; x<MAX_STARS; x++){
-			lumin = buffer[ x*3 + NEO_RED ] + buffer[ x*3 + NEO_GREEN ] + buffer[ x*3 + NEO_BLUE ];
-		    printf("%02d %04X %3d %3d %3d %1s %2s %6d %6d %6d %1s\n", 
-		          x, star_buffer[x].pixel.pix, 
-				  star_buffer[x].pixel.red, 
-				  star_buffer[x].pixel.green, 
-				  star_buffer[x].pixel.blue, 
-				  (star_buffer[x].state.status_bits.active? "A": "I"),
-				  (star_buffer[x].state.status_bits.ramp_up? "R+": "R- "),
-		          buffer[ x*3 + NEO_RED ], 
-				  buffer[ x*3 + NEO_GREEN ], 
-				  buffer[ x*3 + NEO_BLUE ],
-				  (lumin > 510? "*": (lumin > 255? "+": "."))
-				  );
-		}
-		printf("\n");
-		delay_ms(500);
+		printf("AFTER - finish_up=%5s, limit_reached=%5s -----------------------------------\n", (finish_up? "true": "false"), (limit_reached? "true": "false"));
+		dump_buffer();
+		delay_ms(700);
 // 		cycle++;
 // 		if( cycle > NEO_ANIM_CYCLES ) {
 // 			finish_up = true;

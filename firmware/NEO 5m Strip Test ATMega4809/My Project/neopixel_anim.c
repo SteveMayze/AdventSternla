@@ -102,6 +102,15 @@ void dump_buffer() {
 
 }
 
+uint8_t rand_colour() {
+	uint8_t colour = 0x00;
+	while( colour == 0x00 ){
+		colour = rand() % NEO_HUE_ADJ;
+	}
+	return colour;
+}
+
+
  /*!
  * \brief	Lights up a random number of "stars" MAX_STARS and increases their
  * brightness until FF for the given colour is reached and then reduces the
@@ -113,6 +122,7 @@ void dump_buffer() {
 	// uint16_t cycle = 0;
 	bool finish_up = false;
 	bool all_active = true;
+	uint8_t toss;
 	while ( all_active ) {
 	// Iterate through each star definition
 		printf("BEFORE - finish_up=%5s ==========================================================\n", (finish_up? "true": "false"));
@@ -127,6 +137,21 @@ void dump_buffer() {
 					star_buffer[star_idx].pixel.red = rand() % NEO_HUE_ADJ;
 					star_buffer[star_idx].pixel.green = rand() % NEO_HUE_ADJ;
 					star_buffer[star_idx].pixel.blue = rand() % NEO_HUE_ADJ;
+					// If they are all 0x00, then force at least one colour to a value.
+					if ( star_buffer[star_idx].pixel.red == 0x00 && star_buffer[star_idx].pixel.green == 0x00 && star_buffer[star_idx].pixel.blue == 0x00) {
+						toss = rand() % 3;
+						switch( toss ){
+							case 0:
+							star_buffer[star_idx].pixel.red = rand_colour();
+							break;
+							case 1:
+							star_buffer[star_idx].pixel.green = rand_colour();
+							break;
+							case 2:
+							star_buffer[star_idx].pixel.blue = rand_colour();
+							break;
+						}
+					}
 				}
 			}
 			neopixel_show(buffer);

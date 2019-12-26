@@ -434,6 +434,15 @@ typedef union {
 	 return next_pix;
  }
 
+ uint8_t rand_colour() {
+	 uint8_t colour = 0x00;
+	 while( colour == 0x00 ){
+		 colour = rand() % NEO_HUE_ADJ;
+	 }
+	 return colour;
+ }
+
+
  /*!
  * \brief	Lights up a random number of "stars" MAX_STARS and increases their
  * brightness until FF for the given colour is reached and then reduces the
@@ -441,7 +450,7 @@ typedef union {
  */
  void neo_anim_stars(uint8_t strip[], uint8_t buff_idx) {
 	uint8_t channel = 0b00000001 << buff_idx;
-
+	uint8_t toss;
 	for ( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
 		if (star_buffer[buff_idx][star_idx].state.status_bits.active != true) {
 			star_buffer[buff_idx][star_idx].pixel.pix = get_next_pixel_from_star_buffer(buff_idx);
@@ -450,6 +459,21 @@ typedef union {
 			star_buffer[buff_idx][star_idx].pixel.red = rand() % NEO_HUE_ADJ;
 			star_buffer[buff_idx][star_idx].pixel.green = rand() % NEO_HUE_ADJ;
 			star_buffer[buff_idx][star_idx].pixel.blue = rand() % NEO_HUE_ADJ;
+			// If they are all 0x00, then force at least one colour to a value.
+			if ( star_buffer[buff_idx][star_idx].pixel.red == 0x00 && star_buffer[buff_idx][star_idx].pixel.green == 0x00 && star_buffer[buff_idx][star_idx].pixel.blue == 0x00) {
+				toss = rand() % 3;
+				switch( toss ){
+					case 0:
+					star_buffer[buff_idx][star_idx].pixel.red = rand_colour();
+					break;
+					case 1:
+					star_buffer[buff_idx][star_idx].pixel.green = rand_colour();
+					break;
+					case 2:
+					star_buffer[buff_idx][star_idx].pixel.blue = rand_colour();
+					break;
+				}
+			}
 		}
 	}
 	neopixel_setchannel(channel);

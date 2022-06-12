@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name "NEO_EightChannel")(type "KiCad")(uri "${LOCAL_PCBS}/AdventSternla/pcb/EightChannel/lib/NEO_EightChannel.kicad_sym")(options "")(descr ""))
+  (lib (name "advent_sternla_attiny1614_symbols")(type "KiCad")(uri "${LOCAL_PCBS}/AdventSternla/pcb/modules/advent_sternla_attiny1614_symbols.kicad_sym")(options "")(descr ""))
+)

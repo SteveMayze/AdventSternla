@@ -30,3 +30,12 @@ _autosave-*
 **/.vs
 
 *.code-workspace
+
+*.bkp
+.generated_files
+
+*-backups/
+build/
+rescue-backup/
+dist/
+

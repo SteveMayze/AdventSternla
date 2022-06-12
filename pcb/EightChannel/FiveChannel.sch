@@ -51,21 +51,6 @@ F 3 "" H 5600 5550 50  0001 C CNN
 $EndComp
 Text Label 3800 4300 0    60   ~ 0
 PDI_DATA
-Text Label 1050 1350 0    60   ~ 0
-PDI_DATA
-$Comp
-L FiveChannel-rescue:GND #PWR02
-U 1 1 59EF6D08
-P 2250 1750
-F 0 "#PWR02" H 2250 1500 50  0001 C CNN
-F 1 "GND" H 2250 1600 50  0000 C CNN
-F 2 "" H 2250 1750 50  0001 C CNN
-F 3 "" H 2250 1750 50  0001 C CNN
-	1    2250 1750
-	1    0    0    -1  
-$EndComp
-Text Label 2450 1350 2    60   ~ 0
-VDD
 $Comp
 L FiveChannel-rescue:GND #PWR03
 U 1 1 59EF8502
@@ -77,20 +62,6 @@ F 3 "" H 2550 4900 50  0001 C CNN
 	1    2550 4900
 	1    0    0    -1  
 $EndComp
-$Comp
-L FiveChannel-rescue:Conn_02x03_Odd_Even J101
-U 1 1 59EF854F
-P 1700 1450
-F 0 "J101" H 1750 1650 50  0000 C CNN
-F 1 "UPDI" H 1750 1250 50  0000 C CNN
-F 2 "advent_sternla:PRG_TC2030-IDC-NL" H 1700 1450 50  0001 C CNN
-F 3 "" H 1700 1450 50  0001 C CNN
-	1    1700 1450
-	1    0    0    -1  
-$EndComp
-NoConn ~ 1500 1450
-NoConn ~ 1500 1550
-NoConn ~ 2000 1450
 Text Label 7750 3850 0    60   ~ 0
 CLK_PIN
 Text Label 8150 4150 0    60   ~ 0
@@ -109,8 +80,6 @@ F 4 "Value" H 3250 4200 60  0001 C CNN "Link"
 	1    3250 4200
 	1    0    0    -1  
 $EndComp
-Text Notes 750  850  0    100  ~ 0
-In System Programming Header - UPDI
 Text Label 2100 3850 0    60   ~ 0
 5V
 $Comp
@@ -271,27 +240,11 @@ Wire Wire Line
 	5600 5550 5600 5250
 Connection ~ 4600 4300
 Wire Wire Line
-	1500 1350 1050 1350
-Wire Wire Line
-	2000 1550 2250 1550
-Wire Wire Line
-	2250 1550 2250 1750
-Wire Wire Line
-	2000 1350 2450 1350
-Wire Wire Line
 	1300 3850 1850 3850
 Wire Wire Line
 	3250 3850 3250 4050
 Wire Wire Line
 	3250 4700 3250 4350
-Wire Notes Line
-	700  900  3000 900 
-Wire Notes Line
-	3000 900  3000 2100
-Wire Notes Line
-	3000 2100 700  2100
-Wire Notes Line
-	700  2100 700  900 
 Wire Wire Line
 	1500 4700 1850 4700
 Wire Wire Line
@@ -476,4 +429,51 @@ Wire Wire Line
 	1850 3850 2000 3850
 Wire Wire Line
 	1850 4700 2550 4700
+Wire Notes Line
+	700  2100 700  900 
+Wire Notes Line
+	3000 2100 700  2100
+Wire Notes Line
+	3000 900  3000 2100
+Wire Notes Line
+	700  900  3000 900 
+Wire Wire Line
+	2000 1350 2450 1350
+Wire Wire Line
+	2250 1550 2250 1750
+Wire Wire Line
+	2000 1550 2250 1550
+Wire Wire Line
+	1500 1350 1050 1350
+Text Notes 750  850  0    100  ~ 0
+In System Programming Header - UPDI
+NoConn ~ 2000 1450
+NoConn ~ 1500 1550
+NoConn ~ 1500 1450
+$Comp
+L FiveChannel-rescue:Conn_02x03_Odd_Even J101
+U 1 1 59EF854F
+P 1700 1450
+F 0 "J101" H 1750 1650 50  0000 C CNN
+F 1 "UPDI" H 1750 1250 50  0000 C CNN
+F 2 "advent_sternla:PRG_TC2030-IDC-NL" H 1700 1450 50  0001 C CNN
+F 3 "" H 1700 1450 50  0001 C CNN
+	1    1700 1450
+	1    0    0    -1  
+$EndComp
+Text Label 2450 1350 2    60   ~ 0
+VDD
+$Comp
+L FiveChannel-rescue:GND #PWR02
+U 1 1 59EF6D08
+P 2250 1750
+F 0 "#PWR02" H 2250 1500 50  0001 C CNN
+F 1 "GND" H 2250 1600 50  0000 C CNN
+F 2 "" H 2250 1750 50  0001 C CNN
+F 3 "" H 2250 1750 50  0001 C CNN
+	1    2250 1750
+	1    0    0    -1  
+$EndComp
+Text Label 1050 1350 0    60   ~ 0
+PDI_DATA
 $EndSCHEMATC

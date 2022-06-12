@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name "advent_sternla")(type "KiCad")(uri "${LOCAL_PCBS}/AdventSternla/pcb/modules/advent_sternla.pretty")(options "")(descr ""))
+)

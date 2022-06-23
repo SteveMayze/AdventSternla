@@ -1,3 +1,4 @@
 (fp_lib_table
-  (lib (name "advent_sternla")(type "KiCad")(uri "${LOCAL_PCBS}/AdventSternla/pcb/modules/advent_sternla.pretty")(options "")(descr ""))
+  (lib (name "advent_sternla")(type "KiCad")(uri "${ADVENTSTERNLAMOD}/advent_sternla.pretty")(options "")(descr ""))
+  (lib (name "mech")(type "KiCad")(uri "${MY_LIB}/mech.pretty")(options "")(descr ""))
 )

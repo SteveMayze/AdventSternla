@@ -1,4 +1,5 @@
 (sym_lib_table
-  (lib (name "NEO_EightChannel")(type "KiCad")(uri "${LOCAL_PCBS}/AdventSternla/pcb/EightChannel/lib/NEO_EightChannel.kicad_sym")(options "")(descr ""))
-  (lib (name "advent_sternla_attiny1614_symbols")(type "KiCad")(uri "${LOCAL_PCBS}/AdventSternla/pcb/modules/advent_sternla_attiny1614_symbols.kicad_sym")(options "")(descr ""))
+  (lib (name "EightChannel-rescue")(type "KiCad")(uri "${KIPRJMOD}/EightChannel-rescue.kicad_sym")(options "")(descr ""))
+  (lib (name "advent_sternla_attiny1614_symbols")(type "KiCad")(uri "D:/pcbs/AdventSternla/pcb/modules/advent_sternla_attiny1614_symbols.kicad_sym")(options "")(descr ""))
+  (lib (name "mech")(type "Legacy")(uri "${MY_LIB}/mech.lib")(options "")(descr ""))
 )

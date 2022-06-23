@@ -10,7 +10,7 @@
       "pads": 1.0,
       "tracks": 1.0,
       "vias": 1.0,
-      "zones": 0.6
+      "zones": 0.6499999761581421
     },
     "ratsnest_display_mode": 0,
     "selection_filter": {
@@ -33,14 +33,17 @@
       3,
       4,
       5,
+      6,
+      7,
       8,
       9,
       10,
-      12,
+      11,
       13,
       14,
       15,
       16,
+      17,
       18,
       19,
       20,
@@ -60,8 +63,8 @@
       35,
       36
     ],
-    "visible_layers": "7ffffff_80000001",
-    "zone_display_mode": 1
+    "visible_layers": "000ffff_80000001",
+    "zone_display_mode": 0
   },
   "meta": {
     "filename": "EightChannel.kicad_prl",

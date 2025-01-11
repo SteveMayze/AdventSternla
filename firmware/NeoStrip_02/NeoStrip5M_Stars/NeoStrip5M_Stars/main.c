@@ -14,9 +14,7 @@
 /*! The setting for the CLKCTRL.MCLKCTRLB register */
 #define _MAIN_CLOCK 0x00
 
-#define BASE_HUE ((uint8_t) 0x03)
-#define MED_HUE  ((uint8_t) 0x06)
-#define HI_HUE   ((uint8_t) 0x0C)
+
 
 // The buffer is the actual physical buffer memory that will be written out
 // to the NEO Pixel strip. This could be viewed like a video buffer.
@@ -48,8 +46,25 @@ int main(void)
 	// int delay_time;
 	neopixel_fill(buffer, NEO_ALL_OFF, NEO_ALL_OFF, NEO_ALL_OFF);
 	neopixel_show(buffer);
+	bool ramp_down = false;
+	bool still_active = true;
+	int anim_cycles = 0;
 	while(true) {
-		neo_anim_stars();
+		uint8_t cycle = 0;
+		neo_anim_clear();
+		anim_cycles = rand() % NEO_ANIM_CYCLES;
+		while (still_active) {
+			still_active = neo_anim_stars(ramp_down);
+			cycle++;
+			if( cycle > anim_cycles ){
+				ramp_down = true;
+			}
+		}
+		delay_ms(3000);
+		commet();
+		delay_ms(3000);
+		ramp_down = false;
+		still_active = true;
 	}
 	return 0;
 }

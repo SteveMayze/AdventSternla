@@ -89,14 +89,13 @@ uint8_t rand_colour() {
  * brightness until FF for the given colour is reached and then reduces the
  * intensity.
  */
- void neo_anim_stars(void) {
+ bool neo_anim_stars(bool finish_up) {
 	// Clear the buffer
-	neo_anim_clear();
+	/// neo_anim_clear();
 	// uint16_t cycle = 0;
-	bool finish_up = false;
-	bool all_active = true;
+	// bool finish_up = false;
 	// uint8_t toss;
-	while ( all_active ) {
+	// while ( all_active ) {
 	// Iterate through each star definition
 		if ( !finish_up ) {
 			for ( uint8_t star_idx = 0; star_idx < MAX_STARS; star_idx++) {
@@ -112,19 +111,6 @@ uint8_t rand_colour() {
 					// If they are all 0x00, then force at least one colour to a value.
 					if ( star_buffer[star_idx].pixel.red == 0x00 && star_buffer[star_idx].pixel.green == 0x00 && star_buffer[star_idx].pixel.blue == 0x00) {
 						star_buffer[star_idx].state.status_bits.active = false;
-
-// 						toss = rand() % 3;
-// 						switch( toss ){
-// 							case 0:	
-// 								star_buffer[star_idx].pixel.red = rand_colour();
-// 								break;
-// 							case 1:	
-// 								star_buffer[star_idx].pixel.green = rand_colour();
-// 								break;
-// 							case 2:	
-// 								star_buffer[star_idx].pixel.blue = rand_colour();
-// 								break;
-// 						}
 					}
 				}
 			}
@@ -152,13 +138,39 @@ uint8_t rand_colour() {
 		uint8_t gradient = rand() % NEO_ANIM_MAX_GRADIENT;
 		gradient = gradient < NEO_ANIM_MIN_GRADIENT? NEO_ANIM_MIN_GRADIENT: gradient;
 		delay_ms(gradient);
-// 		cycle++;
-// 		if( cycle > NEO_ANIM_CYCLES ) {
-// 			finish_up = true;
-// 			cycle = 0;
-// 		}
-// 		all_active = neo_anim_any_active();
-	}
+		
+	// }
+	return neo_anim_any_active();
+ }
+
+
+
+ void commet(void){
+
+	 neopixel_fill(buffer, NEO_ALL_OFF, NEO_ALL_OFF, NEO_ALL_OFF);
+	 neopixel_show(buffer);
+
+	 // Set the pixel 0 to White and let the droplet gather some weight
+	 // neopixel_setchannel(channel_mask);
+	 uint8_t hue = HI_HUE;
+	 uint8_t hue_decr = HI_HUE / COMMET_SIZE;
+	 for (uint8_t i = 0; i < COMMET_SIZE; i++){
+		 neopixel_setPixel(buffer, 0, hue, hue, hue);
+		 neopixel_show(buffer);
+		 delay_ms(15);
+		 neopixel_shift(buffer, true);
+		 hue = hue - hue_decr;
+	 }
+
+	 // Now let the pixels _fall_
+	 for(int j=0; j < NEOPIXELS_SIZE; j++){
+		 neopixel_show(buffer);
+		 neopixel_shift(buffer, true);
+		 delay_ms(15);
+		 if (j > NEOPIXELS_SIZE - COMMET_SIZE*2 ) {
+			 neopixel_setPixel(buffer, 0, NEO_ALL_OFF, NEO_ALL_OFF, NEO_ALL_OFF);
+		 }
+	 }
  }
 
 #endif

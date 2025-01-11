@@ -9,10 +9,18 @@
 #ifndef NEOPIXEL_ANIM_H_
 #define NEOPIXEL_ANIM_H_
 
+#include "neopixel.h"
+
 #define _NEOPIXEL_ANIM_NEW
 
-#define MAX_STARS 50
-#define NEO_ANIM_CYCLES NEO_HUE_ADJ * 100
+
+#define BASE_HUE ((uint8_t) 0x03)
+#define MED_HUE  ((uint8_t) 0x06)
+#define HI_HUE   ((uint8_t) 0x0C)
+
+#define MAX_STARS (NEOPIXELS_SIZE / 3)
+#define COMMET_SIZE (NEOPIXELS_SIZE / 10)
+#define NEO_ANIM_CYCLES 800
 #define NEO_ANIM_MAX_GRADIENT 10
 #define NEO_ANIM_MIN_GRADIENT 2
 
@@ -45,6 +53,10 @@ volatile neopixel_anim_star_t star_buffer[MAX_STARS];
 
 volatile uint8_t buffer[neopixel_buffer_size];
 
-void neo_anim_stars();
+void neo_anim_clear(void);
+
+bool neo_anim_stars(bool finish_up);
+
+ void commet(void);
 
 #endif /* NEOPIXEL_ANIM_H_ */

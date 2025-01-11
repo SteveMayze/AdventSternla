@@ -65,37 +65,43 @@ void neopixel_fill(volatile uint8_t strip[], uint8_t red, uint8_t green, uint8_t
  */
 void neopixel_shift(volatile uint8_t strip[], bool direction){
 
-   if( direction ) {
-		for (int i = 0; i < ( NEOPIXELS_SIZE - 1); i++){
-			uint16_t baseLocation = i * 3;
-			uint16_t newBaseLocation = (i + 1) * 3;
+	uint8_t tmp_red, tmp_green, tmp_blue;
+
+	if( direction ) {
+		tmp_red = strip[ LAST_PIXEL + NEO_RED];
+		tmp_green =  strip[ LAST_PIXEL + NEO_GREEN];
+		tmp_blue =  strip[ LAST_PIXEL + NEO_BLUE];
+
+		for (int i = NEOPIXELS_SIZE-1; i > 0; i--){
+			uint8_t  baseLocation= i * 3;
+			uint8_t newBaseLocation = ( i - 1) * 3;
+
+			strip[ baseLocation + NEO_RED ] = strip[ newBaseLocation + NEO_RED ];
+			strip[ baseLocation + NEO_GREEN ] = strip[newBaseLocation + NEO_GREEN];
+			strip[ baseLocation + NEO_BLUE ] = strip[newBaseLocation + NEO_BLUE];
+		}
+		strip[NEO_RED] = tmp_red;
+		strip[NEO_GREEN] = tmp_green;
+		strip[NEO_BLUE] = tmp_blue;
+		} else {
+
+		tmp_red = strip[  NEO_RED ];
+		tmp_green =  strip[  NEO_GREEN ];
+		tmp_blue =  strip[  NEO_BLUE ];
+		for (int i = 0; i < ( NEOPIXELS_SIZE-1 ); i++){
+			uint8_t baseLocation = i * 3;
+			uint8_t newBaseLocation = (i + 1) * 3;
 
 			strip[ baseLocation + NEO_RED ] = strip[ newBaseLocation + NEO_RED ];
 			strip[ baseLocation + NEO_GREEN ] = strip[newBaseLocation + NEO_GREEN];
 			strip[ baseLocation +NEO_BLUE ] = strip[newBaseLocation + NEO_BLUE];
 		}
-		uint16_t lastLocation = (NEOPIXELS_SIZE -1) *3;
-		strip[lastLocation + NEO_RED] = strip[NEO_RED];
-		strip[lastLocation + NEO_GREEN] = strip[NEO_GREEN];
-		strip[lastLocation + NEO_BLUE] = strip[NEO_BLUE];
-	} else {
-
-
-	    uint16_t firstPixel = 0;
-	    strip[firstPixel + NEO_RED] =  strip[ LAST_PIXEL + NEO_RED];
-	    strip[firstPixel + NEO_GREEN] = strip[ LAST_PIXEL + NEO_GREEN];
-	    strip[firstPixel + NEO_BLUE] = strip[ LAST_PIXEL + NEO_BLUE];
-
-		for (int i = NEOPIXELS_SIZE -1; i > 0; i--){
-			uint16_t  baseLocation= i * 3;
-			uint16_t newBaseLocation = ( i - 1) * 3;
-
-			strip[ baseLocation + NEO_RED ] = strip[ newBaseLocation + NEO_RED ];
-			strip[ baseLocation + NEO_GREEN ] = strip[newBaseLocation + NEO_GREEN];
-			strip[ baseLocation +NEO_BLUE ] = strip[newBaseLocation + NEO_BLUE];
-		}
+		strip[LAST_PIXEL + NEO_RED] = tmp_red;
+		strip[LAST_PIXEL + NEO_GREEN] = tmp_green;
+		strip[LAST_PIXEL + NEO_BLUE] = tmp_blue;
 	}
 }
+
 
 /*!
  * \brief	Increases the pixel hue to a maximum of 0xFF based on the values contained in the pixel struct.

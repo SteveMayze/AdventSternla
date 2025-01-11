@@ -3,7 +3,7 @@
 #define INCLUDE_NEOPIXEL_H
 #include <stdbool.h>
 
- #define NEO_LENGTH_LONG
+ #define NEO_LENGTH_SHORT
 
 typedef struct {
 	/*! The pixel number along the strip. This identifies the individual LED */

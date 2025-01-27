@@ -16,8 +16,8 @@
 #define BASE_HUE ((uint8_t) 0x03)
 #define MED_HUE  ((uint8_t) 0x06)
 #define HI_HUE   ((uint8_t) 0x0C)
-#define MAX_STARS 50 // (NEOPIXELS_SIZE / 3)
-#define COMMET_SIZE 15 // (NEOPIXELS_SIZE / 10)
+#define MAX_STARS (NEOPIXELS_SIZE / 3)
+#define COMMET_SIZE (NEOPIXELS_SIZE / 10)
 #define NEO_ANIM_CYCLES 800
 #define NEO_ANIM_MAX_GRADIENT 1000
 #define NEO_ANIM_MIN_GRADIENT 2

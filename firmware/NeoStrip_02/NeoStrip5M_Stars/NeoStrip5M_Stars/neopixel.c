@@ -73,10 +73,10 @@ void neopixel_shift(volatile uint8_t strip[], bool direction){
 		tmp_blue =  strip[ LAST_PIXEL + NEO_BLUE];
 
 		// From the last pixel to the first, copy the pix-1 to pix.
-		for (int pixel = NEOPIXELS_SIZE-1; pixel > 0; pixel--){
+		for (uint16_t pixel = NEOPIXELS_SIZE-1; pixel > 0; pixel--){
 
-			uint8_t toLocation= pixel * 3;
-			uint8_t fromLocation = ( pixel - 1) * 3;
+			uint16_t toLocation= pixel * 3;
+			uint16_t fromLocation = ( pixel - 1) * 3;
 
 			strip[ toLocation + NEO_RED ] = strip[ fromLocation + NEO_RED ];
 			strip[ toLocation + NEO_GREEN ] = strip[fromLocation + NEO_GREEN];
@@ -93,8 +93,8 @@ void neopixel_shift(volatile uint8_t strip[], bool direction){
 		tmp_blue =  strip[  NEO_BLUE ];
 		// From the first pix to the last, copy the pix+1 to pix
 		for (int pixel = 0; pixel < ( NEOPIXELS_SIZE-1 ); pixel++){
-			uint8_t toLocation = pixel * 3;
-			uint8_t fromLocation = (pixel + 1) * 3;
+			uint16_t toLocation = pixel * 3;
+			uint16_t fromLocation = (pixel + 1) * 3;
 
 			strip[ toLocation + NEO_RED ] = strip[ fromLocation + NEO_RED ];
 			strip[ toLocation + NEO_GREEN ] = strip[fromLocation + NEO_GREEN];

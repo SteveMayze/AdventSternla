@@ -14,6 +14,7 @@
 /*! The setting for the CLKCTRL.MCLKCTRLB register */
 #define _MAIN_CLOCK 0x00
 
+#define __WITH_COMET
 // #define __COMET_ONLY
 
 // The buffer is the actual physical buffer memory that will be written out
@@ -28,6 +29,7 @@
 #define ANIMATION_COUNT 2
 
 #ifdef __WITH_COMET
+
 int main(void)
 {
 
@@ -60,7 +62,6 @@ int main(void)
 				ramp_down = true;
 			}
 		}
-		delay_ms(3000);
 		commet();
 		delay_ms(3000);
 		ramp_down = false;

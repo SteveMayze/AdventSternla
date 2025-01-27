@@ -72,30 +72,35 @@ void neopixel_shift(volatile uint8_t strip[], bool direction){
 		tmp_green =  strip[ LAST_PIXEL + NEO_GREEN];
 		tmp_blue =  strip[ LAST_PIXEL + NEO_BLUE];
 
-		for (int i = NEOPIXELS_SIZE-1; i > 0; i--){
-			uint8_t  baseLocation= i * 3;
-			uint8_t newBaseLocation = ( i - 1) * 3;
+		// From the last pixel to the first, copy the pix-1 to pix.
+		for (uint16_t pixel = NEOPIXELS_SIZE-1; pixel > 0; pixel--){
 
-			strip[ baseLocation + NEO_RED ] = strip[ newBaseLocation + NEO_RED ];
-			strip[ baseLocation + NEO_GREEN ] = strip[newBaseLocation + NEO_GREEN];
-			strip[ baseLocation + NEO_BLUE ] = strip[newBaseLocation + NEO_BLUE];
+			uint16_t toLocation= pixel * 3;
+			uint16_t fromLocation = ( pixel - 1) * 3;
+
+			strip[ toLocation + NEO_RED ] = strip[ fromLocation + NEO_RED ];
+			strip[ toLocation + NEO_GREEN ] = strip[fromLocation + NEO_GREEN];
+			strip[ toLocation + NEO_BLUE ] = strip[fromLocation + NEO_BLUE];
 		}
+		// Roll the last pixel to the first.
 		strip[NEO_RED] = tmp_red;
 		strip[NEO_GREEN] = tmp_green;
 		strip[NEO_BLUE] = tmp_blue;
-		} else {
-
+	} else {
+		
 		tmp_red = strip[  NEO_RED ];
 		tmp_green =  strip[  NEO_GREEN ];
 		tmp_blue =  strip[  NEO_BLUE ];
-		for (int i = 0; i < ( NEOPIXELS_SIZE-1 ); i++){
-			uint8_t baseLocation = i * 3;
-			uint8_t newBaseLocation = (i + 1) * 3;
+		// From the first pix to the last, copy the pix+1 to pix
+		for (int pixel = 0; pixel < ( NEOPIXELS_SIZE-1 ); pixel++){
+			uint16_t toLocation = pixel * 3;
+			uint16_t fromLocation = (pixel + 1) * 3;
 
-			strip[ baseLocation + NEO_RED ] = strip[ newBaseLocation + NEO_RED ];
-			strip[ baseLocation + NEO_GREEN ] = strip[newBaseLocation + NEO_GREEN];
-			strip[ baseLocation +NEO_BLUE ] = strip[newBaseLocation + NEO_BLUE];
+			strip[ toLocation + NEO_RED ] = strip[ fromLocation + NEO_RED ];
+			strip[ toLocation + NEO_GREEN ] = strip[fromLocation + NEO_GREEN];
+			strip[ toLocation +NEO_BLUE ] = strip[fromLocation + NEO_BLUE];
 		}
+		// Roll the first pixel to the last.
 		strip[LAST_PIXEL + NEO_RED] = tmp_red;
 		strip[LAST_PIXEL + NEO_GREEN] = tmp_green;
 		strip[LAST_PIXEL + NEO_BLUE] = tmp_blue;

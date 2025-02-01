@@ -1,5 +1,37 @@
-EESchema Schematic File Version 4
-EELAYER 30 0
+EESchema Schematic File Version 2
+LIBS:FiveChannel-rescue
+LIBS:advent_sternla_attiny1614_symbols
+LIBS:SensorBoard
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -14,7 +46,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L FiveChannel-rescue:R R201
+L R R201
 U 1 1 5A6109CB
 P 2800 1750
 F 0 "R201" V 2880 1750 50  0000 C CNN
@@ -29,7 +61,7 @@ The NoePixel has JST \nSM type connnectors
 Text Label 4200 1700 0    60   ~ 0
 NP_DATA_0
 $Comp
-L FiveChannel-rescue:R R202
+L R R202
 U 1 1 5A6109F1
 P 2250 2050
 F 0 "R202" V 2330 2050 50  0000 C CNN
@@ -40,7 +72,7 @@ F 3 "" H 2250 2050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L FiveChannel-rescue:GND #PWR06
+L GND #PWR06
 U 1 1 5A6109FB
 P 2250 2450
 F 0 "#PWR06" H 2250 2200 50  0001 C CNN
@@ -55,7 +87,7 @@ CHANNEL_0
 Text HLabel 4400 1900 0    60   Input ~ 0
 5V_OUT
 $Comp
-L FiveChannel-rescue:R R203
+L R R203
 U 1 1 5A610BFB
 P 2800 2850
 F 0 "R203" V 2880 2850 50  0000 C CNN
@@ -68,7 +100,7 @@ $EndComp
 Text Label 3000 2850 0    60   ~ 0
 NP_DATA_1
 $Comp
-L FiveChannel-rescue:R R204
+L R R204
 U 1 1 5A610C1C
 P 2250 3150
 F 0 "R204" V 2330 3150 50  0000 C CNN
@@ -79,7 +111,7 @@ F 3 "" H 2250 3150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L FiveChannel-rescue:GND #PWR07
+L GND #PWR07
 U 1 1 5A610C25
 P 2250 3550
 F 0 "#PWR07" H 2250 3300 50  0001 C CNN
@@ -92,7 +124,7 @@ $EndComp
 Text HLabel 2100 2850 0    60   Input ~ 0
 CHANNEL_1
 $Comp
-L FiveChannel-rescue:R R205
+L R R205
 U 1 1 5A610CEF
 P 2800 3900
 F 0 "R205" V 2880 3900 50  0000 C CNN
@@ -105,7 +137,7 @@ $EndComp
 Text Label 3000 3900 0    60   ~ 0
 NP_DATA_2
 $Comp
-L FiveChannel-rescue:R R206
+L R R206
 U 1 1 5A610D10
 P 2250 4200
 F 0 "R206" V 2330 4200 50  0000 C CNN
@@ -116,7 +148,7 @@ F 3 "" H 2250 4200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L FiveChannel-rescue:GND #PWR08
+L GND #PWR08
 U 1 1 5A610D19
 P 2250 4600
 F 0 "#PWR08" H 2250 4350 50  0001 C CNN
@@ -129,7 +161,7 @@ $EndComp
 Text HLabel 2100 3900 0    60   Input ~ 0
 CHANNEL_2
 $Comp
-L FiveChannel-rescue:R R207
+L R R207
 U 1 1 5A610DC7
 P 2800 4950
 F 0 "R207" V 2880 4950 50  0000 C CNN
@@ -142,7 +174,7 @@ $EndComp
 Text Label 3000 4950 0    60   ~ 0
 NP_DATA_3
 $Comp
-L FiveChannel-rescue:R R208
+L R R208
 U 1 1 5A610DE8
 P 2250 5250
 F 0 "R208" V 2330 5250 50  0000 C CNN
@@ -153,7 +185,7 @@ F 3 "" H 2250 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L FiveChannel-rescue:GND #PWR09
+L GND #PWR09
 U 1 1 5A610DF1
 P 2250 5650
 F 0 "#PWR09" H 2250 5400 50  0001 C CNN
@@ -166,7 +198,7 @@ $EndComp
 Text HLabel 2100 4950 0    60   Input ~ 0
 CHANNEL_3
 $Comp
-L FiveChannel-rescue:R R209
+L R R209
 U 1 1 5A61102D
 P 2800 6050
 F 0 "R209" V 2880 6050 50  0000 C CNN
@@ -179,7 +211,7 @@ $EndComp
 Text Label 3000 6050 0    60   ~ 0
 NP_DATA_4
 $Comp
-L FiveChannel-rescue:R R210
+L R R210
 U 1 1 5A61104E
 P 2250 6350
 F 0 "R210" V 2330 6350 50  0000 C CNN
@@ -190,7 +222,7 @@ F 3 "" H 2250 6350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L FiveChannel-rescue:GND #PWR010
+L GND #PWR010
 U 1 1 5A611057
 P 2250 6750
 F 0 "#PWR010" H 2250 6500 50  0001 C CNN
@@ -225,7 +257,7 @@ GND
 Text Label 4400 3600 0    60   ~ 0
 GND
 $Comp
-L FiveChannel-rescue:Conn_01x20_Male J201
+L Conn_01x20_Male J201
 U 1 1 5A64B1D0
 P 5200 2600
 F 0 "J201" H 5200 3600 50  0000 C CNN

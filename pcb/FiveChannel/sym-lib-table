@@ -1,3 +1,6 @@
 (sym_lib_table
-  (lib (name FiveChannel-rescue)(type Legacy)(uri ${KIPRJMOD}/FiveChannel-rescue.lib)(options "")(descr ""))
+  (version 0)
+  (lib (name "FiveChannel-rescue")(type "Legacy")(uri "${MY_PCBS}/AdventSternla_5Channel/pcb/FiveChannel/FiveChannel-rescue.lib")(options "")(descr ""))
+  (lib (name "advent_sternla_attiny1614_symbols")(type "Legacy")(uri "${MY_PCBS}/AdventSternla_5Channel/pcb/modules/advent_sternla_attiny1614_symbols.lib")(options "")(descr ""))
+  (lib (name "SensorBoard")(type "Legacy")(uri "${MY_PCBS}/AdventSternla_5Channel/pcb/modules/SensorBoard.lib")(options "")(descr ""))
 )

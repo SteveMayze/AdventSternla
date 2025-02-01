@@ -1,5 +1,37 @@
-EESchema Schematic File Version 4
-EELAYER 30 0
+EESchema Schematic File Version 2
+LIBS:FiveChannel-rescue
+LIBS:advent_sternla_attiny1614_symbols
+LIBS:SensorBoard
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -14,7 +46,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L FiveChannel-rescue:ATTINY1614 U102
+L ATTINY1614 U102
 U 1 1 59EF6A42
 P 5600 4400
 F 0 "U102" H 6150 3600 60  0000 C CNN
@@ -25,7 +57,7 @@ F 3 "" H 5450 4450 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L FiveChannel-rescue:R R101
+L R R101
 U 1 1 59EF6A7A
 P 4600 4050
 F 0 "R101" V 4680 4050 50  0000 C CNN
@@ -39,7 +71,7 @@ $EndComp
 Text Label 4000 3850 0    60   ~ 0
 VDD
 $Comp
-L FiveChannel-rescue:GND #PWR01
+L GND #PWR01
 U 1 1 59EF6C0B
 P 5600 5550
 F 0 "#PWR01" H 5600 5300 50  0001 C CNN
@@ -54,7 +86,7 @@ PDI_DATA
 Text Label 1050 1350 0    60   ~ 0
 PDI_DATA
 $Comp
-L FiveChannel-rescue:GND #PWR02
+L GND #PWR02
 U 1 1 59EF6D08
 P 2250 1750
 F 0 "#PWR02" H 2250 1500 50  0001 C CNN
@@ -67,7 +99,7 @@ $EndComp
 Text Label 2450 1350 2    60   ~ 0
 VDD
 $Comp
-L FiveChannel-rescue:GND #PWR03
+L GND #PWR03
 U 1 1 59EF8502
 P 2550 4900
 F 0 "#PWR03" H 2550 4650 50  0001 C CNN
@@ -78,7 +110,7 @@ F 3 "" H 2550 4900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L FiveChannel-rescue:Conn_02x03_Odd_Even J101
+L Conn_02x03_Odd_Even J101
 U 1 1 59EF854F
 P 1700 1450
 F 0 "J101" H 1750 1650 50  0000 C CNN
@@ -98,7 +130,7 @@ LATCH_PIN
 Text Label 7150 4300 2    60   ~ 0
 ~ENABLE
 $Comp
-L FiveChannel-rescue:C C102
+L C C102
 U 1 1 59EF980D
 P 3250 4200
 F 0 "C102" H 3275 4300 50  0000 L CNN
@@ -114,7 +146,7 @@ In System Programming Header - UPDI
 Text Label 2100 3850 0    60   ~ 0
 5V
 $Comp
-L FiveChannel-rescue:Jack-DC J102
+L Jack-DC J102
 U 1 1 59F100E4
 P 1000 3950
 F 0 "J102" H 1000 4160 50  0000 C CNN
@@ -132,7 +164,7 @@ Text Label 2250 3500 2    60   ~ 0
 Text Notes 5450 800  0    100  ~ 0
 NeoPixel
 $Comp
-L FiveChannel-rescue:D D101
+L D D101
 U 1 1 59F5F260
 P 2650 3850
 F 0 "D101" H 2650 3950 50  0000 C CNN
@@ -148,7 +180,7 @@ $EndComp
 Text Notes 1550 6150 0    60   ~ 0
 TODO \nVerify, once more, the Diode i.e. the current rating\nDouble check the connection for the UPDI - is there a need for a \nzero Ohm resistor to deal with any issues?
 $Comp
-L FiveChannel-rescue:74LS596-RESCUE-FiveChannel U101
+L 74LS596-RESCUE-FiveChannel U101
 U 1 1 5A60F031
 P 9300 4100
 F 0 "U101" H 9450 4700 70  0000 C CNN
@@ -168,7 +200,7 @@ NoConn ~ 10000 4250
 NoConn ~ 10000 4350
 NoConn ~ 10000 4550
 $Comp
-L FiveChannel-rescue:GND #PWR04
+L GND #PWR04
 U 1 1 5A60F656
 P 9000 5100
 F 0 "#PWR04" H 9000 4850 50  0001 C CNN
@@ -219,7 +251,7 @@ CHANNEL_2
 Text Label 8150 4250 0    60   ~ 0
 ~ENABLE
 $Comp
-L FiveChannel-rescue:C C103
+L C C103
 U 1 1 5A613301
 P 7950 4600
 F 0 "C103" H 7975 4700 50  0000 L CNN
@@ -231,7 +263,7 @@ F 4 "Value" H 7950 4600 60  0001 C CNN "Link"
 	1    0    0    -1  
 $EndComp
 $Comp
-L FiveChannel-rescue:GND #PWR05
+L GND #PWR05
 U 1 1 5A61342B
 P 7950 4900
 F 0 "#PWR05" H 7950 4650 50  0001 C CNN
@@ -242,7 +274,7 @@ F 3 "" H 7950 4900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L FiveChannel-rescue:Conn_01x04_Male J103
+L Conn_01x04_Male J103
 U 1 1 5A64D382
 P 6750 5650
 F 0 "J103" H 6750 5850 50  0000 C CNN
@@ -253,7 +285,7 @@ F 3 "" H 6750 5650 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L FiveChannel-rescue:Conn_01x07_Male J104
+L Conn_01x07_Male J104
 U 1 1 5A64D42F
 P 8100 5800
 F 0 "J104" H 8100 6200 50  0000 C CNN
@@ -264,7 +296,7 @@ F 3 "" H 8100 5800 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	3800 4300 4600 4300
+	3800 4300 4800 4300
 Wire Wire Line
 	4600 4300 4600 4200
 Wire Wire Line
@@ -279,7 +311,7 @@ Wire Wire Line
 Wire Wire Line
 	2000 1350 2450 1350
 Wire Wire Line
-	1300 3850 1850 3850
+	1300 3850 2500 3850
 Wire Wire Line
 	3250 3850 3250 4050
 Wire Wire Line
@@ -293,7 +325,7 @@ Wire Notes Line
 Wire Notes Line
 	700  2100 700  900 
 Wire Wire Line
-	1500 4700 1850 4700
+	1500 4700 3250 4700
 Wire Wire Line
 	2550 4700 2550 4900
 Connection ~ 2550 4700
@@ -307,7 +339,7 @@ Wire Wire Line
 	2000 3500 2250 3500
 Connection ~ 2000 3850
 Wire Wire Line
-	2800 3850 3250 3850
+	2800 3850 4800 3850
 Connection ~ 3250 3850
 Wire Wire Line
 	4600 3900 4600 3850
@@ -339,7 +371,7 @@ Wire Wire Line
 Wire Wire Line
 	8200 3950 8600 3950
 Wire Wire Line
-	6450 4150 7950 4150
+	6450 4150 8600 4150
 Wire Wire Line
 	6450 4300 7150 4300
 Wire Wire Line
@@ -440,7 +472,7 @@ CLK_PIN
 Text Label 7300 5700 0    60   ~ 0
 DATA_PIN
 $Comp
-L FiveChannel-rescue:C C101
+L C C101
 U 1 1 5A64D305
 P 1850 4200
 F 0 "C101" H 1875 4300 50  0000 L CNN
@@ -460,20 +492,4 @@ Wire Wire Line
 Connection ~ 1850 4700
 Text Label 4650 2750 0    60   ~ 0
 5V_OUT
-Wire Wire Line
-	4600 4300 4800 4300
-Wire Wire Line
-	2550 4700 3250 4700
-Wire Wire Line
-	2000 3850 2500 3850
-Wire Wire Line
-	3250 3850 4600 3850
-Wire Wire Line
-	4600 3850 4800 3850
-Wire Wire Line
-	7950 4150 8600 4150
-Wire Wire Line
-	1850 3850 2000 3850
-Wire Wire Line
-	1850 4700 2550 4700
 $EndSCHEMATC
